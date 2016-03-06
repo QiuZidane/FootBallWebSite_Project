@@ -1,0 +1,70 @@
+<!-- /***************************
+*
+*   作者：qiusd
+*  	时间：2016-02-26
+*   	描述：
+*   1、index.html是主页面
+*   2、导航按钮会将其他页面加载到index.html的<div class="middleDiv" id="middleDivDes"> 
+*   3、其他页面样式参照welcomepage.html/welcomepage.css编写
+*
+*   ***主页面***
+*   
+****************************  / -->
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<!--适配IE11-->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+
+		<title>足球大本营</title>
+
+	</head>
+	<!--[if IE8]>
+		IE8不支持HTML5效果，无法加载本网站的酷炫技术，请升级到IE11或者点击下载->
+		<a href="../chrome.zip"> Chrome浏览器</a>&nbsp[**绿色版，合法的，中心可以使用**]
+	<![endif]-->
+	<!--[if !IE]><!-->  
+	<body>
+		<div class="nav-header" background="1.jpg">
+			<div class="nav-fix">
+				<ul class="nav nav-pills navcontext" id="nav-pills">
+					<li class="active" name="nav-list"><a href="#" urltag="welcomepage.html">欢迎页</a></li>
+					<li name="nav-list"><a href="#" urltag="login.html">Login</a></li>
+					<!-- <li name="nav-list"><a href="#" urltag="myabbs.html">我的属性</a></li>-->
+					<li name="nav-list"><a href="#" urltag="loginNavigation.jsp">我的属性</a></li>
+					<li name="nav-list"><a href="#" urltag="playerabbs.html">球员属性</a></li>
+					<li name="nav-list"><a href="#" urltag="totalplayers.html">球员总览</a></li>
+					<li name="nav-list"><a href="#" urltag="teams.html">联赛队伍</a></li>
+					<li name="nav-list"><a href="#" urltag="teampoint.html">积分榜</a></li>
+					<li name="nav-list"><a href="#" urltag="datas.html">数据榜</a></li>
+					<li name="nav-list"><a href="#" urltag="tools.html">随机分队</a></li>
+				</ul>
+				<h2 class="navcontext titletext">广研足球大本营@Club</h2>
+			</div>
+		</div>
+
+		<!-- 所有页面都会加载到middleDivDes  -->
+		<div id="middleDivDes">
+			<iframe src="../pages/welcomepage.html" id="middleFrameID" name="middleFrameName" scrolling="no"></iframe>
+		</div>
+
+		<!-- 底部Div -->
+		<div class="footerDiv" id="foot">
+			<div class="footer-fix">
+			</div>
+		</div>
+		<!-- 第三方引用 -->
+		<script type="text/javascript" src="../js/third/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/third/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../js/third/ajaxrequest.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.min.css" rel="stylesheet">
+		<!-- 我们自定义的css和js -->
+		<link rel="stylesheet" type="text/css" href="../css/index.css">
+		<script type="text/javascript" src="../js/index.js"></script>
+
+	</body>
+	<!--<![endif]-->
+
+</html>

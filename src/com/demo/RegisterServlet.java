@@ -43,8 +43,7 @@ public class RegisterServlet extends HttpServlet {
 			PrintWriter out = response.getWriter();
 			out.flush();
 			out.write(jsonStr.toString());			
-		} else {
-			
+		} else {			
 			// retcode = 1
 			String jsonStr = "{\"retcode\":\"1\"}";
 			PrintWriter out = response.getWriter();
