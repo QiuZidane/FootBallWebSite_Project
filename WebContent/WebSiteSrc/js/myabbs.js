@@ -128,6 +128,10 @@ function submitABI() {
 	}
 }
 
+//改变slider-selection的颜色
+var tech_abbs1 = document.getElementById("tech_abbs1");
+$('#tech_abbs1 .slider-selection').css('background', 'rgb(120, 142, 207)');
+
 
 /* 
  ** 【  slider方法 】**
