@@ -6,102 +6,118 @@
 
 // 身体的SLIDER
 var bodeabbs1 = $('#bodeabbs1').slider()
-	.on('slide', GETPlayerAbilities)
+	.on('slide', GetandCalPlayerAbilities)
 	.data('slider');
 var bodeabbs2 = $('#bodeabbs2').slider()
-	.on('slide', GETPlayerAbilities)
+	.on('slide', GetandCalPlayerAbilities)
 	.data('slider');
 var bodeabbs3 = $('#bodeabbs3').slider()
-	.on('slide', GETPlayerAbilities)
+	.on('slide', GetandCalPlayerAbilities)
 	.data('slider');
 var bodeabbs4 = $('#bodeabbs4').slider()
-	.on('slide', GETPlayerAbilities)
+	.on('slide', GetandCalPlayerAbilities)
 	.data('slider');
 
 
 // 技术的SLIDER
 var tech_abbs1 = $('#tech_abbs1').slider()
-	.on('slide', GETPlayerAbilities)
+	.on('slide', GetandCalPlayerAbilities)
 	.data('slider');
 var tech_abbs2 = $('#tech_abbs2').slider()
-	.on('slide', GETPlayerAbilities)
+	.on('slide', GetandCalPlayerAbilities)
 	.data('slider');
 var tech_abbs3 = $('#tech_abbs3').slider()
-	.on('slide', GETPlayerAbilities)
+	.on('slide', GetandCalPlayerAbilities)
 	.data('slider');
 var tech_abbs4 = $('#tech_abbs4').slider()
-	.on('slide', GETPlayerAbilities)
+	.on('slide', GetandCalPlayerAbilities)
 	.data('slider');
 
 
 // 特殊能力的SLIDER
 var spec_abbs1 = $('#spec_abbs1').slider()
-	.on('slide', GETPlayerAbilities)
+	.on('slide', GetandCalPlayerAbilities)
 	.data('slider');
 var spec_abbs2 = $('#spec_abbs2').slider()
-	.on('slide', GETPlayerAbilities)
+	.on('slide', GetandCalPlayerAbilities)
 	.data('slider');
 
 // 进攻能力的SLIDER
 var attack_abbs1 = $('#attack_abbs1').slider()
-	.on('slide', GETPlayerAbilities)
+	.on('slide', GetandCalPlayerAbilities)
 	.data('slider');
 var attack_abbs2 = $('#attack_abbs2').slider()
-	.on('slide', GETPlayerAbilities)
+	.on('slide', GetandCalPlayerAbilities)
 	.data('slider');
 var attack_abbs3 = $('#attack_abbs3').slider()
-	.on('slide', GETPlayerAbilities)
+	.on('slide', GetandCalPlayerAbilities)
 	.data('slider');
 
 // 防守能力的SLIDER
 var defen_abbs1 = $('#defen_abbs1').slider()
-	.on('slide', GETPlayerAbilities)
+	.on('slide', GetandCalPlayerAbilities)
 	.data('slider');
 var defen_abbs2 = $('#defen_abbs2').slider()
-	.on('slide', GETPlayerAbilities)
+	.on('slide', GetandCalPlayerAbilities)
 	.data('slider');
 var defen_abbs3 = $('#defen_abbs3').slider()
-	.on('slide', GETPlayerAbilities)
+	.on('slide', GetandCalPlayerAbilities)
 	.data('slider');
 
 
 //球员能力对象,记录所有的能力   
 var ability = {
 	//大项:
-	totalabi: 60,
-	body: 60,
-	tech: 60,
-	spec: 60,
-	attack: 60,
-	defence: 60,
+	totalabi: 60, //总实力
+	body_abi: 60, //身体能力
+	tech_abi: 60, //技术能力
+	spec_abi: 60, //特殊能力
+	attack_abi: 60, //进攻能力
+	defence_abi: 60, //防守能力
 	//细项:
 	speed: bodeabbs1.getValue(), //速度
 	strength: bodeabbs2.getValue(), //强壮
 	stamina: bodeabbs3.getValue(), //体能
 	health: bodeabbs4.getValue(), //受伤抗性
-	pass: tech_abbs1.getValue(), //传球
-	dift: tech_abbs2.getValue(), //停球
-	pass1: tech_abbs3.getValue(), //盘带
+	passing: tech_abbs1.getValue(), //传球
+	touching: tech_abbs2.getValue(), //停球
+	dribbling: tech_abbs3.getValue(), //盘带
 	heading: tech_abbs4.getValue(), //头球
 	minding: spec_abbs1.getValue(), //意志力
-	workrate: spec_abbs2.getValue(), //出勤率
-	shotting: attack_abbs1.getValue(), //射门
+	rating: spec_abbs2.getValue(), //出勤率
+	shoot: attack_abbs1.getValue(), //射门
 	offtheball: attack_abbs2.getValue(), //跑位
-	creating: attack_abbs3.getValue(), //创造力
-	def1: defen_abbs1.getValue(), //抢断
-	def2: defen_abbs2.getValue(), //抢断
-	def3: defen_abbs3.getValue() //抢断
+	creativity: attack_abbs3.getValue(), //创造力
+	taking: defen_abbs1.getValue(), //抢断
+	marking: defen_abbs2.getValue(), //盯人
+	positioning: defen_abbs3.getValue() //防守站位
 
 
 }
 
-function GETPlayerAbilities() {
-	//需要重新获取
-	ability.speed = bodeabbs1.getValue(), //速度
-		ability.strength = bodeabbs2.getValue(), //强壮
-		ability.stamina = bodeabbs3.getValue(), //体能
-		ability.health = bodeabbs4.getValue() //受伤抗性
-
+//  1、获取球员每个小项的能力
+//	2、计算大项能力和总实力
+function GetandCalPlayerAbilities() {
+	//需要重新获取小项的能力
+	ability.speed = bodeabbs1.getValue(); //速度
+	ability.strength = bodeabbs2.getValue(); //强壮
+	ability.stamina = bodeabbs3.getValue(); //体能
+	ability.health = bodeabbs4.getValue(); //受伤抗性
+	ability.passing = tech_abbs1.getValue(); //传球
+	ability.touching = tech_abbs2.getValue(); //停球
+	ability.dribbling = tech_abbs3.getValue(); //盘带
+	ability.heading = tech_abbs4.getValue(); //头球
+	ability.minding = spec_abbs1.getValue(); //意志力
+	ability.rating = spec_abbs2.getValue(); //出勤率
+	ability.shoot = attack_abbs1.getValue(); //射门
+	ability.offtheball = attack_abbs2.getValue(); //跑位
+	ability.creativity = attack_abbs3.getValue(); //创造力
+	ability.taking = defen_abbs1.getValue(); //抢断
+	ability.marking = defen_abbs2.getValue(); //盯人
+	ability.positioning = defen_abbs3.getValue(); //防守站位
+	
+	//计算大项能力
+	
 
 //	for (var key in ability) {
 //		console.log(key + "=" + ability[key]); //speed = xx
@@ -112,10 +128,6 @@ function GETPlayerAbilities() {
 
 };
 
-//计算能力：
-function calABI() {
-
-}
 
 //提交事件
 var joinBtn = document.getElementById("joinBtn");
@@ -129,7 +141,6 @@ function submitABI() {
 }
 
 //改变slider-selection的颜色
-var tech_abbs1 = document.getElementById("tech_abbs1");
 $('#tech_abbs1 .slider-selection').css('background', 'rgb(120, 142, 207)');
 
 

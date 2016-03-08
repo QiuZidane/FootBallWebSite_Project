@@ -46,7 +46,7 @@
 	/*border: 3px solid rgb(51, 122, 183);*/
 	width: 200px;
 	height: 50px;
-	margin-top: 15px;
+	margin-top: 17px;
 	margin-left: 80px;
 	padding-right: 5px;
 	font-size: 16px;
@@ -58,7 +58,7 @@
 	/*border: 1px solid rgb(51, 122, 183);*/
 	width: 280px;
 	height: 280px;
-	margin-top: 10px;
+	margin-top: 25px;
 	margin-left: 10px;
 	padding-right: 5px;
 	background-image: url(../img/playerabi1.png);
@@ -127,7 +127,7 @@
 	float: left;
 	border: 1px solid rgb(51, 122, 183);
 	width: 250px;
-	height: 220px;
+	height: 250px;
 	margin-top: 130px;
 	margin-left: 10px;
 	padding-right: 5px;
@@ -160,7 +160,7 @@
 .bodedesc {
 	/*border: 1px solid rgb(51,122,183);   */
 	margin-left: 10px;
-	margin-top: 15px;
+	margin-top: 22px;
 }
 
 #bodeabbs1 {
@@ -266,7 +266,7 @@
 	float: left;
 	border: 1px solid rgb(51, 122, 183);
 	width: 250px;
-	height: 220px;
+	height: 250px;
 	margin-top: 130px;
 	margin-left: 10px;
 	padding-right: 5px;
@@ -299,7 +299,7 @@
 .tech_desc {
 	/*border: 1px solid rgb(51,122,183);   */
 	margin-left: 10px;
-	margin-top: 15px;
+	margin-top: 22px;
 }
 
 #tech_abbs1 {
@@ -413,7 +413,7 @@
 	float: left;
 	border: 1px solid rgb(51, 122, 183);
 	width: 250px;
-	height: 220px;
+	height: 250px;
 	margin-top: 130px;
 	margin-left: 10px;
 	padding-right: 5px;
@@ -446,7 +446,7 @@
 .spec_desc {
 	/*border: 1px solid rgb(51,122,183);   */
 	margin-left: 10px;
-	margin-top: 15px;
+	margin-top: 22px;
 }
 
 #spec_abbs1 {
@@ -504,7 +504,7 @@
 	float: left;
 	border: 1px solid rgb(51, 122, 183);
 	width: 250px;
-	height: 220px;
+	height: 250px;
 	margin-top: 30px;
 	margin-left: 10px;
 	padding-right: 5px;
@@ -537,7 +537,7 @@
 .attack_desc {
 	/*border: 1px solid rgb(51,122,183);   */
 	margin-left: 10px;
-	margin-top: 15px;
+	margin-top: 22px;
 }
 
 #attack_abbs1 {
@@ -611,7 +611,7 @@
 	float: left;
 	border: 1px solid rgb(51, 122, 183);
 	width: 250px;
-	height: 220px;
+	height: 250px;
 	margin-top: 30px;
 	margin-left: 10px;
 	padding-right: 5px;
@@ -644,7 +644,7 @@
 .defen_desc {
 	/*border: 1px solid rgb(51,122,183);   */
 	margin-left: 10px;
-	margin-top: 15px;
+	margin-top: 22px;
 }
 
 #defen_abbs1 {
