@@ -5,12 +5,12 @@
 
 // Load the fonts
 Highcharts.createElement('link', {
-	href: '//fonts.googleapis.com/css?family=Dosis:400,600',
+//	href: '//fonts.googleapis.com/css?family=Dosis:400,600',		//这段不注释会超卡
 	rel: 'stylesheet',
 	type: 'text/css'
 }, null, document.getElementsByTagName('head')[0]);
 
-Highcharts.theme = {		//第一个元素是标线的颜色
+Highcharts.theme = {		//第一个元素是能力标线的颜色
 	colors: ["#0c8ecf", "#f7a35c", "#90ee7e", "#7798BF", "#aaeeee", "#ff0066", "#eeaaee",
 		"#55BF3B", "#DF5353", "#7798BF", "#aaeeee"],
 	chart: {
@@ -38,8 +38,8 @@ Highcharts.theme = {		//第一个元素是标线的颜色
 		}
 	},
 	xAxis: {
-		gridLineWidth: 1,		
-		gridLineColor: "#686860",	// 标准线颜色XY都要改
+		gridLineWidth: 0.7,		
+		gridLineColor: "#55595a",	// 标准线颜色XY都要改
 		labels: {
 			style: {
 				fontSize: '13px',
@@ -49,8 +49,9 @@ Highcharts.theme = {		//第一个元素是标线的颜色
 		}
 	},
 	yAxis: {
+		gridLineWidth: 0.7,	
 		minorTickInterval: 'auto',
-		gridLineColor: "#686860",  	// 标准线颜色XY都要改
+		gridLineColor: "#55595a",  	// 标准线颜色XY都要改
 		title: {
 			style: {
 				textTransform: 'uppercase'
