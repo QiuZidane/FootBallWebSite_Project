@@ -183,6 +183,49 @@ function GetandCalPlayerAbilities() {
 	setProgessBarColor("attack_abi_pg", ability.attack_abi);
 	setProgessBarColor("defence_abi_pg", ability.defence_abi);
 
+	$(function() {
+	$('#highchartDiv').highcharts({
+		chart: {
+			polar: true,
+			type: 'line'
+		},
+		title: {
+			floating: true,
+			text: ' ',
+			x: -80
+		},
+		pane: {
+			size: '80%'
+		},
+		xAxis: {
+			categories: ['技术', '防守', '特殊', '身体', '进攻'],
+			tickmarkPlacement: 'on',
+			lineWidth: 0
+		},
+		yAxis: {
+			gridLineInterpolation: 'polygon',
+			lineWidth: 0,
+			max: 100,
+			min: 0
+		},
+		tooltip: {
+			shared: true,
+			pointFormat: '<span style="color:{series.color}">{point.y:,.0f}'
+		},
+		legend: {
+			align: 'right',
+			verticalAlign: 'top',
+			y: 120,
+			x: 90,
+			layout: 'vertical'
+		},
+		series: [{
+			data: [ability.tech_abi, ability.defence_abi, ability.tech_abi, ability.body_abi, ability.attack_abi], 	//对应='技术', '防守', '特殊', '身体', '进攻'
+			pointPlacement: 'on'
+		}]
+
+	});
+});
 
 	//	console.clear();	
 	//	for (var key in ability) {
@@ -196,11 +239,6 @@ function GetandCalPlayerAbilities() {
 /*
  * 
  * 设置大项的属性条颜色
- * 红色#d81919：传奇
- * 紫色#352bdb：史诗
- * 蓝色#0b0cf0：精良
- * 绿色#03b300：优秀
- * 灰色#666666：普通
  * 
  */
 function setProgessBarColor(abilityName, ability) {
@@ -231,7 +269,7 @@ function setProgessBarColor(abilityName, ability) {
 		progressBar.css({
 			'background': level5
 		});
-	} 
+	}
 
 
 }
@@ -247,6 +285,8 @@ function submitABI() {
 		console.log(key + "=" + ability[key]); //speed = xx
 	}
 }
+
+
 
 //改变slider-selection的颜色
 //$('#tech_abbs1 .slider-selection').css('background', 'rgb(120, 142, 207)');

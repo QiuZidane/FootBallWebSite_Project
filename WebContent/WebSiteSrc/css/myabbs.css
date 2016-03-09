@@ -57,11 +57,11 @@
 	float: left;
 	/*border: 1px solid rgb(51, 122, 183);*/
 	width: 280px;
-	height: 280px;
-	margin-top: 25px;
+	height: 260px;
+	margin-top: 40px;
 	margin-left: 10px;
 	padding-right: 5px;
-	background-image: url(../img/playerabi1.png);
+	/*background-image: url(../img/playerabi1.png);*/
 	background-size: 100% 100%;
 }
 
