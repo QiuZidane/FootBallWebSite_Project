@@ -1,6 +1,6 @@
 /********************************
- *
- * 下面是Slider的JS，有空在研究JQ...
+ *  作者：kfzx-qiusd 
+ *  说明：有空在研究深入JQ...
  *
  *********************************/
 
@@ -10,6 +10,7 @@ var bodeabbs1 = $('#bodeabbs1').slider()
 	.data('slider');
 var bodeabbs2 = $('#bodeabbs2').slider()
 	.on('slide', GetandCalPlayerAbilities)
+	.on('slide', setProgessBarColor())
 	.data('slider');
 var bodeabbs3 = $('#bodeabbs3').slider()
 	.on('slide', GetandCalPlayerAbilities)
@@ -160,12 +161,27 @@ function GetandCalPlayerAbilities() {
 	ability.defence_abi = ability.taking * taking_w + ability.marking * marking_w + ability.positioning * positioning_w; //防守能力
 	ability.defence_abi.toFixed(2);
 
-	// 设置大项的属性条	
+	/*
+	 * 
+	 * 设置大项的属性条数值
+	 * 
+	 */
 	body_progress.setAttribute('style', 'width: ' + ability.body_abi + '%');
 	tech_progress.setAttribute('style', 'width: ' + ability.tech_abi + '%');
 	spec_progress.setAttribute('style', 'width: ' + ability.spec_abi + '%');
 	attack_progress.setAttribute('style', 'width: ' + ability.attack_abi + '%');
 	defence_progress.setAttribute('style', 'width: ' + ability.defence_abi + '%');
+
+	/*
+	 * 
+	 * 设置大项的属性条颜色
+	 * 
+	 */
+	setProgessBarColor("body_abi_pg", ability.body_abi);
+	setProgessBarColor("tech_abi_pg", ability.tech_abi);
+	setProgessBarColor("spec_abi_pg", ability.spec_abi);
+	setProgessBarColor("attack_abi_pg", ability.attack_abi);
+	setProgessBarColor("defence_abi_pg", ability.defence_abi);
 
 
 	//	console.clear();	
@@ -176,6 +192,49 @@ function GetandCalPlayerAbilities() {
 	//	}
 
 };
+
+/*
+ * 
+ * 设置大项的属性条颜色
+ * 红色#d81919：传奇
+ * 紫色#352bdb：史诗
+ * 蓝色#0b0cf0：精良
+ * 绿色#03b300：优秀
+ * 灰色#666666：普通
+ * 
+ */
+function setProgessBarColor(abilityName, ability) {
+	var level5 = '#d81919' //传奇
+	var level4 = '#9900ff' //史诗
+	var level3 = '#41aff9' //精良
+	var level2 = '#5cb85c' //优秀
+	var level1 = '#f0ad4e' //普通
+
+	var progressBar = $('#' + abilityName);
+	if (ability < 45) {
+		progressBar.css({
+			'background': level1
+		});
+	} else if (ability < 60) {
+		progressBar.css({
+			'background': level2
+		});
+	} else if (ability < 75) {
+		progressBar.css({
+			'background': level3
+		});
+	} else if (ability < 90) {
+		progressBar.css({
+			'background': level4
+		});
+	} else {
+		progressBar.css({
+			'background': level5
+		});
+	} 
+
+
+}
 
 
 //提交事件
@@ -193,6 +252,8 @@ function submitABI() {
 //$('#tech_abbs1 .slider-selection').css('background', 'rgb(120, 142, 207)');
 //$('.slider-selection').css('background', 'rgb(120, 142, 207)');
 
+//改变背景颜色
+//$('#'+abilityName).css({'background':'#9900ff'});
 
 /* 
  ** 【  slider方法 】**
