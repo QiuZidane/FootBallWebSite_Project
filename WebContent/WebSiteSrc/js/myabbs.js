@@ -4,10 +4,22 @@
  *
  *********************************/
 
+// 将浮点数四舍五入，取小数点后2位
+function changeTwoDecimal(x) {
+	var f_x = parseFloat(x);
+	if (isNaN(f_x)) {
+		console.log('function:changeTwoDecimal->parameter error');
+		return false;
+	}
+	var f_x = Math.round(x * 100) / 100;
+
+	return f_x;
+}
+
 // 身体的SLIDER
 var bodeabbs1 = $('#bodeabbs1').slider()
 	.on('slideStop', GetandCalPlayerAbilities)
-	.data('slider');	
+	.data('slider');
 var bodeabbs2 = $('#bodeabbs2').slider()
 	.on('slideStop', GetandCalPlayerAbilities)
 	.data('slider');
@@ -104,6 +116,7 @@ var defence_progress = document.getElementById("defence_abi_pg");
 
 //  1、获取球员每个小项的能力
 //	2、计算大项能力和总实力
+//  每次拉动SLIDER，所有控件都会联动，目前暂不影响性能，后续分开控制。
 function GetandCalPlayerAbilities() {
 	//*****获取小项的能力*****
 	ability.speed = bodeabbs1.getValue(); //速度
@@ -130,7 +143,8 @@ function GetandCalPlayerAbilities() {
 	var stamina_w = 0.35; //体能权重值
 	var health_w = 0.15; //受伤抗性	
 	ability.body_abi = ability.speed * speed_w + ability.strength * strength_w + ability.stamina * stamina_w + ability.health * health_w;
-	ability.body_abi.toFixed(2);
+	//	ability.body_abi.toFixed(2);
+	ability.body_abi = changeTwoDecimal(ability.body_abi);
 
 	//技术属性，共四项
 	var passing_w = 0.3; //传球权重值
@@ -138,27 +152,40 @@ function GetandCalPlayerAbilities() {
 	var dribbling_w = 0.3; //盘带权重值
 	var heading_w = 0.1; //头球权重值
 	ability.tech_abi = ability.passing * passing_w + ability.touching * touching_w + ability.dribbling * dribbling_w + ability.heading * heading_w;
-	ability.tech_abi.toFixed(2);
+	//	ability.tech_abi.toFixed(2);
+	ability.tech_abi = changeTwoDecimal(ability.tech_abi);
 
 	//特殊属性，共两项
 	var minding_w = 0.4; //意志力权重值
 	var rating_w = 0.6; //出勤率权重值
 	ability.spec_abi = ability.minding * minding_w + ability.rating * rating_w;
-	ability.spec_abi.toFixed(2);
+	//	ability.spec_abi.toFixed(2);
+	ability.spec_abi = changeTwoDecimal(ability.spec_abi);
 
 	//进攻属性，共三项
 	var shoot_w = 0.3; //射门
 	var offtheball_w = 0.45; //跑位
 	var creativity_w = 0.25; //创造力
 	ability.attack_abi = ability.shoot * shoot_w + ability.offtheball * offtheball_w + ability.creativity * creativity_w;
-	ability.attack_abi.toFixed(2);
+	//	ability.attack_abi.toFixed(2);
+	ability.attack_abi = changeTwoDecimal(ability.attack_abi);
 
 	//防守属性，共三项
 	var taking_w = 0.35; //抢断
 	var marking_w = 0.25; //盯人
 	var positioning_w = 0.4; //防守站位
 	ability.defence_abi = ability.taking * taking_w + ability.marking * marking_w + ability.positioning * positioning_w; //防守能力
-	ability.defence_abi.toFixed(2);
+	ability.defence_abi = changeTwoDecimal(ability.defence_abi);
+
+	//总能力，共五项
+	var body_w = 0.2; //身体
+	var tech_w = 0.3; //技术
+	var spec_w = 0.1; //特殊
+	var attach_w = 0.2; //进攻
+	var defence_w = 0.2; //防守
+	ability.totalabi = ability.body_abi * body_w + ability.tech_abi * tech_w + ability.spec_abi * spec_w + ability.attack_abi * attach_w + ability.defence_abi * defence_w;
+	ability.totalabi = changeTwoDecimal(ability.totalabi);
+	$('#abilityId').html(ability.totalabi);
 
 	/*
 	 * 
@@ -183,48 +210,48 @@ function GetandCalPlayerAbilities() {
 	setProgessBarColor("defence_abi_pg", ability.defence_abi);
 
 	$(function() {
-	$('#highchartDiv').highcharts({
-		chart: {
-			polar: true,
-			type: 'line'
-		},
-		title: {
-			floating: true,
-			text: ' ',
-			x: -80
-		},
-		pane: {
-			size: '80%'
-		},
-		xAxis: {
-			categories: ['技术', '防守', '特殊', '身体', '进攻'],
-			tickmarkPlacement: 'on',
-			lineWidth: 0
-		},
-		yAxis: {
-			gridLineInterpolation: 'polygon',
-			lineWidth: 0,
-			max: 100,
-			min: 0
-		},
-		tooltip: {
-			shared: true,
-			pointFormat: '<span style="color:{series.color}">{point.y:,.0f}'
-		},
-		legend: {
-			align: 'right',
-			verticalAlign: 'top',
-			y: 120,
-			x: 90,
-			layout: 'vertical'
-		},
-		series: [{
-			data: [ability.tech_abi, ability.defence_abi, ability.tech_abi, ability.body_abi, ability.attack_abi], 	//对应='技术', '防守', '特殊', '身体', '进攻'
-			pointPlacement: 'on'
-		}]
+		$('#highchartDiv').highcharts({
+			chart: {
+				polar: true,
+				type: 'line'
+			},
+			title: {
+				floating: true,
+				text: ' ',
+				x: -80
+			},
+			pane: {
+				size: '80%'
+			},
+			xAxis: {
+				categories: ['技术', '防守', '特殊', '身体', '进攻'],
+				tickmarkPlacement: 'on',
+				lineWidth: 0
+			},
+			yAxis: {
+				gridLineInterpolation: 'polygon',
+				lineWidth: 0,
+				max: 100,
+				min: 0
+			},
+			tooltip: {
+				shared: true,
+				pointFormat: '<span style="color:{series.color}">{point.y:,.0f}'
+			},
+			legend: {
+				align: 'right',
+				verticalAlign: 'top',
+				y: 120,
+				x: 90,
+				layout: 'vertical'
+			},
+			series: [{
+				data: [ability.tech_abi, ability.defence_abi, ability.tech_abi, ability.body_abi, ability.attack_abi], //对应='技术', '防守', '特殊', '身体', '进攻'
+				pointPlacement: 'on'
+			}]
 
+		});
 	});
-});
 
 	//	console.clear();	
 	//	for (var key in ability) {
