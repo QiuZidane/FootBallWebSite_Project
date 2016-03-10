@@ -229,10 +229,11 @@ function GetandCalPlayerAbilities() {
 				lineWidth: 0
 			},
 			yAxis: {
+				tickInterval: 50,
 				gridLineInterpolation: 'polygon',
 				lineWidth: 0,
 				max: 100,
-				min: 30
+				min: 0
 			},
 			tooltip: {
 				shared: true,
@@ -275,19 +276,19 @@ function setProgessBarColor(abilityName, ability) {
 	var level1 = '#f0ad4e' //普通
 
 	var progressBar = $('#' + abilityName);
-	if (ability < 45) {
+	if (ability < 40) {
 		progressBar.css({
 			'background': level1
 		});
-	} else if (ability < 60) {
+	} else if (ability < 65) {
 		progressBar.css({
 			'background': level2
 		});
-	} else if (ability < 75) {
+	} else if (ability < 80) {
 		progressBar.css({
 			'background': level3
 		});
-	} else if (ability < 90) {
+	} else if (ability < 95) {
 		progressBar.css({
 			'background': level4
 		});
