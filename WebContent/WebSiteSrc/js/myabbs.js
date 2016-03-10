@@ -232,7 +232,7 @@ function GetandCalPlayerAbilities() {
 				gridLineInterpolation: 'polygon',
 				lineWidth: 0,
 				max: 100,
-				min: 0
+				min: 30
 			},
 			tooltip: {
 				shared: true,
