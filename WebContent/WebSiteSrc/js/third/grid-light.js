@@ -38,7 +38,7 @@ Highcharts.theme = {		//第一个元素是能力标线的颜色
 		}
 	},
 	xAxis: {
-		gridLineWidth: 0.7,		
+		gridLineWidth: 0.4,		
 		gridLineColor: "#55595a",	// 标准线颜色XY都要改
 		labels: {
 			style: {
@@ -49,7 +49,7 @@ Highcharts.theme = {		//第一个元素是能力标线的颜色
 		}
 	},
 	yAxis: {
-		gridLineWidth: 0.7,	
+		gridLineWidth: 0.4,	
 		minorTickInterval: 'auto',
 		gridLineColor: "#55595a",  	// 标准线颜色XY都要改
 		title: {

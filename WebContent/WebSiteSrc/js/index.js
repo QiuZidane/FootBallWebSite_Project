@@ -10,9 +10,6 @@ function navSelect(event) {
     iframeRefresh(pageUrl);
 }
 
-
-
-
 function iframeRefresh(pageUrl) {
 	var iframe = document.getElementById('middleFrameID');	
 	iframe.setAttribute('src', pageUrl);

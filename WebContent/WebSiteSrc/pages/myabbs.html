@@ -184,11 +184,44 @@
 			<!-- 卡位用 -->
 			<div id="chart_Div3">
 				<div id="submitBtnDiv">
-					<button type="button" class="btn btn-success btn-block btn-lg" id="joinBtn">提 交</button>
+					<button type="button" data-toggle="modal" data-target="#submitModal" class="btn btn-success btn-block btn-lg" id="joinBtn">提 交</button>
 				</div>
 			</div>
 
 			<!-- middleDiv结束 -->
+		</div>
+		<!-- BootStrap模态框（Modal） -->
+		<!--确认提交-->
+		<div class="modal fade" id="submitModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop='true'>
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+							&times;
+						</button>
+						<h4 class="modal-title" id="myModalLabel">
+                   您的数值如下，请确认：
+                			</h4>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="name">IP地址</label>
+							<input type="text" class="form-control" id="ipaddress" placeholder="请输入IP地址">
+							<br>
+							<label for="name">端口</label>
+							<input type="text" class="form-control" id="port" placeholder="请输入端口">
+						</div>
+					</div>
+					<div class="modal-footer">
+						<!--                 <button type="button" class="btn btn-default" id="submitaddress" 
+                   data-dismiss="modal">提交 -->
+						<button type="button" class="btn btn-default" id="submitaddress">提交
+						</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal -->
 		</div>
 
 		<!--自定义-->
