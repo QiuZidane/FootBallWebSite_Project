@@ -4,18 +4,6 @@
  *
  *********************************/
 
-// 将浮点数四舍五入，取小数点后2位
-function changeTwoDecimal(x) {
-	var f_x = parseFloat(x);
-	if (isNaN(f_x)) {
-		console.log('function:changeTwoDecimal->parameter error');
-		return false;
-	}
-	var f_x = Math.round(x * 100) / 100;
-
-	return f_x;
-}
-
 // 身体的SLIDER
 var bodeabbs1 = $('#bodeabbs1').slider()
 	.on('slideStop', GetandCalPlayerAbilities)
@@ -144,7 +132,7 @@ function GetandCalPlayerAbilities() {
 	var health_w = 0.15; //受伤抗性	
 	ability.body_abi = ability.speed * speed_w + ability.strength * strength_w + ability.stamina * stamina_w + ability.health * health_w;
 	//	ability.body_abi.toFixed(2);
-	ability.body_abi = changeTwoDecimal(ability.body_abi);
+	ability.body_abi = parseInt(ability.body_abi);
 
 	//技术属性，共四项
 	var passing_w = 0.3; //传球权重值
@@ -153,14 +141,14 @@ function GetandCalPlayerAbilities() {
 	var heading_w = 0.1; //头球权重值
 	ability.tech_abi = ability.passing * passing_w + ability.touching * touching_w + ability.dribbling * dribbling_w + ability.heading * heading_w;
 	//	ability.tech_abi.toFixed(2);
-	ability.tech_abi = changeTwoDecimal(ability.tech_abi);
+	ability.tech_abi = parseInt(ability.tech_abi);
 
 	//特殊属性，共两项
 	var minding_w = 0.4; //意志力权重值
 	var rating_w = 0.6; //出勤率权重值
 	ability.spec_abi = ability.minding * minding_w + ability.rating * rating_w;
 	//	ability.spec_abi.toFixed(2);
-	ability.spec_abi = changeTwoDecimal(ability.spec_abi);
+	ability.spec_abi = parseInt(ability.spec_abi);
 
 	//进攻属性，共三项
 	var shoot_w = 0.3; //射门
@@ -168,14 +156,14 @@ function GetandCalPlayerAbilities() {
 	var creativity_w = 0.25; //创造力
 	ability.attack_abi = ability.shoot * shoot_w + ability.offtheball * offtheball_w + ability.creativity * creativity_w;
 	//	ability.attack_abi.toFixed(2);
-	ability.attack_abi = changeTwoDecimal(ability.attack_abi);
+	ability.attack_abi = parseInt(ability.attack_abi);
 
 	//防守属性，共三项
 	var taking_w = 0.35; //抢断
 	var marking_w = 0.25; //盯人
 	var positioning_w = 0.4; //防守站位
 	ability.defence_abi = ability.taking * taking_w + ability.marking * marking_w + ability.positioning * positioning_w; //防守能力
-	ability.defence_abi = changeTwoDecimal(ability.defence_abi);
+	ability.defence_abi = parseInt(ability.defence_abi);
 
 	//总能力，共五项
 	var body_w = 0.2; //身体
@@ -184,7 +172,7 @@ function GetandCalPlayerAbilities() {
 	var attach_w = 0.2; //进攻
 	var defence_w = 0.2; //防守
 	ability.totalabi = ability.body_abi * body_w + ability.tech_abi * tech_w + ability.spec_abi * spec_w + ability.attack_abi * attach_w + ability.defence_abi * defence_w;
-	ability.totalabi = changeTwoDecimal(ability.totalabi);
+	ability.totalabi = parseInt(ability.totalabi);
 	$('#abilityId').html(ability.totalabi);
 
 	/*
@@ -297,8 +285,6 @@ function setProgessBarColor(abilityName, ability) {
 			'background': level5
 		});
 	}
-
-
 }
 
 
