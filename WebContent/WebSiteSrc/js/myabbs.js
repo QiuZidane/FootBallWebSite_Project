@@ -305,40 +305,133 @@ function setProgessBarColor(abilityName, ability) {
 //提交事件
 var joinBtn = document.getElementById("joinBtn");
 joinBtn.addEventListener('click', submitABI, false);
+var submitToServer = document.getElementById('submitToServer');
+submitToServer.addEventListener('click', submitTS, false);
 
-function submitABI() {	
-	var ability_submit = "您的属性如下：\n\n";
-//	for (var key in ability) {		
-//		ability_submit = ability_submit + "\n"+ key + "=" + ability[key];		
-//	}
-//	alert(ability_submit)
-	
-	ability_submit = ability_submit + "总战力=" + ability.totalabi + "\n";
-	ability_submit = ability_submit + "身体=" + ability.body_abi + "\n";
-	ability_submit = ability_submit + "技术=" + ability.tech_abi + "\n";
-	ability_submit = ability_submit + "特殊=" + ability.spec_abi + "\n";
-	ability_submit = ability_submit + "进攻=" + ability.attack_abi + "\n";
-	ability_submit = ability_submit + "防守=" + ability.defence_abi + "\n\n\n确认提交?";
-	
+//点击页面的提交按钮
+function submitABI() {
+	// 模态框出现，将slider置为不可用
+	setSliderStatus(false);
 
-	var result = confirm(ability_submit);
-	if (result) {
-		
-	} 
+	// 模态框赋值
+	var tableRows = document.getElementById('comformTable').tBodies[0].rows;
+	tableRows[5].cells[1].innerHTML = ability.totalabi;
+	tableRows[0].cells[1].innerHTML = ability.body_abi;
+	tableRows[1].cells[1].innerHTML = ability.tech_abi;
+	tableRows[2].cells[1].innerHTML = ability.spec_abi;
+	tableRows[3].cells[1].innerHTML = ability.attack_abi;
+	tableRows[4].cells[1].innerHTML = ability.defence_abi;
+
+	//计算4位随机数
+	var RADDOMCODE = parseInt(9999 - Math.random() * 10000);
+	if (RADDOMCODE < 1000) {
+		RADDOMCODE += 1000;
+	}
+	document.getElementById('verifycode').innerHTML = RADDOMCODE;
+	document.getElementById("verifycodeinput").value="";
 }
 
+//模态框消失后，将slider置为enable
+$('#submitModal').on('hidden.bs.modal', function() {
+	setSliderStatus(true);
+})
+
+//点击确认框的确认按钮
+function submitTS() {
+	var inputcode = document.getElementById('verifycodeinput').value;
+	var verifycode = document.getElementById('verifycode').innerHTML;
+	if (inputcode != verifycode) {
+		$("#errordesc").html("验证码输入有误!");
+		document.getElementById("verifycodeinput").value="";
+		var cleanTips = function(){
+			$("#errordesc").html("");
+		} 
+		setTimeout(cleanTips,4000);
+		
+	} else {
+		LoginPost();
+		$('#submitModal').modal('hide');
+		//模态框消失后，将slider置为enable
+		setSliderStatus(true);
+	}
+
+}
+
+function setSliderStatus(status) {
+	if (status == true) {
+		bodeabbs1.enable();
+		bodeabbs2.enable();
+		bodeabbs3.enable();
+		bodeabbs4.enable();
+		tech_abbs1.enable();
+		tech_abbs2.enable();
+		tech_abbs3.enable();
+		tech_abbs4.enable();
+		spec_abbs1.enable();
+		spec_abbs2.enable();
+		attack_abbs1.enable();
+		attack_abbs2.enable();
+		attack_abbs3.enable();
+		defen_abbs1.enable();
+		defen_abbs2.enable();
+		defen_abbs3.enable();
+	} else {
+		bodeabbs1.disable();
+		bodeabbs2.disable();
+		bodeabbs3.disable();
+		bodeabbs4.disable();
+		tech_abbs1.disable();
+		tech_abbs2.disable();
+		tech_abbs3.disable();
+		tech_abbs4.disable();
+		spec_abbs1.disable();
+		spec_abbs2.disable();
+		attack_abbs1.disable();
+		attack_abbs2.disable();
+		attack_abbs3.disable();
+		defen_abbs1.disable();
+		defen_abbs2.disable();
+		defen_abbs3.disable();
+	}
+
+}
+
+
+
 // ajax的post方法:
-// 确认提交方法，调用B1接口
+// 确认提交方法，调用A2接口
 function LoginPost() {
 	$.ajax({
 		//提交数据的类型 POST GET
 		type: "POST",
 		//提交的网址
-		url: "http://localhost:8080/FootBallWebSite/LoginServlet",
+		url: "http://localhost:8080/FootBallWebSite/A2UpdatePlayer",
 		//提交的数据
 		data: {
-			name: "丘士丹",
-			password: "1234"
+			playername: document.getElementById('usernameId').innerHTML,
+			totalabi: ability.totalabi,
+			body_abi: ability.body_abi,
+			tech_abi: ability.tech_abi,
+			spec_abi: ability.spec_abi,
+			attack_abi: ability.attack_abi,
+			defence_abi: ability.defence_abi,
+			speed: ability.speed,
+			strength: ability.strength,
+			stamina: ability.stamina,
+			health: ability.health,
+			passing: ability.passing,
+			touching: ability.touching,
+			dribbling: ability.dribbling,
+			heading: ability.heading,
+			minding: ability.minding,
+			rating: ability.rating,
+			shoot: ability.shoot,
+			offtheball: ability.offtheball,
+			creativity: ability.creativity,
+			taking: ability.taking,
+			marking: ability.marking,
+			positioning: ability.positioning
+
 		},
 		//返回数据的格式
 		datatype: "html", //"xml", "html", "script", "json", "jsonp", "text".
@@ -348,19 +441,20 @@ function LoginPost() {
 		},
 		//成功返回之后调用的函数            
 		success: function(data) {
-			// $("#msg").html(decodeURI(data));
+			//			 $("#msg").html(decodeURI(data));			
 		},
 		//调用执行后调用的函数
 		complete: function(XMLHttpRequest, textStatus) {
-			alert(XMLHttpRequest.responseText); //XMLHttpRequest.responseText是返回的信息，用这个来放JSON数据
+			alert('提交成功!\n\n您的数据已登记!');
+			//alert(XMLHttpRequest.responseText); //XMLHttpRequest.responseText是返回的信息，用这个来放JSON数据
 			try {
-				var jsonObject = JSON.parse(XMLHttpRequest.responseText);
-				for (var key in jsonObject) {
-					alert("属性=" + key + "\n值=" + jsonObject[key]);
-				}
+				//				var jsonObject = JSON.parse(XMLHttpRequest.responseText);
+				//				for (var key in jsonObject) {
+				//					alert("属性=" + key + "\n值=" + jsonObject[key]);
+				//				}
 			} catch (e) {
 				//TODO handle the exception
-				alert("返回信息=>" + XMLHttpRequest.responseText + "\n=>无法转换为JSON");
+				//				alert("返回信息=>" + XMLHttpRequest.responseText + "\n=>无法转换为JSON");
 			}
 			// HideLoading();
 		},

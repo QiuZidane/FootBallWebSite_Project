@@ -678,6 +678,12 @@
 	margin-left: 10px;
 }
 
+#errordesc {
+	font-size: 36;
+	font-weight: 900;
+	color: red;	
+}
+
 
 /*******************/
 
