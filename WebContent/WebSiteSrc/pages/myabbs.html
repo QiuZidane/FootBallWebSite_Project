@@ -186,6 +186,10 @@
 				<div id="submitBtnDiv">
 					<button type="button" data-toggle="modal" data-target="#submitModal" class="btn btn-success btn-block btn-lg" id="joinBtn">提 交</button>
 				</div>
+				<div id="submitResultDesc">					
+				</div>
+			</div>
+			<div id="chart_Div4">				
 			</div>
 
 			<!-- middleDiv结束 -->
@@ -204,7 +208,7 @@
 						<h4 class="modal-title" id="myModalLabel">
                    您的数值如下，请确认：
                 			</h4>
-                			<br>
+						<br>
 						<table class="table table-condensed" id="comformTable">
 							<!--<caption>基本的表格布局</caption>-->
 							<thead>
@@ -243,7 +247,8 @@
 					</div>
 					<div class="modal-body">
 						<div class="form-group">
-							<b>验证码：</b><label for="name"><span id='verifycode'>123456</span></label>&nbsp;&nbsp;&nbsp;&nbsp;<span id="errordesc"></span>
+							<b>验证码：</b>
+							<label for="name"><span id='verifycode'>123456</span></label>&nbsp;&nbsp;&nbsp;&nbsp;<span id="errordesc"></span>
 							<input type="text" class="form-control" id="verifycodeinput" placeholder="请输入验证码">
 						</div>
 					</div>

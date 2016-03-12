@@ -3,6 +3,12 @@
  *  说明：有空在研究深入JQ...
  *
  *********************************/
+/*
+ * 全局变量定义开始
+ * 
+ */
+var opacityvalue = 1; //这个透明度在两个提示框都用到，设置为全局变量
+
 
 // 身体的SLIDER
 var bodeabbs1 = $('#bodeabbs1').slider()
@@ -288,7 +294,7 @@ function setProgessBarColor(abilityName, ability) {
 }
 
 
-//提交事件
+//提交按钮事件
 var joinBtn = document.getElementById("joinBtn");
 joinBtn.addEventListener('click', submitABI, false);
 var submitToServer = document.getElementById('submitToServer');
@@ -314,7 +320,7 @@ function submitABI() {
 		RADDOMCODE += 1000;
 	}
 	document.getElementById('verifycode').innerHTML = RADDOMCODE;
-	document.getElementById("verifycodeinput").value="";
+	document.getElementById("verifycodeinput").value = "";
 }
 
 //模态框消失后，将slider置为enable
@@ -322,66 +328,35 @@ $('#submitModal').on('hidden.bs.modal', function() {
 	setSliderStatus(true);
 })
 
+//确认框内按回车的处理
+document.onkeydown = function(event){
+	if(event.keyCode==13){
+		submitTS();
+	}
+}
+
 //点击确认框的确认按钮
 function submitTS() {
 	var inputcode = document.getElementById('verifycodeinput').value;
 	var verifycode = document.getElementById('verifycode').innerHTML;
 	if (inputcode != verifycode) {
 		$("#errordesc").html("验证码输入有误!");
-		document.getElementById("verifycodeinput").value="";
-		var cleanTips = function(){
-			$("#errordesc").html("");
-		} 
-		setTimeout(cleanTips,4000);
-		
+		document.getElementById("verifycodeinput").value = "";
+		opacityvalue = 1;
+		$("#errordesc").css({
+			'opacity': opacityvalue
+		});
+		setTimeout(cleanTips, 2000);
+
 	} else {
 		LoginPost();
-		$('#submitModal').modal('hide');
 		//模态框消失后，将slider置为enable
 		setSliderStatus(true);
+		$('#submitModal').modal('hide');
+
 	}
 
 }
-
-function setSliderStatus(status) {
-	if (status == true) {
-		bodeabbs1.enable();
-		bodeabbs2.enable();
-		bodeabbs3.enable();
-		bodeabbs4.enable();
-		tech_abbs1.enable();
-		tech_abbs2.enable();
-		tech_abbs3.enable();
-		tech_abbs4.enable();
-		spec_abbs1.enable();
-		spec_abbs2.enable();
-		attack_abbs1.enable();
-		attack_abbs2.enable();
-		attack_abbs3.enable();
-		defen_abbs1.enable();
-		defen_abbs2.enable();
-		defen_abbs3.enable();
-	} else {
-		bodeabbs1.disable();
-		bodeabbs2.disable();
-		bodeabbs3.disable();
-		bodeabbs4.disable();
-		tech_abbs1.disable();
-		tech_abbs2.disable();
-		tech_abbs3.disable();
-		tech_abbs4.disable();
-		spec_abbs1.disable();
-		spec_abbs2.disable();
-		attack_abbs1.disable();
-		attack_abbs2.disable();
-		attack_abbs3.disable();
-		defen_abbs1.disable();
-		defen_abbs2.disable();
-		defen_abbs3.disable();
-	}
-
-}
-
 
 
 // ajax的post方法:
@@ -431,15 +406,29 @@ function LoginPost() {
 		},
 		//调用执行后调用的函数
 		complete: function(XMLHttpRequest, textStatus) {
-			alert('提交成功!\n\n您的数据已登记!');
+
 			//alert(XMLHttpRequest.responseText); //XMLHttpRequest.responseText是返回的信息，用这个来放JSON数据
 			try {
+
+				$("#submitResultDesc").html("提交成功! 您的数据已登记!");
+				//				var cleanTips = function() {
+				//					$("#submitResultDesc").html("");
+				//				}
+				//				setTimeout(cleanTips, 4000);
+
+				opacityvalue = 1;
+				$("#submitResultDesc").css({
+					'opacity': opacityvalue
+				});
+				setTimeout(cleanTips, 2000);
+
 				//				var jsonObject = JSON.parse(XMLHttpRequest.responseText);
 				//				for (var key in jsonObject) {
 				//					alert("属性=" + key + "\n值=" + jsonObject[key]);
 				//				}
 			} catch (e) {
-				//TODO handle the exception
+
+
 				//				alert("返回信息=>" + XMLHttpRequest.responseText + "\n=>无法转换为JSON");
 			}
 			// HideLoading();
@@ -451,6 +440,63 @@ function LoginPost() {
 	});
 }
 
+// 缓慢隐藏文字-透明度
+function cleanTips() {
+	opacityvalue -= 0.1;
+	$('#errordesc').css({
+		'opacity': opacityvalue
+	});
+	$('#submitResultDesc').css({
+		'opacity': opacityvalue
+	});
+	if (opacityvalue > 0) {
+		setTimeout(cleanTips, 50);
+	}
+	if (opacityvalue <=0 ) {
+		//清空
+		$("#submitResultDesc").html("");
+		$('#errordesc').html("");
+	}
+}
+
+function setSliderStatus(status) {
+	if (status == true) {
+		bodeabbs1.enable();
+		bodeabbs2.enable();
+		bodeabbs3.enable();
+		bodeabbs4.enable();
+		tech_abbs1.enable();
+		tech_abbs2.enable();
+		tech_abbs3.enable();
+		tech_abbs4.enable();
+		spec_abbs1.enable();
+		spec_abbs2.enable();
+		attack_abbs1.enable();
+		attack_abbs2.enable();
+		attack_abbs3.enable();
+		defen_abbs1.enable();
+		defen_abbs2.enable();
+		defen_abbs3.enable();
+	} else {
+		bodeabbs1.disable();
+		bodeabbs2.disable();
+		bodeabbs3.disable();
+		bodeabbs4.disable();
+		tech_abbs1.disable();
+		tech_abbs2.disable();
+		tech_abbs3.disable();
+		tech_abbs4.disable();
+		spec_abbs1.disable();
+		spec_abbs2.disable();
+		attack_abbs1.disable();
+		attack_abbs2.disable();
+		attack_abbs3.disable();
+		defen_abbs1.disable();
+		defen_abbs2.disable();
+		defen_abbs3.disable();
+	}
+
+}
 
 
 //改变slider-selection的颜色
