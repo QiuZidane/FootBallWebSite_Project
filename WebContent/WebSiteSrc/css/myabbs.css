@@ -74,27 +74,32 @@
 	/*border: 1px solid rgb(51, 122, 183);*/
 	width: 150px;
 	height: 50px;
-	margin-top: 150px;
-	margin-left: 70px;
+	margin-top: 65px;
+	margin-left: 40px;
 	padding-right: 5px;	
 }
 
 /*提交提示*/
 
 #submitResultDesc {
-	/*position: absolute;*/
 	float: left;
 	/*border: 1px solid rgb(51, 122, 183);*/
-	width: 280px;
-	height: 70px;
-	margin-top: 15px;
-	margin-left: 5px;
+	width: 600px;
+	height: 50px;
+	margin-top: 20px;
+	margin-left: 10px;
+	color: rgb(166,226,46);	
 	text-align: center;	
-	font-size: 20px;
+	font-size: 26px;
 	font-weight: 900;
 	color: green;
 }
 
+
+.joinlabel:hover {
+	cursor: pointer;
+	color: rgb(67,152,203);
+}
 
 /*******************************
 *
@@ -691,20 +696,10 @@
 	width: 250px;
 	height: 220px;
 	margin-top: 30px;
-	margin-left: 10px;
+	margin-left: 50px;
+	font-size: 18px;
 }
 
-#chart_Div4{
-	float: left;
-	border: 1px solid rgb(51, 122, 183);
-	width: 600px;
-	height: 50px;
-	margin-top: 30px;
-	margin-left: 10px;
-	font-size: 26px;
-	font-weight: 900;
-	color: rgb(166,226,46);	
-}
 
 #errordesc {
 	font-size: 18px;

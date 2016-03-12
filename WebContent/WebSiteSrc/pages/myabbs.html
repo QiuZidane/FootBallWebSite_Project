@@ -18,12 +18,14 @@
 		<meta charset="utf-8">
 		<title>足球大本营</title>
 
+		<link href="../css/bootstrap/bootstrap-slider.css" rel="stylesheet">
+		<link href="../css/bootstrap/bootstrap.min.css" rel="stylesheet">
+		<link href="../css/square/blue.css" rel="stylesheet">
 		<script type="text/javascript" src="../js/third/jquery.min.js"></script>
 		<script type="text/javascript" src="../js/third/bootstrap.min.js"></script>
 		<script type='text/javascript' src="../js/third/bootstrap-slider.js"></script>
-		<link href="../css/bootstrap/bootstrap-slider.css" rel="stylesheet">
-		<link href="../css/bootstrap/bootstrap.min.css" rel="stylesheet">
 		<script type="text/javascript" src="../js/third/ajaxrequest.js"></script>
+		<script type='text/javascript' src="../js/third/icheck.min.js"></script>
 
 	</head>
 
@@ -183,15 +185,29 @@
 			</div>
 			<!-- 卡位用 -->
 			<div id="chart_Div3">
+				<div id="joinseasondesc">
+					<b>请选择,是否参加七人联赛?</b>
+				</div>
+				<p><br>
+				<div id="joinselectiong">					
+					<div class="iradio">
+						<input type="radio" name="joinbtn" id="icheckbtn1">
+						<label class="joinlabel" id="joinlabel1">&nbsp;果断参加!</label>
+					</div>
+					<p>
+					<div class="iradio">
+						<input type="radio" name="joinbtn" id="icheckbtn2">
+						<label class="joinlabel" id="joinlabel2">&nbsp;不参加, 只统计属性玩玩儿</label>
+					</div>
+
+				</div>
+
 				<div id="submitBtnDiv">
 					<button type="button" data-toggle="modal" data-target="#submitModal" class="btn btn-success btn-block btn-lg" id="joinBtn">提 交</button>
 				</div>
-				<div id="submitResultDesc">					
-				</div>
 			</div>
-			<div id="chart_Div4">				
+			<div id="submitResultDesc">
 			</div>
-
 			<!-- middleDiv结束 -->
 		</div>
 		<!-- BootStrap模态框（Modal） -->
@@ -246,10 +262,10 @@
 						</table>
 					</div>
 					<div class="modal-body">
-						<div class="form-group">
+						<div class="form-group" name="submitformname">
 							<b>验证码：</b>
 							<label for="name"><span id='verifycode'>123456</span></label>&nbsp;&nbsp;&nbsp;&nbsp;<span id="errordesc"></span>
-							<input type="text" class="form-control" id="verifycodeinput" placeholder="请输入验证码">
+							<input type="text" class="form-control" id="verifycodeinput" placeholder="请输入验证码" name="submitinputname">
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -274,6 +290,10 @@
 
 		<script type="text/javascript">
 			GetandCalPlayerAbilities(); //初始化能力值
+			//设置
+			$(document).ready(function() {
+
+			});
 		</script>
 	</body>
 

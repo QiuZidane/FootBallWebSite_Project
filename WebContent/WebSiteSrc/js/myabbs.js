@@ -4,10 +4,14 @@
  *
  *********************************/
 /*
- * 全局变量定义开始
+ *  ========== 全局变量定义开始 ========== 
  * 
  */
 var opacityvalue = 1; //这个透明度在两个提示框都用到，设置为全局变量
+
+var modalshow = false; //是否显示确认提交的模态框
+
+var joinLeague = "yes"; //是否参加联赛，数据库字段是字符型，yes=参加 no=不参加
 
 
 // 身体的SLIDER
@@ -71,6 +75,69 @@ var defen_abbs3 = $('#defen_abbs3').slider()
 	.data('slider');
 
 
+
+// 获取大项的progressBar
+var body_progress = document.getElementById("body_abi_pg");
+var tech_progress = document.getElementById("tech_abi_pg");
+var spec_progress = document.getElementById("spec_abi_pg");
+var attack_progress = document.getElementById("attack_abi_pg");
+var defence_progress = document.getElementById("defence_abi_pg");
+
+//提交按钮事件
+var joinBtn = document.getElementById("joinBtn");
+joinBtn.addEventListener('click', submitABI, false);
+var submitToServer = document.getElementById('submitToServer');
+submitToServer.addEventListener('click', submitTS, false);
+
+//确认框内按回车的处理
+
+$('#submitModal').on('shown.bs.modal', function() {
+	modalshow = true;
+	document.getElementById('verifycodeinput').focus();
+})
+
+document.onkeydown = function(event) {
+	if (event.keyCode == 13 && modalshow) {
+		submitTS();
+	}
+}
+
+// 参加联赛按钮设置，这里用了icheck插件
+$('#icheckbtn1').iCheck({
+	checkboxClass: 'icheckbox_square-blue',
+	radioClass: 'iradio_square-blue',
+	increaseArea: '100%', // optional
+	labelHover: true,
+	cursor: true
+});
+$('#icheckbtn2').iCheck({
+	checkboxClass: 'icheckbox_square-blue',
+	radioClass: 'iradio_square-blue',
+	increaseArea: '100%', // optional
+	labelHover: true,
+	cursor: true
+});
+$('#joinlabel1').on('click', function() {
+	$('#icheckbtn1').iCheck('check');
+	joinLeague = "yes";
+
+});
+$('#joinlabel2').on('click', function() {
+	$('#icheckbtn2').iCheck('check');
+	joinLeague = "no";
+});
+
+var joinlabel = $('.joinlabel');
+console.log(joinlabel);
+
+
+
+/*
+ *  ========== 全局变量定义结束 ========== 
+ * 
+ */
+
+
 //球员能力对象,记录所有的能力   
 var ability = {
 	//大项:
@@ -98,15 +165,9 @@ var ability = {
 	marking: defen_abbs2.getValue(), //盯人
 	positioning: defen_abbs3.getValue() //防守站位
 
-
 }
 
-// 获取大项的progressBar
-var body_progress = document.getElementById("body_abi_pg");
-var tech_progress = document.getElementById("tech_abi_pg");
-var spec_progress = document.getElementById("spec_abi_pg");
-var attack_progress = document.getElementById("attack_abi_pg");
-var defence_progress = document.getElementById("defence_abi_pg");
+
 
 //  1、获取球员每个小项的能力
 //	2、计算大项能力和总实力
@@ -294,11 +355,6 @@ function setProgessBarColor(abilityName, ability) {
 }
 
 
-//提交按钮事件
-var joinBtn = document.getElementById("joinBtn");
-joinBtn.addEventListener('click', submitABI, false);
-var submitToServer = document.getElementById('submitToServer');
-submitToServer.addEventListener('click', submitTS, false);
 
 //点击页面的提交按钮
 function submitABI() {
@@ -326,14 +382,10 @@ function submitABI() {
 //模态框消失后，将slider置为enable
 $('#submitModal').on('hidden.bs.modal', function() {
 	setSliderStatus(true);
+	modalshow = false;
 })
 
-//确认框内按回车的处理
-document.onkeydown = function(event){
-	if(event.keyCode==13){
-		submitTS();
-	}
-}
+
 
 //点击确认框的确认按钮
 function submitTS() {
@@ -341,6 +393,7 @@ function submitTS() {
 	var verifycode = document.getElementById('verifycode').innerHTML;
 	if (inputcode != verifycode) {
 		$("#errordesc").html("验证码输入有误!");
+		//清空输入
 		document.getElementById("verifycodeinput").value = "";
 		opacityvalue = 1;
 		$("#errordesc").css({
@@ -353,6 +406,8 @@ function submitTS() {
 		//模态框消失后，将slider置为enable
 		setSliderStatus(true);
 		$('#submitModal').modal('hide');
+		//清空输入
+		document.getElementById("verifycodeinput").value = "";
 
 	}
 
@@ -369,6 +424,7 @@ function LoginPost() {
 		url: "http://localhost:8080/FootBallWebSite/A2UpdatePlayer",
 		//提交的数据
 		data: {
+			joinleague: joinLeague,
 			playername: document.getElementById('usernameId').innerHTML,
 			totalabi: ability.totalabi,
 			body_abi: ability.body_abi,
@@ -402,34 +458,47 @@ function LoginPost() {
 		},
 		//成功返回之后调用的函数            
 		success: function(data) {
-			//			 $("#msg").html(decodeURI(data));			
+			try {
+				setTimeout(function() {
+					opacityvalue = 1;
+					$("#submitResultDesc").css({
+						'opacity': 1
+					});
+					$("#submitResultDesc").html("恭喜！您的数据已登记!");
+					$("#submitResultDesc").css({
+						'color': 'green'
+					});
+
+				}, 2000);
+				
+				setTimeout(cleanTips, 6000);
+			} catch (e) {
+				$("#submitResultDesc").html("发生错误，您的数据未登记，请联系【开发团队】->右上角!");
+				$("#submitResultDesc").css({
+					'color': 'red',
+					'opacity': 1
+				});
+			}
 		},
 		//调用执行后调用的函数
 		complete: function(XMLHttpRequest, textStatus) {
-
 			//alert(XMLHttpRequest.responseText); //XMLHttpRequest.responseText是返回的信息，用这个来放JSON数据
 			try {
-
-				$("#submitResultDesc").html("提交成功! 您的数据已登记!");
-				//				var cleanTips = function() {
-				//					$("#submitResultDesc").html("");
-				//				}
-				//				setTimeout(cleanTips, 4000);
-
+				$("#submitResultDesc").html("提交成功! 后台处理中...");
+				$("#submitResultDesc").css({
+					'color': 'green'
+				});
 				opacityvalue = 1;
 				$("#submitResultDesc").css({
-					'opacity': opacityvalue
+					'opacity': 1
 				});
-				setTimeout(cleanTips, 2000);
-
-				//				var jsonObject = JSON.parse(XMLHttpRequest.responseText);
-				//				for (var key in jsonObject) {
-				//					alert("属性=" + key + "\n值=" + jsonObject[key]);
-				//				}
+				setTimeout(cleanTips, 1000);
 			} catch (e) {
-
-
-				//				alert("返回信息=>" + XMLHttpRequest.responseText + "\n=>无法转换为JSON");
+				$("#submitResultDesc").html("提交失败！请联系【开发团队】->右上角!");
+				$("#submitResultDesc").css({
+					'color': 'red',
+					'opacity': 1
+				});
 			}
 			// HideLoading();
 		},
@@ -452,7 +521,7 @@ function cleanTips() {
 	if (opacityvalue > 0) {
 		setTimeout(cleanTips, 50);
 	}
-	if (opacityvalue <=0 ) {
+	if (opacityvalue <= 0) {
 		//清空
 		$("#submitResultDesc").html("");
 		$('#errordesc').html("");
