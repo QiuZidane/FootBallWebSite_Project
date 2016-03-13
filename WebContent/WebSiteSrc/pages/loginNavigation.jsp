@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
-<title>Insert title here</title>
+<title>登陆导航</title>
 </head>
 <body>
 <!-- 读取session属性loginflag判断是否已登陆 1-已登录 0-未登录 -->
