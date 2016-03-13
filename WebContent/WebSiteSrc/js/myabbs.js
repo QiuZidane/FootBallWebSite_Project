@@ -11,8 +11,10 @@ var opacityvalue = 1; //这个透明度在两个提示框都用到，设置为�
 
 var modalshow = false; //是否显示确认提交的模态框
 
-var joinLeague = "yes"; //是否参加联赛，数据库字段是字符型，yes=参加 no=不参加
+var joinLeague = ""; //是否参加联赛，数据库字段是字符型，yes=参加 no=不参加
 
+var timer1;
+var timer2;
 
 // 身体的SLIDER
 var bodeabbs1 = $('#bodeabbs1').slider()
@@ -121,14 +123,34 @@ $('#joinlabel1').on('click', function() {
 	$('#icheckbtn1').iCheck('check');
 	joinLeague = "yes";
 
+	//清理计时器
+	clearInterval(timer1);
+	clearInterval(timer2);
+	$('#joinseasondesc').css({
+		'color': 'black'
+	});
+	$('#joinselectiong').css({
+		'color': 'black'
+	});
+
 });
 $('#joinlabel2').on('click', function() {
 	$('#icheckbtn2').iCheck('check');
 	joinLeague = "no";
+
+	//清理计时器
+	clearInterval(timer1);
+	clearInterval(timer2);
+	$('#joinseasondesc').css({
+		'color': 'black'
+	});
+	$('#joinselectiong').css({
+		'color': 'black'
+	});
 });
 
-var joinlabel = $('.joinlabel');
-console.log(joinlabel);
+
+//console.log(joinlabel);
 
 
 
@@ -354,29 +376,66 @@ function setProgessBarColor(abilityName, ability) {
 	}
 }
 
+// 提示没有选择是否加入联赛
+function warningJoin() {
+	function changeToRed() {
+		$('#joinseasondesc').css({
+			'color': 'red'
+		});
+		$('#joinselectiong').css({
+			'color': 'red'
+		});
 
+	}
+
+	function changeToBlack() {
+		$('#joinseasondesc').css({
+			'color': 'black'
+		});
+		$('#joinselectiong').css({
+			'color': 'black'
+		});
+	}
+
+	timer1 = setInterval(changeToRed, 200);
+	timer2 = setInterval(changeToBlack, 400);
+
+
+
+}
 
 //点击页面的提交按钮
 function submitABI() {
-	// 模态框出现，将slider置为不可用
-	setSliderStatus(false);
+	//判断是否已选择参加联赛情况
+	if (document.getElementById('icheckbtn1').checked == false && document.getElementById('icheckbtn2').checked == false) {
+		warningJoin();
+	} else {
 
-	// 模态框赋值
-	var tableRows = document.getElementById('comformTable').tBodies[0].rows;
-	tableRows[5].cells[1].innerHTML = ability.totalabi;
-	tableRows[0].cells[1].innerHTML = ability.body_abi;
-	tableRows[1].cells[1].innerHTML = ability.tech_abi;
-	tableRows[2].cells[1].innerHTML = ability.spec_abi;
-	tableRows[3].cells[1].innerHTML = ability.attack_abi;
-	tableRows[4].cells[1].innerHTML = ability.defence_abi;
+		$('#submitModal').modal('show')
 
-	//计算4位随机数
-	var RADDOMCODE = parseInt(9999 - Math.random() * 10000);
-	if (RADDOMCODE < 1000) {
-		RADDOMCODE += 1000;
+		// 模态框出现，将slider置为不可用
+		setSliderStatus(false);
+
+		// 模态框赋值
+		var tableRows = document.getElementById('comformTable').tBodies[0].rows;
+		tableRows[5].cells[1].innerHTML = ability.totalabi;
+		tableRows[0].cells[1].innerHTML = ability.body_abi;
+		tableRows[1].cells[1].innerHTML = ability.tech_abi;
+		tableRows[2].cells[1].innerHTML = ability.spec_abi;
+		tableRows[3].cells[1].innerHTML = ability.attack_abi;
+		tableRows[4].cells[1].innerHTML = ability.defence_abi;
+
+		//计算4位随机数
+		var RADDOMCODE = parseInt(9999 - Math.random() * 10000);
+		if (RADDOMCODE < 1000) {
+			RADDOMCODE += 1000;
+		}
+		document.getElementById('verifycode').innerHTML = RADDOMCODE;
+		document.getElementById("verifycodeinput").value = "";
 	}
-	document.getElementById('verifycode').innerHTML = RADDOMCODE;
-	document.getElementById("verifycodeinput").value = "";
+
+
+
 }
 
 //模态框消失后，将slider置为enable
@@ -470,7 +529,7 @@ function LoginPost() {
 					});
 
 				}, 2000);
-				
+
 				setTimeout(cleanTips, 6000);
 			} catch (e) {
 				$("#submitResultDesc").html("发生错误，您的数据未登记，请联系【开发团队】->右上角!");
