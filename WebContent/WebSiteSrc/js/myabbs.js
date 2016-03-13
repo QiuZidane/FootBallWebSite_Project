@@ -214,53 +214,52 @@ function GetandCalPlayerAbilities() {
 	ability.positioning = defen_abbs3.getValue(); //防守站位
 
 	//*****计算大项能力*****
+	//权值在weight.js定义
 	//身体属性，共四项
-	var speed_w = 0.35; //速度权重值
-	var strength_w = 0.2; //强壮权重值
-	var stamina_w = 0.35; //体能权重值
-	var health_w = 0.15; //受伤抗性	
+	var speed_w = weightfunc.speed_w; //速度权重值
+	var strength_w = weightfunc.strength_w; //强壮权重值
+	var stamina_w = weightfunc.stamina_w; //体能权重值
+	var health_w = weightfunc.health_w; //受伤抗性	
 	ability.body_abi = ability.speed * speed_w + ability.strength * strength_w + ability.stamina * stamina_w + ability.health * health_w;
 	//	ability.body_abi.toFixed(2);
 	ability.body_abi = parseInt(ability.body_abi);
 
 	//技术属性，共四项
-	var passing_w = 0.3; //传球权重值
-	var touching_w = 0.3; //停球权重值
-	var dribbling_w = 0.3; //盘带权重值
-	var heading_w = 0.1; //头球权重值
+	var passing_w = weightfunc.passing_w; //传球权重值
+	var touching_w = weightfunc.touching_w; //停球权重值
+	var dribbling_w = weightfunc.dribbling_w; //盘带权重值
+	var heading_w = weightfunc.heading_w; //头球权重值
 	ability.tech_abi = ability.passing * passing_w + ability.touching * touching_w + ability.dribbling * dribbling_w + ability.heading * heading_w;
 	//	ability.tech_abi.toFixed(2);
 	ability.tech_abi = parseInt(ability.tech_abi);
 
 	//特殊属性，共两项
-	var minding_w = 0.4; //意志力权重值
-	var rating_w = 0.6; //出勤率权重值
+	var minding_w = weightfunc.minding_w; //意志力权重值
+	var rating_w = weightfunc.rating_w; //出勤率权重值
 	ability.spec_abi = ability.minding * minding_w + ability.rating * rating_w;
-	//	ability.spec_abi.toFixed(2);
 	ability.spec_abi = parseInt(ability.spec_abi);
 
 	//进攻属性，共三项
-	var shoot_w = 0.3; //射门
-	var offtheball_w = 0.45; //跑位
-	var creativity_w = 0.25; //创造力
+	var shoot_w = weightfunc.shoot_w; //射门
+	var offtheball_w = weightfunc.offtheball_w; //跑位
+	var creativity_w = weightfunc.creativity_w; //创造力	
 	ability.attack_abi = ability.shoot * shoot_w + ability.offtheball * offtheball_w + ability.creativity * creativity_w;
-	//	ability.attack_abi.toFixed(2);
 	ability.attack_abi = parseInt(ability.attack_abi);
 
 	//防守属性，共三项
-	var taking_w = 0.35; //抢断
-	var marking_w = 0.25; //盯人
-	var positioning_w = 0.4; //防守站位
+	var taking_w = weightfunc.taking_w; //抢断
+	var marking_w = weightfunc.marking_w; //盯人
+	var positioning_w = weightfunc.positioning_w; //防守站位
 	ability.defence_abi = ability.taking * taking_w + ability.marking * marking_w + ability.positioning * positioning_w; //防守能力
 	ability.defence_abi = parseInt(ability.defence_abi);
 
 	//总能力，共五项
-	var body_w = 0.2; //身体
-	var tech_w = 0.3; //技术
-	var spec_w = 0.1; //特殊
-	var attach_w = 0.2; //进攻
-	var defence_w = 0.2; //防守
-	ability.totalabi = ability.body_abi * body_w + ability.tech_abi * tech_w + ability.spec_abi * spec_w + ability.attack_abi * attach_w + ability.defence_abi * defence_w;
+	var body_w = weightfunc.body_w; //身体
+	var tech_w = weightfunc.tech_w; //技术
+	var spec_w = weightfunc.spec_w; //特殊
+	var attack_w = weightfunc.attack_w; //进攻
+	var defence_w = weightfunc.defence_w; //防守
+	ability.totalabi = ability.body_abi * body_w + ability.tech_abi * tech_w + ability.spec_abi * spec_w + ability.attack_abi * attack_w + ability.defence_abi * defence_w;
 	ability.totalabi = parseInt(ability.totalabi);
 	$('#abilityId').html(ability.totalabi);
 
@@ -365,7 +364,7 @@ function setProgessBarColor(abilityName, ability) {
 		progressBar.css({
 			'background': level3
 		});
-	} else if (ability < 95) {
+	} else if (ability < 90) {
 		progressBar.css({
 			'background': level4
 		});

@@ -205,6 +205,7 @@
 		<link rel="stylesheet" type="text/css" href="../css/playerabi.css">
 		<!--自定义-->
 		<script type="text/javascript" src="../js/playerabi.js"></script>
+		<script type="text/javascript" src="../js/weight.js"></script>
 
 		<script type='text/javascript' src="../js/third/highcharts.js"></script>
 		<script type='text/javascript' src="../js/third/highcharts-more.js"></script>
