@@ -33,7 +33,7 @@ function LoginPost(name, password) {
 		//提交数据的类型 POST GET
 		type: "POST",
 		//提交的网址
-		url: "http://localhost:8080/FootBallWebSite/LoginServlet",
+		url: clubserver.URL+"LoginServlet",
 		//提交的数据
 		data: {
 			name: name,

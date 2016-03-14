@@ -15,7 +15,7 @@
 	<html>
 
 	<head>
-
+		<meta charset="utf-8">
 		<title>足球大本营</title>
 
 		<link href="../css/bootstrap/bootstrap-slider.css" rel="stylesheet">
@@ -204,8 +204,8 @@
 		<!--自定义-->
 		<link rel="stylesheet" type="text/css" href="../css/playerabi.css">
 		<!--自定义-->
+		<script type="text/javascript" src="../js/constants.js"></script>
 		<script type="text/javascript" src="../js/playerabi.js"></script>
-		<script type="text/javascript" src="../js/weight.js"></script>
 
 		<script type='text/javascript' src="../js/third/highcharts.js"></script>
 		<script type='text/javascript' src="../js/third/highcharts-more.js"></script>

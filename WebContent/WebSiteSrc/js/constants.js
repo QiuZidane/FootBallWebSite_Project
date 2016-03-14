@@ -1,12 +1,13 @@
 /********************************
  *  作者：kfzx-qiusd 
- *  权重值
+ *  公共值
  *
  *********************************/
 /*
  *  :::::::::: 全局变量定义开始 :::::::::: 
  * 
  */
+//权重值
 var weightfunc = {
 	//身体属性，共四项
 	speed_w: 0.35, //速度权重值
@@ -36,10 +37,15 @@ var weightfunc = {
 
 	//总能力，共五项
 	body_w: 0.2, //身体
-	tech_w: 0.35, //技术
+	tech_w: 0.4, //技术
 	spec_w: 0.1, //特殊
-	attack_w: 0.2, //进攻
+	attack_w: 0.15, //进攻
 	defence_w: 0.15 //防守
+}
+
+//服务器地址 比如POS地址
+var clubserver = {
+	URL : "http://localhost:8080/FootBallWebSite/"
 }
 
 

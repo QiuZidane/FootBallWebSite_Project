@@ -479,7 +479,7 @@ function LoginPost() {
 		//提交数据的类型 POST GET
 		type: "POST",
 		//提交的网址
-		url: "http://localhost:8080/FootBallWebSite/A2UpdatePlayer",
+		url: clubserver.URL+"A2UpdatePlayer",
 		//提交的数据
 		data: {
 			joinleague: joinLeague,

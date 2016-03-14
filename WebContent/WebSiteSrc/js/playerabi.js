@@ -317,7 +317,7 @@ function AjaxPost(playername) {
 		//提交数据的类型 POST GET
 		type: "POST",
 		//提交的网址
-		url: "http://localhost:8080/FootBallWebSite/A1SearchPlayer",
+		url: clubserver.URL+"A1SearchPlayer",		// clubserver.URL在constants.js内定义
 		//提交的数据
 		data: {
 			name: playername

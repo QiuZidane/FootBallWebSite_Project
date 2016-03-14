@@ -31,13 +31,8 @@ public class RegisterServlet extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html; charset=utf-8");
 		response.setHeader("Access-Control-Allow-Origin", "*");	//取消跨域限制
-		//测试数据，如果是zidane，返回0-注册成功, 否则返回1-注册失败
-		if (request.getParameter("name").equals("zidane".toString())) {
-			// loginFlag = 1
-			HttpSession session = request.getSession();
-			session.setAttribute("loginFlag", "1");
-			session.setAttribute("username", "zidane");
-			session.setMaxInactiveInterval(10);
+		//测试数据，如果是kfzx，返回0-注册成功, 否则返回1-注册失败
+		if (request.getParameter("name").equals("kfzx".toString())) {			
 			// retcode = 0
 			String jsonStr = "{\"retcode\":\"0\"}";
 			PrintWriter out = response.getWriter();
@@ -48,8 +43,7 @@ public class RegisterServlet extends HttpServlet {
 			String jsonStr = "{\"retcode\":\"1\"}";
 			PrintWriter out = response.getWriter();
 			out.flush();
-			out.write(jsonStr.toString());	
-			
+			out.write(jsonStr.toString());				
 		}
 	}
 

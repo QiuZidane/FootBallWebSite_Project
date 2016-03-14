@@ -32,30 +32,31 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setContentType("text/html; charset=utf-8");
-//		验密码是否正确即可
-		if (request.getParameter("name").equals("zidane".toString())) {
+		if (request.getParameter("name").equals("zidane".toString())) {	
 			if (request.getParameter("password").equals("1234".toString())) {
 				System.out.println("正确");						
 				String jsonStr = ""
-						+ "{\"speed\":\"90\","
-						+ "\"tech\":\"86\"}";
+						+ "{\"retcode\":\"0\"}";
 				PrintWriter out = response.getWriter();
 				out.flush();
-				out.write(jsonStr.toString());
-//				System.out.println("输出="+jsonStr.toString());	
-				
-				// loginFlag = 1
-				HttpSession session = request.getSession();
-				session.setAttribute("loginFlag", "1");
-				session.setAttribute("username", "zidane");
-				session.setMaxInactiveInterval(10);
+				out.write(jsonStr.toString());			
 			} else {
 				System.out.println("密码错误");
+				String jsonStr = ""
+						+ "{\"retcode\":\"1\"}";
+				PrintWriter out = response.getWriter();
+				out.flush();
+				out.write(jsonStr.toString());	
 			}
-		} else {
-			
+		} else {			
 			System.err.println("不存在用户名"+request.getParameter("name"));
+			String jsonStr = ""
+					+ "{\"retcode\":\"2\"}";
+			PrintWriter out = response.getWriter();
+			out.flush();
+			out.write(jsonStr.toString());	
 			
 		}
 
