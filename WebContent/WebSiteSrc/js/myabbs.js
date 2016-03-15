@@ -213,7 +213,7 @@ function GetandCalPlayerAbilities() {
 	ability.marking = defen_abbs2.getValue(); //盯人
 	ability.positioning = defen_abbs3.getValue(); //防守站位
 
-	//*****计算大项能力*****
+		//*****计算大项能力*****
 	//权值在weight.js定义
 	//身体属性，共四项
 	var speed_w = weightfunc.speed_w; //速度权重值
@@ -221,7 +221,6 @@ function GetandCalPlayerAbilities() {
 	var stamina_w = weightfunc.stamina_w; //体能权重值
 	var health_w = weightfunc.health_w; //受伤抗性	
 	ability.body_abi = ability.speed * speed_w + ability.strength * strength_w + ability.stamina * stamina_w + ability.health * health_w;
-	//	ability.body_abi.toFixed(2);
 	ability.body_abi = parseInt(ability.body_abi);
 
 	//技术属性，共四项
@@ -243,14 +242,18 @@ function GetandCalPlayerAbilities() {
 	var shoot_w = weightfunc.shoot_w; //射门
 	var offtheball_w = weightfunc.offtheball_w; //跑位
 	var creativity_w = weightfunc.creativity_w; //创造力	
-	ability.attack_abi = ability.shoot * shoot_w + ability.offtheball * offtheball_w + ability.creativity * creativity_w;
+	var techOnAttack_w = weightfunc.techOnAttack_w; //技术在进攻属性权重		
+	var bodyOnAttack_w = weightfunc.bodyOnAttack_w; // 身体在进攻属性权重
+	ability.attack_abi = ability.shoot * shoot_w + ability.offtheball * offtheball_w + ability.creativity * creativity_w + ability.tech_abi * techOnAttack_w + ability.body_abi * bodyOnAttack_w;
 	ability.attack_abi = parseInt(ability.attack_abi);
 
 	//防守属性，共三项
 	var taking_w = weightfunc.taking_w; //抢断
 	var marking_w = weightfunc.marking_w; //盯人
 	var positioning_w = weightfunc.positioning_w; //防守站位
-	ability.defence_abi = ability.taking * taking_w + ability.marking * marking_w + ability.positioning * positioning_w; //防守能力
+	var techOnDef_w = weightfunc.techOnDef_w; // 技术在防守属性权重
+	var bodyOnDef_w = weightfunc.bodyOnDef_w; // 身体在防守属性权重
+	ability.defence_abi = ability.taking * taking_w + ability.marking * marking_w + ability.positioning * positioning_w + ability.tech_abi * techOnDef_w + ability.body_abi * bodyOnDef_w; //防守能力
 	ability.defence_abi = parseInt(ability.defence_abi);
 
 	//总能力，共五项

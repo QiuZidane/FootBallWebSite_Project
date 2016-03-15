@@ -22,30 +22,33 @@ var weightfunc = {
 	heading_w: 0.1, //头球权重值
 
 	//特殊属性，共两项
-	minding_w: 0.4, //意志力权重值
-	rating_w: 0.6, //出勤率权重值
+	minding_w: 0.7, //意志力权重值
+	rating_w: 0.3, //出勤率权重值
 
 	//进攻属性，共三项
-	shoot_w: 0.3, //射门
-	offtheball_w: 0.45, //跑位
-	creativity_w: 0.25, //创造力
+	shoot_w: 0.2, //射门
+	offtheball_w: 0.2, //跑位
+	creativity_w: 0.15, //创造力
+	techOnAttack_w: 0.3, // 技术在进攻属性权重
+	bodyOnAttack_w: 0.15, // 身体在进攻属性权重
 
 	//防守属性，共三项
-	taking_w: 0.35, //抢断
-	marking_w: 0.25, //盯人
-	positioning_w: 0.4, //防守站位
+	taking_w: 0.15, //抢断
+	marking_w: 0.15, //盯人
+	positioning_w: 0.25, //防守站位
+	techOnDef_w: 0.15, // 技术在防守属性权重
+	bodyOnDef_w: 0.3, // 身体在防守属性权重
 
 	//总能力，共五项
-	body_w: 0.2, //身体
+	body_w: 0.25, //身体
 	tech_w: 0.4, //技术
-	spec_w: 0.1, //特殊
+	spec_w: 0.05, //特殊
 	attack_w: 0.15, //进攻
-	defence_w: 0.15 //防守	
+	defence_w: 0.15, //防守	
+
 }
 
 //服务器地址 比如POS地址
 var clubserver = {
-	URL : "http://localhost:8080/FootBallWebSite/"
+	URL: "http://localhost:8080/FootBallWebSite/"
 }
-
-

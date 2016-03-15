@@ -25,6 +25,7 @@
 
 	<body>
 		<div class="middleDiv" id="middleDivDes">
+
 			<div id="loginDiv">
 				<!--标题-->
 				<div id="logintitle">Login</div>
@@ -43,15 +44,59 @@
 					<div id="loginbtn">
 						<button type="submit" class="btn btn-primary btn-block" id="submitinput">登录</button>
 					</div>
+					<div id="descDiv">
+						<span id="descSpan"></span>
+					</div>
 				</form>
 				<iframe name="postTo" style="display:none"></iframe>
 			</div>
 
 		</div>
+		<!--密码错误提示模态框-->
+		<div class="modal fade" id="descmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop='true'>
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<br>
+						<br>
+						<h4 class="modal-title" id="myModalLabel">密码错误 
+                			</h4>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary btn-lg" id="confirmBtn" data-dismiss="modal">确认
+						</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal -->
+		</div>
+		
+		<!--未注册提示模态框-->
+		<div class="modal fade" id="descmodal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop='true'>
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<br>
+						<br>
+						<h4 class="modal-title" id="myModalLabel1">无此用户，请注册！ 
+                			</h4>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary btn-lg" id="registerBtn" data-dismiss="modal">注册
+						</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal -->
+		</div>
+
 
 		<!-- 自定义js -->
 		<link rel="stylesheet" type="text/css" href="../css/login.css">
-			<!-- 自定义js -->
+		<!-- 自定义js -->
+		<script type="text/javascript" src="../js/constants.js"></script>
 		<script type="text/javascript" src="../js/login.js"></script>
 
 	</body>

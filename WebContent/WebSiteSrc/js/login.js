@@ -2,11 +2,18 @@
  * created by kfzx-qiusd 2016-03-02
  * 
  */
+
+
 var submitinput = document.getElementById("submitinput");
 submitinput.addEventListener('click', submitCheck, false);
 
 var reginput = document.getElementById("reginput");
 reginput.addEventListener('click', goRegister, false);
+
+var registerBtn = document.getElementById('registerBtn');
+registerBtn.addEventListener('click',goRegister, false);
+
+
 // 跳转到注册页面
 function goRegister() {
 	document.location.href = '../pages/register.html';
@@ -27,13 +34,13 @@ function submitCheck(event) {
 }
 
 // ajax的post方法:
-// login的post方法，调用B2接口
+// 调用登陆接口
 function LoginPost(name, password) {
 	$.ajax({
 		//提交数据的类型 POST GET
 		type: "POST",
 		//提交的网址
-		url: clubserver.URL+"LoginServlet",
+		url: clubserver.URL + "LoginServlet",
 		//提交的数据
 		data: {
 			name: name,
@@ -54,13 +61,21 @@ function LoginPost(name, password) {
 			//alert(XMLHttpRequest.responseText); //XMLHttpRequest.responseText是返回的信息，用这个来放JSON数据
 			try {
 				var jsonObject = JSON.parse(XMLHttpRequest.responseText);
-				for (var key in jsonObject) {
-					if (key == "speed") {
-						if (jsonObject[key] == "90") {						
-							document.location.href = '../pages/myabbs.html';
-						}
-					}
+				if (jsonObject['retcode'] == "0") { // 通过
+					document.location.href = '../pages/myabbs.html';
+					localStorage.setItem('playername', name);
+					localStorage.setItem('loginflag', '1');
 				}
+				if (jsonObject['retcode'] == "1") { // 密码错,提示
+					$('#myModalLabel').html('Wrong Password&nbsp;!&nbsp;&nbsp;密码错误&nbsp;!');
+					$('#descmodal').modal('show');					
+				}
+				if (jsonObject['retcode'] == "2") { // 未注册
+					$('#myModalLabel1').html('用户不存在，请先注册！');
+					$('#descmodal1').modal('show');					
+//					document.location.href = '../pages/register.html';					
+				}
+
 			} catch (e) {
 				alert("返回信息=>" + XMLHttpRequest.responseText + "\n=>无法转换为JSON");
 			}
@@ -72,4 +87,3 @@ function LoginPost(name, password) {
 	});
 }
 
-document.getElementById('submitinput').focus();
