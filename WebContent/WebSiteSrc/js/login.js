@@ -71,3 +71,5 @@ function LoginPost(name, password) {
 		}
 	});
 }
+
+document.getElementById('submitinput').focus();

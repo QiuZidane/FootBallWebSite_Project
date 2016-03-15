@@ -15,7 +15,7 @@ var loginflag = localStorage.loginflag;
 
 if (loginflag == undefined || loginflag == 0) { //跳转到register.html页面
 	console.log('loginflag is undefined --> 未登录')
-	document.location.href = '../pages/register.html';
+	document.location.href = '../pages/login.html';
 } else if (loginflag == 1) { // 送playername查询能力值，跳转到myabbs.html页面
 	console.log('loginflag==1,已登录');
 	document.location.href = '../pages/playerabi.jsp?name='+playername;

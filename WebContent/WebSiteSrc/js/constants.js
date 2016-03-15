@@ -40,7 +40,7 @@ var weightfunc = {
 	tech_w: 0.4, //技术
 	spec_w: 0.1, //特殊
 	attack_w: 0.15, //进攻
-	defence_w: 0.15 //防守
+	defence_w: 0.15 //防守	
 }
 
 //服务器地址 比如POS地址
