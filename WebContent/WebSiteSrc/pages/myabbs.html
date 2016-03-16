@@ -54,10 +54,10 @@
 				</div>
 			</div>
 
-			<!-- 身体 -->
+			<!-- 体质 -->
 			<div id="bodeDiv">
 				<div class="abbsBG">
-					<div id="bodeDivtitle">身体</div>
+					<div id="bodeDivtitle">体质</div>
 					<div class="progress" id="bodeprogress">
 						<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 52%;" id="body_abi_pg">
 						</div>
@@ -236,7 +236,7 @@
 							</thead>
 							<tbody>
 								<tr>
-									<td>身体</td>
+									<td>体质</td>
 									<td>10</td>
 								</tr>
 								<tr>
@@ -286,14 +286,14 @@
 		<script type="text/javascript" src="../js/constants.js"></script>
 	
 		
-		<script type='text/javascript' src="../js/third/highcharts.js"></script>
+		<!--<script type='text/javascript' src="../js/third/highcharts.js"></script>-->
 		<script type='text/javascript' src="../js/third/echarts.min.js"></script>
-		<script type='text/javascript' src="../js/third/highcharts-more.js"></script>
-		<script type='text/javascript' src="../js/third/grid-light.js"></script>
+		<!--<script type='text/javascript' src="../js/third/highcharts-more.js"></script>
+		<script type='text/javascript' src="../js/third/grid-light.js"></script>-->
 		<!--<script type='text/javascript' src="../js/third/sand-signika.js"></script>-->
 
 		<script type="text/javascript">
-			GetandCalPlayerAbilities(); //初始化能力值
+			GetandCalPlayerAbilities(0); //初始化能力值、雷达图等，初始化时，参数送0
 		
 		</script>
 	</body>

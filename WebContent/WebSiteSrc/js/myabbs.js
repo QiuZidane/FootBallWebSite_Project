@@ -13,10 +13,12 @@ var modalshow = false; //是否显示确认提交的模态框
 
 var joinLeague = ""; //是否参加联赛，数据库字段是字符型，yes=参加 no=不参加
 
+var playername = localStorage.playername;
+
 var timer1;
 var timer2;
 
-// 身体的SLIDER
+// 体质的SLIDER
 var bodeabbs1 = $('#bodeabbs1').slider()
 	.on('slideStop', GetandCalPlayerAbilities)
 	.data('slider');
@@ -164,7 +166,7 @@ $('#joinlabel2').on('click', function() {
 var ability = {
 	//大项:
 	totalabi: 50, //总实力
-	body_abi: 50, //身体能力
+	body_abi: 50, //体质能力
 	tech_abi: 50, //技术能力
 	spec_abi: 50, //特殊能力
 	attack_abi: 50, //进攻能力
@@ -194,7 +196,7 @@ var ability = {
 //  1、获取球员每个小项的能力
 //	2、计算大项能力和总实力
 //  每次拉动SLIDER，所有控件都会联动，目前暂不影响性能，后续分开控制。
-function GetandCalPlayerAbilities() {
+function GetandCalPlayerAbilities(init) {
 	//*****获取小项的能力*****
 	ability.speed = bodeabbs1.getValue(); //速度
 	ability.strength = bodeabbs2.getValue(); //强壮
@@ -213,15 +215,20 @@ function GetandCalPlayerAbilities() {
 	ability.marking = defen_abbs2.getValue(); //盯人
 	ability.positioning = defen_abbs3.getValue(); //防守站位
 
-		//*****计算大项能力*****
+	//*****计算大项能力*****
 	//权值在weight.js定义
-	//身体属性，共四项
+	//体质属性，共四项
 	var speed_w = weightfunc.speed_w; //速度权重值
 	var strength_w = weightfunc.strength_w; //强壮权重值
 	var stamina_w = weightfunc.stamina_w; //体能权重值
 	var health_w = weightfunc.health_w; //受伤抗性	
 	ability.body_abi = ability.speed * speed_w + ability.strength * strength_w + ability.stamina * stamina_w + ability.health * health_w;
-	ability.body_abi = parseInt(ability.body_abi);
+	if (init == 0){	//初始化，主要是为了美观。。不然每次进入页面，体质属性计算出来都是52
+		ability.body_abi = 50;
+	} else {
+		ability.body_abi = parseInt(ability.body_abi);
+	}
+	
 
 	//技术属性，共四项
 	var passing_w = weightfunc.passing_w; //传球权重值
@@ -243,7 +250,7 @@ function GetandCalPlayerAbilities() {
 	var offtheball_w = weightfunc.offtheball_w; //跑位
 	var creativity_w = weightfunc.creativity_w; //创造力	
 	var techOnAttack_w = weightfunc.techOnAttack_w; //技术在进攻属性权重		
-	var bodyOnAttack_w = weightfunc.bodyOnAttack_w; // 身体在进攻属性权重
+	var bodyOnAttack_w = weightfunc.bodyOnAttack_w; // 体质在进攻属性权重
 	ability.attack_abi = ability.shoot * shoot_w + ability.offtheball * offtheball_w + ability.creativity * creativity_w + ability.tech_abi * techOnAttack_w + ability.body_abi * bodyOnAttack_w;
 	ability.attack_abi = parseInt(ability.attack_abi);
 
@@ -252,12 +259,12 @@ function GetandCalPlayerAbilities() {
 	var marking_w = weightfunc.marking_w; //盯人
 	var positioning_w = weightfunc.positioning_w; //防守站位
 	var techOnDef_w = weightfunc.techOnDef_w; // 技术在防守属性权重
-	var bodyOnDef_w = weightfunc.bodyOnDef_w; // 身体在防守属性权重
+	var bodyOnDef_w = weightfunc.bodyOnDef_w; // 体质在防守属性权重
 	ability.defence_abi = ability.taking * taking_w + ability.marking * marking_w + ability.positioning * positioning_w + ability.tech_abi * techOnDef_w + ability.body_abi * bodyOnDef_w; //防守能力
 	ability.defence_abi = parseInt(ability.defence_abi);
 
 	//总能力，共五项
-	var body_w = weightfunc.body_w; //身体
+	var body_w = weightfunc.body_w; //体质
 	var tech_w = weightfunc.tech_w; //技术
 	var spec_w = weightfunc.spec_w; //特殊
 	var attack_w = weightfunc.attack_w; //进攻
@@ -290,89 +297,126 @@ function GetandCalPlayerAbilities() {
 
 	var myChart = echarts.init(document.getElementById('highchartDiv'));
 	var option = {
-    title: {
-        text: ''
-    },
-    tooltip: {
-        trigger: 'axis'
-    },
-    legend: {
-        x: 'center'
-    },
-    radar: [
-        {
-            indicator: [
-                {text: '技术', max: 100},
-                {text: '进攻', max: 100},
-                {text: '特殊', max: 100},
-                {text: '身体', max: 100},
-                {text: '防守', max: 100}
-            ],
-            center: ['48.5%','52%'],
-            radius: 90
-        }
-    ],
-    series: [
-        {
-            type: 'radar',
-             tooltip: {
-                trigger: 'item'
-            },
-            itemStyle: {normal: {areaStyle: {type: 'default'}}},
-            data: [
-                {
-                    value: [84,83,84,83,67],
-                    name: '总体实力:'
-                }
-            ]
-        }
-    ]
-};
-	myChart.setOption(option);
-//	$(function() {
-//		$('#highchartDiv').highcharts({
-//			chart: {
-//				polar: true,
-//				type: 'line'
-//			},
-//			title: {
-//				floating: true,
-//				text: ' ',
-//				x: -80
-//			},
-//			pane: {
-//				size: '80%'
-//			},
-//			xAxis: {
-//				categories: ['技术', '防守', '特殊', '身体', '进攻'],
-//				tickmarkPlacement: 'on',
-//				lineWidth: 0
-//			},
-//			yAxis: {
-//				tickInterval: 50,
-//				gridLineInterpolation: 'polygon',
-//				lineWidth: 0,
-//				max: 100,
-//				min: 0
-//			},
-//			tooltip: {
-//				shared: true,
-//				pointFormat: '<span style="color:{series.color}">{point.y:,.0f}'
-//			},
-//			legend: {
-//				align: 'right',
-//				verticalAlign: 'top',
-//				y: 120,
-//				x: 90,
-//				layout: 'vertical'
-//			},
-//			series: [{
-//				data: [ability.tech_abi, ability.defence_abi, ability.tech_abi, ability.body_abi, ability.attack_abi], //对应='技术', '防守', '特殊', '身体', '进攻'
-//				pointPlacement: 'on'
-//			}]
-//
-//		});
-//	});
+		title: {
+			//text: '多雷达图'
+		},
+		tooltip: {
+			trigger: 'axis'
+		},
+		legend: { //说明
+			x: 'center',
+			//data:['球员1'] // 标题，可省
+		},
+		radar: [{
+			indicator: [{
+				text: '技术',
+				max: 100
+			}, {
+				text: '进攻',
+				max: 100
+			}, {
+				text: '特殊',
+				max: 100
+			}, {
+				text: '体质',
+				max: 100
+			}, {
+				text: '防守',
+				max: 100
+			}],
+			center: ['47.5%', '52%'],
+			radius: 90, //半径长度
+			startAngle: 90,
+			splitNumber: 4,
+//			shape: 'circle',//默认按定点数
+			name: {
+				// formatter:'【{value}】', //文字格式
+				textStyle: {
+					color: '#72ACD1', //文字颜色
+					fontSize: 14
+				}
+
+			},
+			splitArea: {
+				areaStyle: {
+					color: ['rgba(114, 172, 209, 0.2)', 'rgba(114, 172, 209, 0.6)','rgba(114, 172, 209, 0.6)',
+						'rgba(114, 172, 209, 0.8)', 'rgba(114, 172, 209, 0.8)','rgba(114, 172, 209, 1)'
+					],
+					shadowColor: 'rgba(0, 0, 0, 0.2)',
+					shadowBlur: 20
+				}
+			},
+		}],
+		series: [{
+			type: 'radar',
+			tooltip: {
+				trigger: 'item'
+			},
+			itemStyle: {
+				normal: {
+					areaStyle: {
+						type: 'default'
+					}
+				}
+			},
+			data: [{
+				value: [ability.tech_abi, ability.attack_abi, ability.spec_abi, ability.body_abi, ability.defence_abi], //对应='技术', '防守', '特殊', '体质', '进攻'
+				name: playername,
+				areaStyle: {
+					normal: {
+						color: 'rgba(200, 102, 99,0.7)' //能力覆盖区域颜色
+					}
+				}
+			}]
+		}]
+	};
+	myChart.setOption(option); //设置雷达图
+	
+	// highchart
+	//	$(function() {
+	//		$('#highchartDiv').highcharts({
+	//			chart: {
+	//				polar: true,
+	//				type: 'line'
+	//			},
+	//			title: {
+	//				floating: true,
+	//				text: ' ',
+	//				x: -80
+	//			},
+	//			pane: {
+	//				size: '80%'
+	//			},
+	//			xAxis: {
+	//				categories: ['技术', '防守', '特殊', '体质', '进攻'],
+	//				tickmarkPlacement: 'on',
+	//				lineWidth: 0
+	//			},
+	//			yAxis: {
+	//				tickInterval: 50,
+	//				gridLineInterpolation: 'polygon',
+	//				lineWidth: 0,
+	//				max: 100,
+	//				min: 0
+	//			},
+	//			tooltip: {
+	//				shared: true,
+	//				pointFormat: '<span style="color:{series.color}">{point.y:,.0f}'
+	//			},
+	//			legend: {
+	//				align: 'right',
+	//				verticalAlign: 'top',
+	//				y: 120,
+	//				x: 90,
+	//				layout: 'vertical'
+	//			},
+	//			series: [{
+	//				data: [ability.tech_abi, ability.defence_abi, ability.tech_abi, ability.body_abi, ability.attack_abi], //对应='技术', '防守', '特殊', '体质', '进攻'
+	//				pointPlacement: 'on'
+	//			}]
+	//
+	//		});
+	//	});
 
 	//	console.clear();	
 	//	for (var key in ability) {
@@ -523,11 +567,11 @@ function LoginPost() {
 		//提交数据的类型 POST GET
 		type: "POST",
 		//提交的网址
-		url: clubserver.URL+"A2UpdatePlayer",
+		url: clubserver.URL + "A2UpdatePlayer",
 		//提交的数据
 		data: {
 			joinleague: joinLeague,
-			playername: document.getElementById('usernameId').innerHTML,
+			playername: playername,
 			totalabi: ability.totalabi,
 			body_abi: ability.body_abi,
 			tech_abi: ability.tech_abi,

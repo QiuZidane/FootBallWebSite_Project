@@ -9,11 +9,11 @@
  */
 //权重值
 var weightfunc = {
-	//身体属性，共四项
+	//体质属性，共四项
 	speed_w: 0.35, //速度权重值
 	strength_w: 0.2, //强壮权重值
 	stamina_w: 0.35, //体能权重值
-	health_w: 0.15, //受伤抗性
+	health_w: 0.1, //受伤抗性
 
 	//技术属性，共四项
 	passing_w: 0.3, //传球权重值
@@ -30,17 +30,17 @@ var weightfunc = {
 	offtheball_w: 0.2, //跑位
 	creativity_w: 0.15, //创造力
 	techOnAttack_w: 0.3, // 技术在进攻属性权重
-	bodyOnAttack_w: 0.15, // 身体在进攻属性权重
+	bodyOnAttack_w: 0.15, // 体质在进攻属性权重
 
 	//防守属性，共三项
 	taking_w: 0.15, //抢断
 	marking_w: 0.15, //盯人
 	positioning_w: 0.25, //防守站位
 	techOnDef_w: 0.15, // 技术在防守属性权重
-	bodyOnDef_w: 0.3, // 身体在防守属性权重
+	bodyOnDef_w: 0.3, // 体质在防守属性权重
 
 	//总能力，共五项
-	body_w: 0.25, //身体
+	body_w: 0.25, //体质
 	tech_w: 0.4, //技术
 	spec_w: 0.05, //特殊
 	attack_w: 0.15, //进攻

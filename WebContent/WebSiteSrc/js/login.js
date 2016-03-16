@@ -62,9 +62,16 @@ function LoginPost(name, password) {
 			try {
 				var jsonObject = JSON.parse(XMLHttpRequest.responseText);
 				if (jsonObject['retcode'] == "0") { // 通过
-					document.location.href = '../pages/playerabi.html?name=zidane';
-					localStorage.setItem('playername', name);
-					localStorage.setItem('loginflag', '1');
+					try {
+						localStorage.setItem('playername', name);
+						localStorage.setItem('loginflag', '1');
+					} catch(e){
+						console.log("loginjs exception1 :"+e.message);
+					} finally {
+						document.location.href = '../pages/playerabi.html?name='+name;
+					}
+					
+										
 				}
 				if (jsonObject['retcode'] == "1") { // 密码错,提示
 					$('#myModalLabel').html('Wrong Password&nbsp;!&nbsp;&nbsp;密码错误&nbsp;!');
@@ -77,6 +84,7 @@ function LoginPost(name, password) {
 				}
 
 			} catch (e) {
+				console.log("loginjs exception2 :"+e.message);
 				alert("返回信息=>" + XMLHttpRequest.responseText + "\n=>无法转换为JSON");
 			}
 		},

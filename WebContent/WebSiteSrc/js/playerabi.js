@@ -9,6 +9,7 @@
  */
 var opacityvalue = 1; //这个透明度在两个提示框都用到，设置为全局变量
 var modalshow = false; //是否显示确认提交的模态框
+var playername = localStorage.playername;
 
 // 身体的SLIDER
 var bodeabbs1 = $('#bodeabbs1').slider()
@@ -220,50 +221,82 @@ function GetandCalPlayerAbilities() {
 	setProgessBarColor("attack_abi_pg", ability.attack_abi);
 	setProgessBarColor("defence_abi_pg", ability.defence_abi);
 
-	$(function() {
-		$('#highchartDiv').highcharts({
-			chart: {
-				polar: true,
-				type: 'line'
-			},
-			title: {
-				floating: true,
-				text: ' ',
-				x: -80
-			},
-			pane: {
-				size: '80%'
-			},
-			xAxis: {
-				categories: ['技术', '防守', '特殊', '身体', '进攻'],
-				tickmarkPlacement: 'on',
-				lineWidth: 0
-			},
-			yAxis: {
-				tickInterval: 50,
-				gridLineInterpolation: 'polygon',
-				lineWidth: 0,
-				max: 100,
-				min: 0
-			},
-			tooltip: {
-				shared: true,
-				pointFormat: '<span style="color:{series.color}">{point.y:,.0f}'
-			},
-			legend: {
-				align: 'right',
-				verticalAlign: 'top',
-				y: 120,
-				x: 90,
-				layout: 'vertical'
-			},
-			series: [{
-				data: [ability.tech_abi, ability.defence_abi, ability.tech_abi, ability.body_abi, ability.attack_abi], //对应='技术', '防守', '特殊', '身体', '进攻'
-				pointPlacement: 'on'
-			}]
+	var myChart = echarts.init(document.getElementById('highchartDiv'));
+	var option = {
+		title: {
+			//text: '多雷达图'
+		},
+		tooltip: {
+			trigger: 'axis'
+		},
+		legend: { //说明
+			x: 'center',
+			//data:['球员1'] // 标题，可省
+		},
+		radar: [{
+			indicator: [{
+				text: '技术',
+				max: 100
+			}, {
+				text: '进攻',
+				max: 100
+			}, {
+				text: '特殊',
+				max: 100
+			}, {
+				text: '体质',
+				max: 100
+			}, {
+				text: '防守',
+				max: 100
+			}],
+			center: ['47.5%', '52%'],
+			radius: 90, //半径长度
+			startAngle: 90,
+			splitNumber: 4,
+			//shape: 'circle',//默认按定点数
+			name: {
+				// formatter:'【{value}】', //文字格式
+				textStyle: {
+					color: '#72ACD1', //文字颜色
+					fontSize: 14
+				}
 
-		});
-	});
+			},
+			splitArea: {
+				areaStyle: {
+					color: ['rgba(114, 172, 209, 0.2)', 'rgba(114, 172, 209, 0.6)','rgba(114, 172, 209, 0.6)',
+						'rgba(114, 172, 209, 0.8)', 'rgba(114, 172, 209, 0.8)','rgba(114, 172, 209, 1)'
+					],
+					shadowColor: 'rgba(0, 0, 0, 0.2)',
+					shadowBlur: 20
+				}
+			},
+		}],
+		series: [{
+			type: 'radar',
+			tooltip: {
+				trigger: 'item'
+			},
+			itemStyle: {
+				normal: {
+					areaStyle: {
+						type: 'default'
+					}
+				}
+			},
+			data: [{
+				value: [ability.tech_abi, ability.attack_abi, ability.spec_abi, ability.body_abi, ability.defence_abi], //对应='技术', '防守', '特殊', '身体', '进攻'
+				name: playername,
+				areaStyle: {
+					normal: {
+						color: 'rgba(200, 102, 99,0.7)' //能力覆盖区域颜色
+					}
+				}
+			}]
+		}]
+	};
+	myChart.setOption(option); //设置雷达图
 
 	//	console.clear();	
 	//	for (var key in ability) {
@@ -315,7 +348,10 @@ function setProgessBarColor(abilityName, ability) {
 
 // ajax的post方法:
 // 调用A1接口，查询球员属性
-function AjaxPost(playername) {
+function AjaxPost(name) {
+	if (name == "" || name == undefined) {
+		name = localStorage.playername;
+	}
 	$.ajax({
 		//提交数据的类型 POST GET
 		type: "POST",
@@ -323,7 +359,7 @@ function AjaxPost(playername) {
 		url: clubserver.URL + "A1SearchPlayer", // clubserver.URL在constants.js内定义
 		//提交的数据
 		data: {
-			name: playername
+			name: name
 		},
 		//返回数据的格式
 		datatype: "html", //"xml", "html", "script", "json", "jsonp", "text".
@@ -367,6 +403,7 @@ function AjaxPost(playername) {
 				console.log(jsonObject["department"]);
 
 			} catch (e) {
+				console.log("error=" + e.message);
 				console.log("返回信息=>" + XMLHttpRequest.responseText + "\n=>无法转换为JSON");
 			}
 		},
