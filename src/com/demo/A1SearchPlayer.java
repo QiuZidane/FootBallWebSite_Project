@@ -58,11 +58,6 @@ public class A1SearchPlayer extends HttpServlet {
 			out.write(jsonStr.toString());
 			//			System.out.println("输出="+jsonStr.toString());	
 
-			// loginFlag = 1
-//			HttpSession session = request.getSession();
-//			session.setAttribute("loginFlag", "1");
-//			session.setAttribute("username", "zidane");
-//			session.setMaxInactiveInterval(10);
 		} else {
 
 			System.err.println("请求用户名错误");

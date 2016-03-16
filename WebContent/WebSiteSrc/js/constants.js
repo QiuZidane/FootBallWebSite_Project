@@ -44,7 +44,7 @@ var weightfunc = {
 	tech_w: 0.4, //技术
 	spec_w: 0.05, //特殊
 	attack_w: 0.15, //进攻
-	defence_w: 0.15, //防守	
+	defence_w: 0.15 //防守	
 
 }
 

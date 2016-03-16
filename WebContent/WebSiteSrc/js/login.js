@@ -62,7 +62,7 @@ function LoginPost(name, password) {
 			try {
 				var jsonObject = JSON.parse(XMLHttpRequest.responseText);
 				if (jsonObject['retcode'] == "0") { // 通过
-					document.location.href = '../pages/myabbs.html';
+					document.location.href = '../pages/playerabi.html?name=zidane';
 					localStorage.setItem('playername', name);
 					localStorage.setItem('loginflag', '1');
 				}
@@ -86,4 +86,5 @@ function LoginPost(name, password) {
 		}
 	});
 }
+
 

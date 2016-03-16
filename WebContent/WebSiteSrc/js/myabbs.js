@@ -288,50 +288,91 @@ function GetandCalPlayerAbilities() {
 	setProgessBarColor("attack_abi_pg", ability.attack_abi);
 	setProgessBarColor("defence_abi_pg", ability.defence_abi);
 
-	$(function() {
-		$('#highchartDiv').highcharts({
-			chart: {
-				polar: true,
-				type: 'line'
-			},
-			title: {
-				floating: true,
-				text: ' ',
-				x: -80
-			},
-			pane: {
-				size: '80%'
-			},
-			xAxis: {
-				categories: ['技术', '防守', '特殊', '身体', '进攻'],
-				tickmarkPlacement: 'on',
-				lineWidth: 0
-			},
-			yAxis: {
-				tickInterval: 50,
-				gridLineInterpolation: 'polygon',
-				lineWidth: 0,
-				max: 100,
-				min: 0
-			},
-			tooltip: {
-				shared: true,
-				pointFormat: '<span style="color:{series.color}">{point.y:,.0f}'
-			},
-			legend: {
-				align: 'right',
-				verticalAlign: 'top',
-				y: 120,
-				x: 90,
-				layout: 'vertical'
-			},
-			series: [{
-				data: [ability.tech_abi, ability.defence_abi, ability.tech_abi, ability.body_abi, ability.attack_abi], //对应='技术', '防守', '特殊', '身体', '进攻'
-				pointPlacement: 'on'
-			}]
-
-		});
-	});
+	var myChart = echarts.init(document.getElementById('highchartDiv'));
+	var option = {
+    title: {
+        text: ''
+    },
+    tooltip: {
+        trigger: 'axis'
+    },
+    legend: {
+        x: 'center'
+    },
+    radar: [
+        {
+            indicator: [
+                {text: '技术', max: 100},
+                {text: '进攻', max: 100},
+                {text: '特殊', max: 100},
+                {text: '身体', max: 100},
+                {text: '防守', max: 100}
+            ],
+            center: ['48.5%','52%'],
+            radius: 90
+        }
+    ],
+    series: [
+        {
+            type: 'radar',
+             tooltip: {
+                trigger: 'item'
+            },
+            itemStyle: {normal: {areaStyle: {type: 'default'}}},
+            data: [
+                {
+                    value: [84,83,84,83,67],
+                    name: '总体实力:'
+                }
+            ]
+        }
+    ]
+};
+	myChart.setOption(option);
+//	$(function() {
+//		$('#highchartDiv').highcharts({
+//			chart: {
+//				polar: true,
+//				type: 'line'
+//			},
+//			title: {
+//				floating: true,
+//				text: ' ',
+//				x: -80
+//			},
+//			pane: {
+//				size: '80%'
+//			},
+//			xAxis: {
+//				categories: ['技术', '防守', '特殊', '身体', '进攻'],
+//				tickmarkPlacement: 'on',
+//				lineWidth: 0
+//			},
+//			yAxis: {
+//				tickInterval: 50,
+//				gridLineInterpolation: 'polygon',
+//				lineWidth: 0,
+//				max: 100,
+//				min: 0
+//			},
+//			tooltip: {
+//				shared: true,
+//				pointFormat: '<span style="color:{series.color}">{point.y:,.0f}'
+//			},
+//			legend: {
+//				align: 'right',
+//				verticalAlign: 'top',
+//				y: 120,
+//				x: 90,
+//				layout: 'vertical'
+//			},
+//			series: [{
+//				data: [ability.tech_abi, ability.defence_abi, ability.tech_abi, ability.body_abi, ability.attack_abi], //对应='技术', '防守', '特殊', '身体', '进攻'
+//				pointPlacement: 'on'
+//			}]
+//
+//		});
+//	});
 
 	//	console.clear();	
 	//	for (var key in ability) {
