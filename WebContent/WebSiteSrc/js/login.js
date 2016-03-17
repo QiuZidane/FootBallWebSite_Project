@@ -68,7 +68,7 @@ function LoginPost(name, password) {
 					} catch(e){
 						console.log("loginjs exception1 :"+e.message);
 					} finally {
-						document.location.href = '../pages/playerabi.html?name='+name;
+						document.location.href = '../pages/myabbs.html?name='+name;
 					}
 					
 										

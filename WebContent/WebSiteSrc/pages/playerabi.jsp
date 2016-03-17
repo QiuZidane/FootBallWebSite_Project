@@ -10,6 +10,7 @@
 *   ***球员属性页面***
 *   
 ****************************  / -->
+<%@ include file="playerabi.html" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 	<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 	<html>
@@ -127,12 +128,12 @@
 						意志力
 						<input type="text" class="sliderClass" value="" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="50" data-slider-id="spec_abbs1" id="spec_abbs1" data-slider-handle="round" />
 					</div>
-
-					<div class="spec_desc">
-						出勤率
+					<div class="spec_desc">出勤率
+						<input type="text" class="sliderClass" value="" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="50" data-slider-id="spec_abbs3" id="spec_abbs3" data-slider-handle="round" />
+					</div>
+					<div class="spec_desc">团队意识
 						<input type="text" class="sliderClass" value="" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="50" data-slider-id="spec_abbs2" id="spec_abbs2" data-slider-handle="round" />
 					</div>
-
 				</div>
 			</div>
 
@@ -207,16 +208,17 @@
 		<script type="text/javascript" src="../js/constants.js"></script>
 		<script type="text/javascript" src="../js/playerabi.js"></script>
 
-		<script type='text/javascript' src="../js/third/highcharts.js"></script>
+		<script type='text/javascript' src="../js/third/echarts.min.js"></script>
+
+		<!--<script type='text/javascript' src="../js/third/highcharts.js"></script>
 		<script type='text/javascript' src="../js/third/highcharts-more.js"></script>
-		<script type='text/javascript' src="../js/third/grid-light.js"></script>
+		<script type='text/javascript' src="../js/third/grid-light.js"></script>-->
 
 		<script type="text/javascript">
-	 		<%
+			<%
 		String playername = request.getParameter("name");
 		%>
-			AjaxPost("<%=playername%>"); //获取服务器端数据	 
-			/* AjaxPost("zidane");  */
+			AjaxPost("<%=playername%>"); //获取服务器端数据
 			setSliderStatus(false); //禁止使用slider --> 该页面只能查看
 		</script>
 	</body>

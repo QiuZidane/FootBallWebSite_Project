@@ -48,6 +48,9 @@ var spec_abbs1 = $('#spec_abbs1').slider()
 var spec_abbs2 = $('#spec_abbs2').slider()
 	.on('slideStop', GetandCalPlayerAbilities)
 	.data('slider');
+var spec_abbs3 = $('#spec_abbs3').slider()
+	.on('slideStop', GetandCalPlayerAbilities)
+	.data('slider');
 
 // 进攻能力的SLIDER
 var attack_abbs1 = $('#attack_abbs1').slider()
@@ -108,6 +111,7 @@ var ability = {
 	heading: tech_abbs4.getValue(), //头球
 	minding: spec_abbs1.getValue(), //意志力
 	rating: spec_abbs2.getValue(), //出勤率
+	teamwork: spec_abbs3.getValue(), //团队意识
 	shoot: attack_abbs1.getValue(), //射门
 	offtheball: attack_abbs2.getValue(), //跑位
 	creativity: attack_abbs3.getValue(), //创造力
@@ -116,13 +120,6 @@ var ability = {
 	positioning: defen_abbs3.getValue() //防守站位
 
 }
-
-// 后退页面
-//function gobackPage() {
-////	window.history.go(-1); //-1代表后退1页，-2是两页
-//		window.history.back(); // 应该是后退
-//	//  window.history.forward()	// 应该是前进
-//}
 
 //  1、获取球员每个小项的能力
 //	2、计算大项能力和总实力
@@ -139,6 +136,7 @@ function GetandCalPlayerAbilities() {
 	ability.heading = tech_abbs4.getValue(); //头球
 	ability.minding = spec_abbs1.getValue(); //意志力
 	ability.rating = spec_abbs2.getValue(); //出勤率
+	ability.teamwork = spec_abbs3.getValue(); //团队意识
 	ability.shoot = attack_abbs1.getValue(); //射门
 	ability.offtheball = attack_abbs2.getValue(); //跑位
 	ability.creativity = attack_abbs3.getValue(); //创造力
@@ -165,10 +163,11 @@ function GetandCalPlayerAbilities() {
 	//	ability.tech_abi.toFixed(2);
 	ability.tech_abi = parseInt(ability.tech_abi);
 
-	//特殊属性，共两项
+	//特殊属性，共三项
 	var minding_w = weightfunc.minding_w; //意志力权重值
 	var rating_w = weightfunc.rating_w; //出勤率权重值
-	ability.spec_abi = ability.minding * minding_w + ability.rating * rating_w;
+	var teamwork_w = weightfunc.teamwork_w; //团队意识权重值
+	ability.spec_abi = ability.minding * minding_w + ability.rating * rating_w + ability.teamwork * teamwork_w;
 	ability.spec_abi = parseInt(ability.spec_abi);
 
 	//进攻属性，共三项
@@ -265,8 +264,8 @@ function GetandCalPlayerAbilities() {
 			},
 			splitArea: {
 				areaStyle: {
-					color: ['rgba(114, 172, 209, 0.2)', 'rgba(114, 172, 209, 0.6)','rgba(114, 172, 209, 0.6)',
-						'rgba(114, 172, 209, 0.8)', 'rgba(114, 172, 209, 0.8)','rgba(114, 172, 209, 1)'
+					color: ['rgba(114, 172, 209, 0.2)', 'rgba(114, 172, 209, 0.6)', 'rgba(114, 172, 209, 0.6)',
+						'rgba(114, 172, 209, 0.8)', 'rgba(114, 172, 209, 0.8)', 'rgba(114, 172, 209, 1)'
 					],
 					shadowColor: 'rgba(0, 0, 0, 0.2)',
 					shadowBlur: 20
@@ -349,9 +348,6 @@ function setProgessBarColor(abilityName, ability) {
 // ajax的post方法:
 // 调用A1接口，查询球员属性
 function AjaxPost(name) {
-	if (name == "" || name == undefined) {
-		name = localStorage.playername;
-	}
 	$.ajax({
 		//提交数据的类型 POST GET
 		type: "POST",
@@ -387,6 +383,7 @@ function AjaxPost(name) {
 				tech_abbs4.setValue(parseInt(jsonObject["heading"]));
 				spec_abbs1.setValue(parseInt(jsonObject["minding"]));
 				spec_abbs2.setValue(parseInt(jsonObject["rating"]));
+				spec_abbs3.setValue(parseInt(jsonObject["teamwork"]));
 				attack_abbs1.setValue(parseInt(jsonObject["shoot"]));
 				attack_abbs2.setValue(parseInt(jsonObject["offtheball"]));
 				attack_abbs3.setValue(parseInt(jsonObject["creativity"]));
@@ -426,6 +423,7 @@ function setSliderStatus(status) {
 		tech_abbs4.enable();
 		spec_abbs1.enable();
 		spec_abbs2.enable();
+		spec_abbs3.enable();
 		attack_abbs1.enable();
 		attack_abbs2.enable();
 		attack_abbs3.enable();
@@ -443,6 +441,7 @@ function setSliderStatus(status) {
 		tech_abbs4.disable();
 		spec_abbs1.disable();
 		spec_abbs2.disable();
+		spec_abbs3.disable();
 		attack_abbs1.disable();
 		attack_abbs2.disable();
 		attack_abbs3.disable();

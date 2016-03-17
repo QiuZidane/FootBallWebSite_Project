@@ -22,8 +22,9 @@ var weightfunc = {
 	heading_w: 0.1, //头球权重值
 
 	//特殊属性，共两项
-	minding_w: 0.7, //意志力权重值
-	rating_w: 0.3, //出勤率权重值
+	minding_w: 0.3, //意志力权重值
+	teamwork_w:0.5,//团队意识
+	rating_w: 0.2, //出勤率权重值
 
 	//进攻属性，共三项
 	shoot_w: 0.2, //射门

@@ -55,6 +55,9 @@ var spec_abbs1 = $('#spec_abbs1').slider()
 var spec_abbs2 = $('#spec_abbs2').slider()
 	.on('slideStop', GetandCalPlayerAbilities)
 	.data('slider');
+var spec_abbs3 = $('#spec_abbs3').slider()
+	.on('slideStop', GetandCalPlayerAbilities)
+	.data('slider');
 
 // 进攻能力的SLIDER
 var attack_abbs1 = $('#attack_abbs1').slider()
@@ -182,6 +185,7 @@ var ability = {
 	heading: tech_abbs4.getValue(), //头球
 	minding: spec_abbs1.getValue(), //意志力
 	rating: spec_abbs2.getValue(), //出勤率
+	rating: spec_abbs3.getValue(), //团队意识
 	shoot: attack_abbs1.getValue(), //射门
 	offtheball: attack_abbs2.getValue(), //跑位
 	creativity: attack_abbs3.getValue(), //创造力
@@ -207,7 +211,8 @@ function GetandCalPlayerAbilities(init) {
 	ability.dribbling = tech_abbs3.getValue(); //盘带
 	ability.heading = tech_abbs4.getValue(); //头球
 	ability.minding = spec_abbs1.getValue(); //意志力
-	ability.rating = spec_abbs2.getValue(); //出勤率
+	ability.teamwork = spec_abbs2.getValue(); //出勤率
+	ability.rating = spec_abbs3.getValue(); //团队意识
 	ability.shoot = attack_abbs1.getValue(); //射门
 	ability.offtheball = attack_abbs2.getValue(); //跑位
 	ability.creativity = attack_abbs3.getValue(); //创造力
@@ -223,12 +228,12 @@ function GetandCalPlayerAbilities(init) {
 	var stamina_w = weightfunc.stamina_w; //体能权重值
 	var health_w = weightfunc.health_w; //受伤抗性	
 	ability.body_abi = ability.speed * speed_w + ability.strength * strength_w + ability.stamina * stamina_w + ability.health * health_w;
-	if (init == 0){	//初始化，主要是为了美观。。不然每次进入页面，体质属性计算出来都是52
+	if (init == 0) { //初始化，主要是为了美观。。不然每次进入页面，体质属性计算出来都是52
 		ability.body_abi = 50;
 	} else {
 		ability.body_abi = parseInt(ability.body_abi);
 	}
-	
+
 
 	//技术属性，共四项
 	var passing_w = weightfunc.passing_w; //传球权重值
@@ -239,10 +244,11 @@ function GetandCalPlayerAbilities(init) {
 	//	ability.tech_abi.toFixed(2);
 	ability.tech_abi = parseInt(ability.tech_abi);
 
-	//特殊属性，共两项
-	var minding_w = weightfunc.minding_w; //意志力权重值
+	//特殊属性，共三项
+	var minding_w = weightfunc.minding_w; //意志力权重值	
 	var rating_w = weightfunc.rating_w; //出勤率权重值
-	ability.spec_abi = ability.minding * minding_w + ability.rating * rating_w;
+	var teamwork_w = weightfunc.teamwork_w; //团队意识权重值
+	ability.spec_abi = ability.minding * minding_w + ability.rating * rating_w + ability.teamwork * teamwork_w;
 	ability.spec_abi = parseInt(ability.spec_abi);
 
 	//进攻属性，共三项
@@ -328,7 +334,7 @@ function GetandCalPlayerAbilities(init) {
 			radius: 90, //半径长度
 			startAngle: 90,
 			splitNumber: 4,
-//			shape: 'circle',//默认按定点数
+			//			shape: 'circle',//默认按定点数
 			name: {
 				// formatter:'【{value}】', //文字格式
 				textStyle: {
@@ -339,8 +345,8 @@ function GetandCalPlayerAbilities(init) {
 			},
 			splitArea: {
 				areaStyle: {
-					color: ['rgba(114, 172, 209, 0.2)', 'rgba(114, 172, 209, 0.6)','rgba(114, 172, 209, 0.6)',
-						'rgba(114, 172, 209, 0.8)', 'rgba(114, 172, 209, 0.8)','rgba(114, 172, 209, 1)'
+					color: ['rgba(114, 172, 209, 0.2)', 'rgba(114, 172, 209, 0.6)', 'rgba(114, 172, 209, 0.6)',
+						'rgba(114, 172, 209, 0.8)', 'rgba(114, 172, 209, 0.8)', 'rgba(114, 172, 209, 1)'
 					],
 					shadowColor: 'rgba(0, 0, 0, 0.2)',
 					shadowBlur: 20
@@ -371,52 +377,7 @@ function GetandCalPlayerAbilities(init) {
 		}]
 	};
 	myChart.setOption(option); //设置雷达图
-	
-	// highchart
-	//	$(function() {
-	//		$('#highchartDiv').highcharts({
-	//			chart: {
-	//				polar: true,
-	//				type: 'line'
-	//			},
-	//			title: {
-	//				floating: true,
-	//				text: ' ',
-	//				x: -80
-	//			},
-	//			pane: {
-	//				size: '80%'
-	//			},
-	//			xAxis: {
-	//				categories: ['技术', '防守', '特殊', '体质', '进攻'],
-	//				tickmarkPlacement: 'on',
-	//				lineWidth: 0
-	//			},
-	//			yAxis: {
-	//				tickInterval: 50,
-	//				gridLineInterpolation: 'polygon',
-	//				lineWidth: 0,
-	//				max: 100,
-	//				min: 0
-	//			},
-	//			tooltip: {
-	//				shared: true,
-	//				pointFormat: '<span style="color:{series.color}">{point.y:,.0f}'
-	//			},
-	//			legend: {
-	//				align: 'right',
-	//				verticalAlign: 'top',
-	//				y: 120,
-	//				x: 90,
-	//				layout: 'vertical'
-	//			},
-	//			series: [{
-	//				data: [ability.tech_abi, ability.defence_abi, ability.tech_abi, ability.body_abi, ability.attack_abi], //对应='技术', '防守', '特殊', '体质', '进攻'
-	//				pointPlacement: 'on'
-	//			}]
-	//
-	//		});
-	//	});
+
 
 	//	console.clear();	
 	//	for (var key in ability) {
@@ -655,6 +616,73 @@ function LoginPost() {
 	});
 }
 
+// ajax的post方法:
+// 调用A1接口，查询球员属性
+function GetAbility() {
+	$.ajax({
+		//提交数据的类型 POST GET
+		type: "POST",
+		//提交的网址
+		url: clubserver.URL + "A1SearchPlayer", // clubserver.URL在constants.js内定义
+		//提交的数据
+		data: {
+			name: localStorage.playername
+		},
+		//返回数据的格式
+		datatype: "html", //"xml", "html", "script", "json", "jsonp", "text".
+		//在请求之前调用的函数
+		beforeSend: function() {
+			// $("#msg").html("logining");
+		},
+		//成功返回之后调用的函数            
+		success: function(data) {
+			console.log('成功返回数据');
+		},
+		//调用执行后调用的函数
+		complete: function(XMLHttpRequest, textStatus) {
+			//			console.log('XMLHttpRequest.responseText>>>' + XMLHttpRequest.responseText); //XMLHttpRequest.responseText是返回的信息，用这个来放JSON数据
+			try {
+				var jsonObject = JSON.parse(XMLHttpRequest.responseText);
+
+				bodeabbs1.setValue(parseInt(jsonObject["speed"]));
+				bodeabbs2.setValue(parseInt(jsonObject["strength"]));
+				bodeabbs3.setValue(parseInt(jsonObject["stamina"]));
+				bodeabbs4.setValue(parseInt(jsonObject["health"]));
+				tech_abbs1.setValue(parseInt(jsonObject["passing"]));
+				tech_abbs2.setValue(parseInt(jsonObject["touching"]));
+				tech_abbs3.setValue(parseInt(jsonObject["dribbling"]));
+				tech_abbs4.setValue(parseInt(jsonObject["heading"]));
+				spec_abbs1.setValue(parseInt(jsonObject["minding"]));
+				spec_abbs2.setValue(parseInt(jsonObject["teamwork"])); 
+				spec_abbs3.setValue(parseInt(jsonObject["rating"]));				
+				attack_abbs1.setValue(parseInt(jsonObject["shoot"]));
+				attack_abbs2.setValue(parseInt(jsonObject["offtheball"]));
+				attack_abbs3.setValue(parseInt(jsonObject["creativity"]));
+				defen_abbs1.setValue(parseInt(jsonObject["taking"]));
+				defen_abbs2.setValue(parseInt(jsonObject["marking"]));
+				defen_abbs3.setValue(parseInt(jsonObject["positioning"]));
+
+				GetandCalPlayerAbilities(); //初始化能力值
+
+				$('#usernameId').html(playername.toString());
+				$('#departmentId').html(jsonObject["department"].toString());
+
+				console.log(playername);
+				console.log(jsonObject["department"]);
+
+			} catch (e) {
+				console.log("error=" + e.message);
+				console.log("返回信息=>" + XMLHttpRequest.responseText + "\n=>无法转换为JSON");
+			}
+		},
+		//调用出错执行的函数
+		error: function() {
+			//请求出错处理
+			console.log('myabbs->GetAbility fail');
+		}
+	});
+}
+
 // 缓慢隐藏文字-透明度
 function cleanTips() {
 	opacityvalue -= 0.1;
@@ -686,6 +714,7 @@ function setSliderStatus(status) {
 		tech_abbs4.enable();
 		spec_abbs1.enable();
 		spec_abbs2.enable();
+		spec_abbs3.enable();
 		attack_abbs1.enable();
 		attack_abbs2.enable();
 		attack_abbs3.enable();
@@ -703,6 +732,7 @@ function setSliderStatus(status) {
 		tech_abbs4.disable();
 		spec_abbs1.disable();
 		spec_abbs2.disable();
+		spec_abbs3.disable();
 		attack_abbs1.disable();
 		attack_abbs2.disable();
 		attack_abbs3.disable();

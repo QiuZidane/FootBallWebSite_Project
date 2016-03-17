@@ -486,6 +486,14 @@
 	/*border: 1px solid rgb(51,122,183); */
 }
 
+#spec_abbs3 {
+	float: right;
+	width: 140px;
+	/*slider长度*/
+	margin-right: 5px;
+	/*border: 1px solid rgb(51,122,183); */
+}
+
 
 /*******************/
 
@@ -508,6 +516,14 @@
 }
 
 #spec_abbs2 .slider-handle {
+	background: rgb(12, 142, 207);
+}
+
+#spec_abbs3 .slider-selection {
+	background: rgb(12, 142, 207);
+}
+
+#spec_abbs3 .slider-handle {
 	background: rgb(12, 142, 207);
 }
 

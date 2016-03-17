@@ -123,11 +123,12 @@
 					<div class="spec_desc">意志力
 						<input type="text" class="sliderClass" value="" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="50" data-slider-id="spec_abbs1" id="spec_abbs1" data-slider-handle="round" />
 					</div>
-
 					<div class="spec_desc">出勤率
+						<input type="text" class="sliderClass" value="" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="50" data-slider-id="spec_abbs3" id="spec_abbs3" data-slider-handle="round" />
+					</div>
+					<div class="spec_desc">团队意识
 						<input type="text" class="sliderClass" value="" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="50" data-slider-id="spec_abbs2" id="spec_abbs2" data-slider-handle="round" />
 					</div>
-
 				</div>
 			</div>
 
@@ -190,16 +191,16 @@
 					<b>请选择,是否参加七人联赛?</b>
 				</div>
 				<br>
-				<div id="joinselectiong">					
+				<div id="joinselectiong">
 					<div class="iradio">
 						<input type="radio" name="joinbtn" id="icheckbtn1">
 						<label class="joinlabel" id="joinlabel1">&nbsp;果断参加!</label>
 					</div>
 					<p>
-					<div class="iradio">
-						<input type="radio" name="joinbtn" id="icheckbtn2">
-						<label class="joinlabel" id="joinlabel2">&nbsp;不参加, 只统计属性</label>
-					</div>
+						<div class="iradio">
+							<input type="radio" name="joinbtn" id="icheckbtn2">
+							<label class="joinlabel" id="joinlabel2">&nbsp;不参加, 只统计属性</label>
+						</div>
 
 				</div>
 
@@ -284,17 +285,16 @@
 		<!--自定义-->
 		<script type="text/javascript" src="../js/myabbs.js"></script>
 		<script type="text/javascript" src="../js/constants.js"></script>
-	
-		
-		<!--<script type='text/javascript' src="../js/third/highcharts.js"></script>-->
 		<script type='text/javascript' src="../js/third/echarts.min.js"></script>
+
+		<!--<script type='text/javascript' src="../js/third/highcharts.js"></script>-->
 		<!--<script type='text/javascript' src="../js/third/highcharts-more.js"></script>
 		<script type='text/javascript' src="../js/third/grid-light.js"></script>-->
 		<!--<script type='text/javascript' src="../js/third/sand-signika.js"></script>-->
 
 		<script type="text/javascript">
-			GetandCalPlayerAbilities(0); //初始化能力值、雷达图等，初始化时，参数送0
-		
+			GetAbility();
+			//			GetandCalPlayerAbilities(0); //初始化能力值、雷达图等，初始化时，参数送0
 		</script>
 	</body>
 

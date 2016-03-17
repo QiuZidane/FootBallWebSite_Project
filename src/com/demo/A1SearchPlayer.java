@@ -45,6 +45,7 @@ public class A1SearchPlayer extends HttpServlet {
 					+ "\"heading\":\"75\","
 					+ "\"minding\":\"90\","
 					+ "\"rating\":\"90\","
+					+ "\"teamwork\":\"80\","
 					+ "\"shoot\":\"80\","
 					+ "\"offtheball\":\"85\","
 					+ "\"creativity\":\"85\","

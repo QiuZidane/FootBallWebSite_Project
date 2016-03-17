@@ -18,7 +18,7 @@ if (loginflag == undefined || loginflag == 0) { //跳转到register.html页面
 	document.location.href = '../pages/login.html';
 } else if (loginflag == 1) { // 送playername查询能力值，跳转到myabbs.html页面
 	console.log('loginflag==1,已登录');
-	document.location.href = '../pages/playerabi.html?name='+playername;
+	document.location.href = '../pages/myabbs.html?name='+playername;
 	//	GetPlayerAbility(playername);	//通常loginflag有值，playername也有值
 } else {
 	console.log('loginNavigation处理失败:loginflag=' + loginflag);
