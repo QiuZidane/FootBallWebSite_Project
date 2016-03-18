@@ -11,12 +11,14 @@ var opacityvalue = 1; //这个透明度在两个提示框都用到，设置为�
 
 var modalshow = false; //是否显示确认提交的模态框
 
+var descmodalshow = false; //提示选择参加联赛模态框是否有显示
+
 var joinLeague = ""; //是否参加联赛，数据库字段是字符型，yes=参加 no=不参加
 
-var playername = localStorage.playername;
+var playername = localStorage.playername; // 本地存储，获取用户名
 
-var timer1;
-var timer2;
+//var timer1;
+//var timer2;
 
 // 体质的SLIDER
 var bodeabbs1 = $('#bodeabbs1').slider()
@@ -97,17 +99,26 @@ var submitToServer = document.getElementById('submitToServer');
 submitToServer.addEventListener('click', submitTS, false);
 
 //确认框内按回车的处理
-
 $('#submitModal').on('shown.bs.modal', function() {
 	modalshow = true;
 	document.getElementById('verifycodeinput').focus();
+})
+
+//参加联赛按钮未选择的处理
+$('#descmodal').on('shown.bs.modal', function() {
+	descmodalshow = true;
 })
 
 document.onkeydown = function(event) {
 	if (event.keyCode == 13 && modalshow) {
 		submitTS();
 	}
+	if (event.keyCode == 13 && descmodalshow) {
+		$('#descmodal').modal('hide');
+	}
 }
+
+
 
 // 参加联赛按钮设置，这里用了icheck插件
 $('#icheckbtn1').iCheck({
@@ -129,14 +140,14 @@ $('#joinlabel1').on('click', function() {
 	joinLeague = "yes";
 
 	//清理计时器
-	clearInterval(timer1);
-	clearInterval(timer2);
-	$('#joinseasondesc').css({
-		'color': 'black'
-	});
-	$('#joinselectiong').css({
-		'color': 'black'
-	});
+	//	clearInterval(timer1);
+	//	clearInterval(timer2);
+	//	$('#joinseasondesc').css({
+	//		'color': 'black'
+	//	});
+	//	$('#joinselectiong').css({
+	//		'color': 'black'
+	//	});
 
 });
 $('#joinlabel2').on('click', function() {
@@ -144,14 +155,14 @@ $('#joinlabel2').on('click', function() {
 	joinLeague = "no";
 
 	//清理计时器
-	clearInterval(timer1);
-	clearInterval(timer2);
-	$('#joinseasondesc').css({
-		'color': 'black'
-	});
-	$('#joinselectiong').css({
-		'color': 'black'
-	});
+	//	clearInterval(timer1);
+	//	clearInterval(timer2);
+	//	$('#joinseasondesc').css({
+	//		'color': 'black'
+	//	});
+	//	$('#joinselectiong').css({
+	//		'color': 'black'
+	//	});
 });
 
 
@@ -425,38 +436,39 @@ function setProgessBarColor(abilityName, ability) {
 }
 
 // 提示没有选择是否加入联赛
-function warningJoin() {
-	function changeToRed() {
-		$('#joinseasondesc').css({
-			'color': 'red'
-		});
-		$('#joinselectiong').css({
-			'color': 'red'
-		});
-
-	}
-
-	function changeToBlack() {
-		$('#joinseasondesc').css({
-			'color': 'black'
-		});
-		$('#joinselectiong').css({
-			'color': 'black'
-		});
-	}
-
-	timer1 = setInterval(changeToRed, 200);
-	timer2 = setInterval(changeToBlack, 400);
-
-
-
-}
+//function warningJoin() {
+//	function changeToRed() {
+//		$('#joinseasondesc').css({
+//			'color': 'red'
+//		});
+//		$('#joinselectiong').css({
+//			'color': 'red'
+//		});
+//
+//	}
+//
+//	function changeToBlack() {
+//		$('#joinseasondesc').css({
+//			'color': 'black'
+//		});
+//		$('#joinselectiong').css({
+//			'color': 'black'
+//		});
+//	}
+//
+//	timer1 = setInterval(changeToRed, 200);
+//	timer2 = setInterval(changeToBlack, 400);
+//
+//
+//
+//}
 
 //点击页面的提交按钮
 function submitABI() {
 	//判断是否已选择参加联赛情况
 	if (document.getElementById('icheckbtn1').checked == false && document.getElementById('icheckbtn2').checked == false) {
-		warningJoin();
+		//		warningJoin();
+		$('#descmodal').modal('show');
 	} else {
 
 		$('#submitModal').modal('show')
@@ -490,6 +502,11 @@ function submitABI() {
 $('#submitModal').on('hidden.bs.modal', function() {
 	setSliderStatus(true);
 	modalshow = false;
+})
+
+//descmodal模态框消失后,
+$('#descmodal').on('hidden.bs.modal', function() {
+	descmodalshow = false;
 })
 
 
@@ -653,8 +670,8 @@ function GetAbility() {
 				tech_abbs3.setValue(parseInt(jsonObject["dribbling"]));
 				tech_abbs4.setValue(parseInt(jsonObject["heading"]));
 				spec_abbs1.setValue(parseInt(jsonObject["minding"]));
-				spec_abbs2.setValue(parseInt(jsonObject["teamwork"])); 
-				spec_abbs3.setValue(parseInt(jsonObject["rating"]));				
+				spec_abbs2.setValue(parseInt(jsonObject["teamwork"]));
+				spec_abbs3.setValue(parseInt(jsonObject["rating"]));
 				attack_abbs1.setValue(parseInt(jsonObject["shoot"]));
 				attack_abbs2.setValue(parseInt(jsonObject["offtheball"]));
 				attack_abbs3.setValue(parseInt(jsonObject["creativity"]));
