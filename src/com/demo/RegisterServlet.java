@@ -37,13 +37,15 @@ public class RegisterServlet extends HttpServlet {
 			String jsonStr = "{\"retcode\":\"0\"}";
 			PrintWriter out = response.getWriter();
 			out.flush();
-			out.write(jsonStr.toString());			
+			out.write(jsonStr.toString());
+			System.out.println("注册接口返回=0");
 		} else {			
 			// retcode = 1
 			String jsonStr = "{\"retcode\":\"1\"}";
 			PrintWriter out = response.getWriter();
 			out.flush();
-			out.write(jsonStr.toString());				
+			out.write(jsonStr.toString());		
+			System.out.println("注册接口返回=1");
 		}
 	}
 

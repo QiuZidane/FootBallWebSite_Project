@@ -51,5 +51,5 @@ var weightfunc = {
 
 //服务器地址 比如POS地址
 var clubserver = {
-	URL: "http://localhost:8080/FootBallWebSite/"
+	URL: "http://localhost:8080/FootBallWebSite/"	
 }

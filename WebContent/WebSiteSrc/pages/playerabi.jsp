@@ -10,11 +10,9 @@
 *   ***球员属性页面***
 *   
 ****************************  / -->
-<%@ include file="playerabi.html" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 	<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 	<html>
-
 	<head>
 		<meta charset="utf-8">
 		<title>足球大本营</title>
@@ -194,9 +192,9 @@
 			</div>
 			<!-- 卡位用 -->
 			<div id="chart_Div3">
-				<!--<div id="returnBtnDiv">
-					<button type="button" class="btn btn-success btn-block btn-lg" id="returnBtn">返 回</button>
-				</div>-->
+				<div id="returnBtnDiv">
+					<button type="button" class="btn btn-success btn-block btn-lg" id="returnBtn" onclick="document.location.href='totalplayers.html'">返 回</button>
+				</div>
 			</div>
 			<div id="submitResultDesc"></div>
 			<!-- middleDiv结束 -->
@@ -217,7 +215,7 @@
 		<script type="text/javascript">
 			<%
 		String playername = request.getParameter("name");
-		%>
+		%>			
 			AjaxPost("<%=playername%>"); //获取服务器端数据
 			setSliderStatus(false); //禁止使用slider --> 该页面只能查看
 		</script>

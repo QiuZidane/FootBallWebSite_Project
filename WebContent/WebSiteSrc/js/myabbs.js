@@ -327,19 +327,19 @@ function GetandCalPlayerAbilities(init) {
 		radar: [{
 			indicator: [{
 				text: '技术',
-				max: 100
+				max: 110
 			}, {
 				text: '进攻',
-				max: 100
+				max: 110
 			}, {
 				text: '特殊',
-				max: 100
+				max: 110
 			}, {
 				text: '体质',
-				max: 100
+				max: 110
 			}, {
 				text: '防守',
-				max: 100
+				max: 110
 			}],
 			center: ['47.5%', '52%'],
 			radius: 90, //半径长度
@@ -684,8 +684,8 @@ function GetAbility() {
 				$('#usernameId').html(playername.toString());
 				$('#departmentId').html(jsonObject["department"].toString());
 
-				console.log(playername);
-				console.log(jsonObject["department"]);
+//				console.log(playername);
+//				console.log(jsonObject["department"]);
 
 			} catch (e) {
 				console.log("error=" + e.message);

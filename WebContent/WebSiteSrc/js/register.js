@@ -49,7 +49,7 @@ function RegisterPost(deparment, name, password) {
 		//提交数据的类型 POST GET
 		type: "POST",
 		//提交的网址--改为调用B1接口
-		url: clubserver.URL+"RegisterServlet",
+		url: clubserver.URL + "RegisterServlet",
 		//提交的数据
 		data: {
 			deparment: deparment,
@@ -68,21 +68,21 @@ function RegisterPost(deparment, name, password) {
 		},
 		//调用执行后调用的函数
 		complete: function(XMLHttpRequest, textStatus) {
-			//			alert(XMLHttpRequest.responseText); //XMLHttpRequest.responseText是返回的信息，用这个来放JSON数据
+			//alert(XMLHttpRequest.responseText); //XMLHttpRequest.responseText是返回的信息，用这个来放JSON数据
 			try {
 				var jsonObject = JSON.parse(XMLHttpRequest.responseText);
-				for (var key in jsonObject) {
-					alert("属性=" + key + "\n值=" + jsonObject[key]);
-					if (key == "retcode") {
-						if (jsonObject[key] == "0") {
-//							console.log("注册成功，跳转到个人属性页面"); // 跳转时 							
-							document.location.href='../pages/myabbs.html';
-						}
-					}
+				if (jsonObject["retcode"] == "0") {
+					console.log("注册成功，跳转到个人属性页面"); // 跳转时
+					localStorage.setItem('playername', name);
+					localStorage.setItem('loginflag', '1');
+					document.location.href = '../pages/myabbs.html';
+				} else {
+					alert('注册失败:已存在同名用户，请在您姓名后加数字或字母，比如"张三A"');
 				}
 
 			} catch (e) {
 				e.message;
+				console.log("register error=" + e.message);
 				alert("返回信息=>" + XMLHttpRequest.responseText + "\n=>无法转换为JSON");
 			}
 		},

@@ -9,7 +9,7 @@
  */
 var opacityvalue = 1; //这个透明度在两个提示框都用到，设置为全局变量
 var modalshow = false; //是否显示确认提交的模态框
-var playername = localStorage.playername;
+//var playername;	//查下的球员名
 
 // 身体的SLIDER
 var bodeabbs1 = $('#bodeabbs1').slider()
@@ -121,10 +121,14 @@ var ability = {
 
 }
 
+//function setPlayer(searchname){
+//	playername = searchname;
+//}
+
 //  1、获取球员每个小项的能力
 //	2、计算大项能力和总实力
 //  每次拉动SLIDER，所有控件都会联动，目前暂不影响性能，后续分开控制。
-function GetandCalPlayerAbilities() {
+function GetandCalPlayerAbilities(searchname) {
 	//*****获取小项的能力*****
 	ability.speed = bodeabbs1.getValue(); //速度
 	ability.strength = bodeabbs2.getValue(); //强壮
@@ -235,19 +239,19 @@ function GetandCalPlayerAbilities() {
 		radar: [{
 			indicator: [{
 				text: '技术',
-				max: 100
+				max: 110
 			}, {
 				text: '进攻',
-				max: 100
+				max: 110
 			}, {
 				text: '特殊',
-				max: 100
+				max: 110
 			}, {
 				text: '体质',
-				max: 100
+				max: 110
 			}, {
 				text: '防守',
-				max: 100
+				max: 110
 			}],
 			center: ['47.5%', '52%'],
 			radius: 90, //半径长度
@@ -286,7 +290,7 @@ function GetandCalPlayerAbilities() {
 			},
 			data: [{
 				value: [ability.tech_abi, ability.attack_abi, ability.spec_abi, ability.body_abi, ability.defence_abi], //对应='技术', '防守', '特殊', '身体', '进攻'
-				name: playername,
+				name: searchname,
 				areaStyle: {
 					normal: {
 						color: 'rgba(200, 102, 99,0.7)' //能力覆盖区域颜色
@@ -391,13 +395,13 @@ function AjaxPost(name) {
 				defen_abbs2.setValue(parseInt(jsonObject["marking"]));
 				defen_abbs3.setValue(parseInt(jsonObject["positioning"]));
 
-				GetandCalPlayerAbilities(); //初始化能力值
+				GetandCalPlayerAbilities(name); //初始化能力值
 
-				$('#usernameId').html(playername.toString());
+				$('#usernameId').html(jsonObject["playername"].toString());
 				$('#departmentId').html(jsonObject["department"].toString());
 
-				console.log(playername);
-				console.log(jsonObject["department"]);
+//				console.log(playername);
+//				console.log(jsonObject["department"]);
 
 			} catch (e) {
 				console.log("error=" + e.message);

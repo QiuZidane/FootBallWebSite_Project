@@ -31,7 +31,7 @@ public class A1SearchPlayer extends HttpServlet {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setContentType("text/html; charset=utf-8");
 		//		验密码是否正确即可
-		if (request.getParameter("name").equals("zidane".toString())) {
+		if (request.getParameter("name").equals("zidane".toString()) || request.getParameter("name").equals("kfzx".toString())) {
 			System.out.println("请求zidane的数据");						
 			String jsonStr = ""
 					+ "{\"playername\":\"zidane\","
@@ -52,7 +52,7 @@ public class A1SearchPlayer extends HttpServlet {
 					+ "\"taking\":\"60\","
 					+ "\"marking\":\"40\","
 					+ "\"positioning\":\"60\","
-					+ "\"department\":\"广州研发部\"}";
+					+ "\"department\":\"广州研发支持部\"}";
 			PrintWriter out = response.getWriter();
 			out.flush();
 			out.write(jsonStr.toString());
