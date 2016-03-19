@@ -1,0 +1,272 @@
+/*
+*
+*   created by qiusd on 2016-03-19
+*   cooperation xxx
+*   
+*/
+
+
+/*左侧卡位div*/
+
+#chart_Div1 {
+	float: left;
+	/*border: 1px solid rgb(51, 122, 183);*/
+	width: 100px;
+	height: 800px;
+	margin-top: 100px;
+	margin-left: 20px;
+	padding-left: 5px;
+}
+
+
+/*右边占位*/
+
+#chart_Div2 {
+	float: right;
+	/*border: 1px solid rgb(51, 122, 183);*/
+	width: 10px;
+	height: 600px;
+	margin-top: 100px;
+	margin-right: 10px;
+}
+
+
+
+
+/*******************************
+*
+*   下面是中间Div的css：middleDiv
+*
+/*******************************/
+
+.middleDiv {
+	width: 1200px;
+	height: 800px;
+	/*    background-image: url(../img/bg6.jpg);
+    background-size: 100% 100%;*/
+	background-color: rgb(224, 224, 224);
+	margin: 0 auto;
+}
+
+#explainDiv {
+	position: absolute;
+	float: right;
+	border: 1px solid rgb(51,122,183);
+	width: 800px;
+	height: 30px;
+	margin-top: 80px;
+	margin-left: 180px;
+	padding-right: 5px;
+	font-size: 20px;
+	color: rgb(51, 122, 183);
+}
+
+.abbsBG {
+	padding-bottom: 5px;
+	border-bottom: 1px solid rgb(51, 122, 183);
+}
+
+#highchartDiv {
+		/*position: absolute;*/
+	float: left;
+	border: 1px solid rgb(51, 122, 183);
+	width: 350px;
+	height: 280px;
+	margin-top: 130px;
+	margin-left: 10px;
+	padding-right: 5px;
+	font-size: 16px;
+	color: rgb(51, 122, 183);
+}
+
+/*************/
+
+
+/*bode部分的css*/
+
+
+/*************/
+
+#bodeDiv {
+	/*position: absolute;*/
+	float: left;
+	/*border: 1px solid rgb(51, 122, 183);*/
+	width: 280px;
+	height: 280px;
+	margin-top: 130px;
+	margin-left: 10px;
+	padding-right: 5px;
+	font-size: 16px;
+	color: rgb(51, 122, 183);
+}
+
+#bodeDivtitle {
+	/*border: 1px solid rgb(51,122,183); */
+	width: 50px;
+	font-size: 20px;
+	margin-left: 10px;
+	margin-top: 8px;
+}
+
+#body_abbsdiv {
+	/*border: 1px solid rgb(51,122,183);*/   
+	margin-top: -40px;
+	margin-left: 5px;
+	width: 260px;
+	height: 270px;
+}
+
+#tech_abbsdiv {
+	/*border: 1px solid rgb(51,122,183);*/   
+	margin-top: -40px;
+	margin-left: 5px;
+	width: 260px;
+	height: 270px;
+}
+
+#spec_abbsdiv {
+	/*border: 1px solid rgb(51,122,183);*/   
+	margin-top: -40px;
+	margin-left: 5px;
+	width: 260px;
+	height: 270px;
+}
+
+#attack_abbsdiv {
+	/*border: 1px solid rgb(51,122,183);*/   
+	margin-top: -40px;
+	margin-left: 5px;
+	width: 260px;
+	height: 270px;
+}
+
+#defen_abbsdiv {
+	/*border: 1px solid rgb(51,122,183);*/   
+	margin-top: -40px;
+	margin-left: 5px;
+	width: 260px;
+	height: 270px;
+}
+
+/*************/
+
+
+/*tech_部分的css*/
+
+
+/*************/
+
+#tech_Div {
+	position: relative;
+	float: left;
+	/*border: 1px solid rgb(51, 122, 183);*/
+	width: 280px;
+	height: 280px;
+	margin-top: 130px;
+	margin-left: 10px;
+	padding-right: 5px;
+	font-size: 16px;
+	color: rgb(51, 122, 183);
+}
+
+#tech_Divtitle {
+	/*border: 1px solid rgb(51,122,183); */
+	width: 50px;
+	font-size: 20px;
+	margin-left: 10px;
+	margin-top: 8px;
+}
+
+#spec_Div {
+	position: relative;
+	float: left;
+	/*border: 1px solid rgb(51, 122, 183);*/
+	width: 280px;
+	height: 280px;
+	margin-top: 20px;
+	margin-left: 80px;
+	padding-right: 5px;
+	font-size: 16px;
+	color: rgb(51, 122, 183);
+}
+
+#spec_Divtitle {
+	/*border: 1px solid rgb(51,122,183); */
+	width: 50px;
+	font-size: 20px;
+	margin-left: 10px;
+	margin-top: 8px;
+}
+
+
+/*
+ * 
+ * attack_部分的css
+ * 
+ */
+
+#attack_Div {
+	/*position: absolute;*/
+	float: left;
+	/*border: 1px solid rgb(51, 122, 183);*/
+	width: 280px;
+	height: 280px;
+	margin-top: 20px;
+	margin-left: 10px;
+	padding-right: 5px;
+	font-size: 16px;
+	color: rgb(51, 122, 183);
+}
+
+#attack_Divtitle {
+	/*border: 1px solid rgb(51,122,183); */
+	width: 50px;
+	font-size: 20px;
+	margin-left: 10px;
+	margin-top: 8px;
+}
+
+
+
+/*************/
+
+
+/*defen_部分的css*/
+
+
+/*************/
+
+#defen_Div {
+	/*position: absolute;*/
+	float: left;
+	/*border: 1px solid rgb(51, 122, 183);*/
+	width: 280px;
+	height: 280px;
+	margin-top: 20px;
+	margin-left: 10px;
+	padding-right: 5px;
+	font-size: 16px;
+	color: rgb(51, 122, 183);
+}
+
+#defen_Divtitle {
+	/*border: 1px solid rgb(51,122,183); */
+	width: 50px;
+	font-size: 20px;
+	margin-left: 10px;
+	margin-top: 8px;
+}
+
+
+#chart_Div3 {
+	float: left;
+	/*border: 1px solid rgb(51, 122, 183);*/
+	width: 250px;
+	height: 220px;
+	margin-top: 10px;
+	margin-left: 50px;
+	font-size: 18px;
+}
+
+
+
