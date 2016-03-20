@@ -51,10 +51,10 @@
 				<div id="highchartDiv"></div>
 			</div>
 
-			<!-- 身体 -->
+			<!-- 体质 -->
 			<div id="bodeDiv">
 				<div class="abbsBG">
-					<div id="bodeDivtitle">身体</div>
+					<div id="bodeDivtitle">体质</div>
 					<div class="progress" id="bodeprogress">
 						<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 52%;" id="body_abi_pg"></div>
 					</div>

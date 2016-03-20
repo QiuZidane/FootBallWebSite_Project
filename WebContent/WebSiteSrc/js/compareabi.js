@@ -1,23 +1,176 @@
 /********************************
  *  作者：kfzx-qiusd 
- *  说明：有空在研究深入JQ...
- *
+ *  说明：
+ * 		1、点击能力pk页面后调用A3接口获取一次全量数据，赋值给本地变量
+ * 		2、赋值后更新球员1和球员2的列表，生成所有可选球员
+ * 		3、点击对比按钮后查询A4接口获取球员1和2的数据，赋值给本地变量
+ * 		4、本地变量生成各图表
+ *	
+ * 
+ * 
  *********************************/
+
 /*
  *  ========== 全局变量定义开始 ==========  
  */
 
+var totalAbilityChart = echarts.init(document.getElementById('highchart_abbsdiv'));
 var bodyChart = echarts.init(document.getElementById('body_abbsdiv'));
 var techChart = echarts.init(document.getElementById('tech_abbsdiv'));
 var specChart = echarts.init(document.getElementById('spec_abbsdiv'));
 var attackChart = echarts.init(document.getElementById('attack_abbsdiv'));
 var defenceChart = echarts.init(document.getElementById('defen_abbsdiv'));
 
-var barWidth = 10;
+//echart的参数
+var barWidth = 10; // 柱条宽度
+var player1Color = 'rgb(12,142,207)'; //'#4cb749';
+var player2Color = 'rgb(223,77,0)'; //'#FC3E10';
+var gridleft = '2%';
+var gridright = '10%';
+var gridbottom = '1%';
+var textcolor = 'rgb(51,122,183)';
+
+var player1select = document.getElementById("player1list");
+player1select.addEventListener('click', selectplayer1, false);
+var player2select = document.getElementById("player2list");
+player2select.addEventListener('click', selectplayer2, false);
+var comparebutton = $('#compareBTN').click(submitCompare);
+//comparebutton.addEventListener('click',submitCompare, false);
+
+//实现点击部门list后更新部门button的文字
+function selectplayer1(event) {
+	var selectedplayer = event.target; // 获取点击目标
+	document.getElementById("selectedplayer1").innerHTML = selectedplayer.innerHTML;
+	document.getElementById("selectedplayer1").setAttribute('tag', selectedplayer.innerHTML);
+}
+
+function selectplayer2(event) {
+	var selectedplayer = event.target; // 获取点击目标
+	document.getElementById("selectedplayer2").innerHTML = selectedplayer.innerHTML;
+	document.getElementById("selectedplayer2").setAttribute('tag', selectedplayer.innerHTML);
+}
+
+//提交对比
+function submitCompare() {
+	console.clear();
+	var name1 = $('#selectedplayer1').html();
+	var name2 = $('#selectedplayer2').html();
+	var currentsubmittime = new Date;
+	var lastsubmittime = localStorage.lastsubmittime;
+	console.log(lastsubmittime);
+	var interaltime;
+	if (lastsubmittime == undefined) {
+		interaltime = 99;
+	} else {
+		var lefttime = parseInt((currentsubmittime.getTime() - lastsubmittime) / 1000);
+		interaltime = parseInt(lefttime % 60);
+	}
+	console.log(name1 + " vs " + name2);
+	//	descmodal
+	if (name1.indexOf("选择球员") > 0 || name2.indexOf("选择球员") > 0) { // 未选择球员
+		$('#descmodal').modal('show');
+	} else if (interaltime < 10) { // 提交建个小于10秒
+		$('#myModalLabel').html('为降低服务器压力，请不要在10秒内重复提交，谢谢！');
+		$('#descmodal').modal('show');
+	} else {
+		var submittime = new Date;
+		localStorage.setItem('lastsubmittime', submittime.getTime());
+		GetPlayerData(name1, name1);
+	}
+
+}
 
 /*
  *  ========== 全局变量定义结束 ==========  
  */
+
+// 总体实力图
+var totalAbilityChart_option = {
+	title: {
+		//      text: '基础雷达图'
+	},
+	tooltip: {},
+	legend: {
+		//		data: ['zidane', 'kfzx'],
+	},
+	radar: {
+		// shape: 'circle',
+		indicator: [{
+			name: '技术',
+			max: 110
+		}, {
+			name: '进攻',
+			max: 110
+		}, {
+			name: '特殊',
+			max: 110
+		}, {
+			name: '体质',
+			max: 110
+		}, {
+			name: '防守',
+			max: 110
+		}],
+		center: ['50%', '50%'],
+		radius: 90,
+		name: {
+			// formatter:'【{value}】', //文字格式
+			textStyle: {
+				color: '#000000', //文字颜色
+				fontSize: 14
+			}
+
+		},
+
+	},
+	series: [{
+		name: 'zidane vs kfzx',
+		type: 'radar',
+		// areaStyle: {normal: {}},
+		data: [{
+			value: [87, 77, 99, 65, 60],
+			name: 'zidane',
+			itemStyle: {
+				normal: {
+					color: player1Color // 线条颜色
+				}
+			},
+			areaStyle: {
+				normal: {
+					opacity: 0.3,
+					color: new echarts.graphic.RadialGradient(0.5, 0.5, 1, [{
+						color: 'rgb(12,142,207)', //区域颜色
+						offset: 0
+					}, {
+						color: 'rgb(12,142,207)',
+						offset: 1
+					}])
+				}
+			}
+		}, {
+			value: [97, 86, 85, 98, 66],
+			name: 'kfzx',
+			itemStyle: {
+				normal: {
+					color: player2Color // 线条颜色
+				}
+
+			},
+			areaStyle: {
+				normal: {
+					opacity: 0.3,
+					color: new echarts.graphic.RadialGradient(0.5, 0.5, 1, [{
+						color: 'rgb(12,142,207)', //区域颜色
+						offset: 0
+					}, {
+						color: 'rgb(12,142,207)',
+						offset: 1
+					}])
+				}
+			}
+		}]
+	}]
+};
 
 var bodyChart_option = {
 	title: {
@@ -36,9 +189,9 @@ var bodyChart_option = {
 
 	},
 	grid: {
-		left: '2%',
-		right: '5%',
-		bottom: '1%',
+		left: gridleft,
+		right: gridright,
+		bottom: gridbottom,
 		containLabel: true
 	},
 	xAxis: {
@@ -58,7 +211,7 @@ var bodyChart_option = {
 		barWidth: barWidth,
 		itemStyle: {
 			normal: {
-				color: '#4cb749'
+				color: player1Color
 			}
 		}
 	}, {
@@ -68,7 +221,7 @@ var bodyChart_option = {
 		barWidth: barWidth,
 		itemStyle: {
 			normal: {
-				color: '#FC3E10'
+				color: player2Color
 			}
 
 		}
@@ -92,9 +245,9 @@ var techChart_option = {
 
 	},
 	grid: {
-		left: '2%',
-		right: '5%',
-		bottom: '1%',
+		left: gridleft,
+		right: gridright,
+		bottom: gridbottom,
 		containLabel: true
 	},
 	xAxis: {
@@ -104,7 +257,7 @@ var techChart_option = {
 	},
 	yAxis: {
 		type: 'category',
-		data: ['健康', '体能', '强壮', '速度']
+		data: ['头球', '盘带', '停球', '传球']
 
 	},
 	series: [{
@@ -114,7 +267,7 @@ var techChart_option = {
 		barWidth: barWidth,
 		itemStyle: {
 			normal: {
-				color: '#4cb749'
+				color: player1Color
 			}
 		}
 	}, {
@@ -124,7 +277,7 @@ var techChart_option = {
 		barWidth: barWidth,
 		itemStyle: {
 			normal: {
-				color: '#FC3E10'
+				color: player2Color
 			}
 
 		}
@@ -148,9 +301,9 @@ var specChart_option = {
 
 	},
 	grid: {
-		left: '2%',
-		right: '5%',
-		bottom: '1%',
+		left: gridleft,
+		right: gridright,
+		bottom: gridbottom,
 		containLabel: true
 	},
 	xAxis: {
@@ -160,27 +313,27 @@ var specChart_option = {
 	},
 	yAxis: {
 		type: 'category',
-		data: ['健康', '体能', '强壮', '速度']
+		data: ['团队意识', '出勤率', '意志力']
 
 	},
 	series: [{
 		name: 'zidane',
 		type: 'bar',
-		data: [90, 88, 77, 79],
+		data: [90, 88, 77],
 		barWidth: barWidth,
 		itemStyle: {
 			normal: {
-				color: '#4cb749'
+				color: player1Color
 			}
 		}
 	}, {
 		name: 'kfzx',
 		type: 'bar',
-		data: [77, 81, 37, 95],
+		data: [77, 81, 37],
 		barWidth: barWidth,
 		itemStyle: {
 			normal: {
-				color: '#FC3E10'
+				color: player2Color
 			}
 
 		}
@@ -204,9 +357,9 @@ var attackChart_option = {
 
 	},
 	grid: {
-		left: '2%',
-		right: '5%',
-		bottom: '1%',
+		left: gridleft,
+		right: gridright,
+		bottom: gridbottom,
 		containLabel: true
 	},
 	xAxis: {
@@ -216,27 +369,27 @@ var attackChart_option = {
 	},
 	yAxis: {
 		type: 'category',
-		data: ['健康', '体能', '强壮', '速度']
+		data: ['创造力', '跑位', '射门']
 
 	},
 	series: [{
 		name: 'zidane',
 		type: 'bar',
-		data: [90, 88, 77, 79],
+		data: [90, 88, 77],
 		barWidth: barWidth,
 		itemStyle: {
 			normal: {
-				color: '#4cb749'
+				color: player1Color
 			}
 		}
 	}, {
 		name: 'kfzx',
 		type: 'bar',
-		data: [77, 81, 37, 95],
+		data: [77, 81, 37],
 		barWidth: barWidth,
 		itemStyle: {
 			normal: {
-				color: '#FC3E10'
+				color: player2Color
 			}
 
 		}
@@ -260,9 +413,9 @@ var defenceChart_option = {
 
 	},
 	grid: {
-		left: '2%',
-		right: '5%',
-		bottom: '1%',
+		left: gridleft,
+		right: gridright,
+		bottom: gridbottom,
 		containLabel: true
 	},
 	xAxis: {
@@ -272,27 +425,27 @@ var defenceChart_option = {
 	},
 	yAxis: {
 		type: 'category',
-		data: ['健康', '体能', '强壮', '速度']
+		data: ['防守站位', '盯人', '抢断']
 
 	},
 	series: [{
 		name: 'zidane',
 		type: 'bar',
-		data: [90, 88, 77, 79],
+		data: [90, 88, 77],
 		barWidth: barWidth,
 		itemStyle: {
 			normal: {
-				color: '#4cb749'
+				color: player1Color
 			}
 		}
 	}, {
 		name: 'kfzx',
 		type: 'bar',
-		data: [77, 81, 37, 95],
+		data: [77, 81, 37],
 		barWidth: barWidth,
 		itemStyle: {
 			normal: {
-				color: '#FC3E10'
+				color: player2Color
 			}
 
 		}
@@ -300,99 +453,12 @@ var defenceChart_option = {
 };
 
 //设置雷达图
+totalAbilityChart.setOption(totalAbilityChart_option); //设置雷达图
 bodyChart.setOption(bodyChart_option);
 techChart.setOption(techChart_option);
 specChart.setOption(specChart_option);
 attackChart.setOption(attackChart_option);
 defenceChart.setOption(defenceChart_option);
-
-var myChart = echarts.init(document.getElementById('highchartDiv'));
-var option = {
-	title: {
-		//text: '多雷达图'
-	},
-	tooltip: {
-		trigger: 'axis'
-	},
-	legend: { //说明
-		x: 'center',
-		//data:['球员1'] // 标题，可省
-	},
-	radar: [{
-		indicator: [{
-			text: '技术',
-			max: 110
-		}, {
-			text: '进攻',
-			max: 110
-		}, {
-			text: '特殊',
-			max: 110
-		}, {
-			text: '体质',
-			max: 110
-		}, {
-			text: '防守',
-			max: 110
-		}],
-		center: ['47.5%', '52%'],
-		radius: 90, //半径长度
-		startAngle: 90,
-		splitNumber: 4,
-		//shape: 'circle',//默认按定点数
-		name: {
-			// formatter:'【{value}】', //文字格式
-			textStyle: {
-				color: '#72ACD1', //文字颜色
-				fontSize: 14
-			}
-
-		},
-		splitArea: {
-			areaStyle: {
-				color: ['rgba(114, 172, 209, 0.2)', 'rgba(114, 172, 209, 0.6)', 'rgba(114, 172, 209, 0.6)',
-					'rgba(114, 172, 209, 0.8)', 'rgba(114, 172, 209, 0.8)', 'rgba(114, 172, 209, 1)'
-				],
-				shadowColor: 'rgba(0, 0, 0, 0.2)',
-				shadowBlur: 20
-			}
-		},
-	}],
-	series: [{
-		type: 'radar',
-		tooltip: {
-			trigger: 'item'
-		},
-		itemStyle: {
-			normal: {
-				areaStyle: {
-					type: 'default'
-				}
-			}
-		},
-		data: [{
-			value: [80, 90,70,60,66],
-			name: 'zidane',
-			areaStyle: {
-				normal: {
-					color: 'rgba(200, 102, 99,0.7)' //能力覆盖区域颜色
-				}
-			}
-		},
-		{
-			value: [77, 88, 80 , 70 , 60],
-			name: 'kfzx',
-			areaStyle: {
-				normal: {
-					color: 'rgba(200, 102, 99,0.7)' //能力覆盖区域颜色
-				}
-			}
-		}
-		
-		]
-	}]
-};
-myChart.setOption(option); //设置雷达图
 
 //球员能力对象,记录所有的能力   
 var ability = {
@@ -426,38 +492,16 @@ var ability = {
 
 // ajax的post方法:
 // 确认提交方法，调用A2接口
-function LoginPost() {
+function GetPlayerData(player1, player2) {
 	$.ajax({
 		//提交数据的类型 POST GET
 		type: "POST",
 		//提交的网址
-		url: clubserver.URL + "A2UpdatePlayer",
+		url: clubserver.URL + "A3GetPlayerData",
 		//提交的数据
 		data: {
-			joinleague: joinLeague,
-			playername: playername,
-			totalabi: ability.totalabi,
-			body_abi: ability.body_abi,
-			tech_abi: ability.tech_abi,
-			spec_abi: ability.spec_abi,
-			attack_abi: ability.attack_abi,
-			defence_abi: ability.defence_abi,
-			speed: ability.speed,
-			strength: ability.strength,
-			stamina: ability.stamina,
-			health: ability.health,
-			passing: ability.passing,
-			touching: ability.touching,
-			dribbling: ability.dribbling,
-			heading: ability.heading,
-			minding: ability.minding,
-			rating: ability.rating,
-			shoot: ability.shoot,
-			offtheball: ability.offtheball,
-			creativity: ability.creativity,
-			taking: ability.taking,
-			marking: ability.marking,
-			positioning: ability.positioning
+			player1: player1,
+			player2: player2,
 
 		},
 		//返回数据的格式
@@ -468,47 +512,17 @@ function LoginPost() {
 		},
 		//成功返回之后调用的函数            
 		success: function(data) {
-			try {
-				setTimeout(function() {
-					opacityvalue = 1;
-					$("#submitResultDesc").css({
-						'opacity': 1
-					});
-					$("#submitResultDesc").html("恭喜！您的数据已登记!");
-					$("#submitResultDesc").css({
-						'color': 'green'
-					});
-
-				}, 2000);
-
-				setTimeout(cleanTips, 6000);
-			} catch (e) {
-				$("#submitResultDesc").html("发生错误，您的数据未登记，请联系【开发团队】->右上角!");
-				$("#submitResultDesc").css({
-					'color': 'red',
-					'opacity': 1
-				});
-			}
+			console.log('成功返回playerabi数据');
 		},
 		//调用执行后调用的函数
 		complete: function(XMLHttpRequest, textStatus) {
 			//alert(XMLHttpRequest.responseText); //XMLHttpRequest.responseText是返回的信息，用这个来放JSON数据
 			try {
-				$("#submitResultDesc").html("提交成功! 后台处理中...");
-				$("#submitResultDesc").css({
-					'color': 'green'
-				});
-				opacityvalue = 1;
-				$("#submitResultDesc").css({
-					'opacity': 1
-				});
-				setTimeout(cleanTips, 1000);
+				var jsonObject = JSON.parse(XMLHttpRequest.responseText);
+				console.log(XMLHttpRequest.responseText);
 			} catch (e) {
-				$("#submitResultDesc").html("提交失败！请联系【开发团队】->右上角!");
-				$("#submitResultDesc").css({
-					'color': 'red',
-					'opacity': 1
-				});
+				console.log("error=" + e.message);
+				console.log("compareabi.js成功返回信息=>" + XMLHttpRequest.responseText + "\n=>无法转换为JSON");
 			}
 			// HideLoading();
 		},

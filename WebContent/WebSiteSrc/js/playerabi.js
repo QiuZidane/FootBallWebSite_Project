@@ -369,7 +369,7 @@ function AjaxPost(name) {
 		},
 		//成功返回之后调用的函数            
 		success: function(data) {
-			console.log('成功返回数据');
+			console.log('成功返回playerabi数据');
 		},
 		//调用执行后调用的函数
 		complete: function(XMLHttpRequest, textStatus) {
