@@ -11,9 +11,13 @@
  *********************************/
 
 /*
- *  ========== 全局变量定义开始 ==========  
+ *  ========== 变量定义开始 ==========  
  */
 
+
+var playerArray = new Array();	//球员属性数组 每个值存放一个球员属性对象
+
+//echart属性
 var totalAbilityChart = echarts.init(document.getElementById('highchart_abbsdiv'));
 var bodyChart = echarts.init(document.getElementById('body_abbsdiv'));
 var techChart = echarts.init(document.getElementById('tech_abbsdiv'));
@@ -81,7 +85,7 @@ function submitCompare() {
 }
 
 /*
- *  ========== 全局变量定义结束 ==========  
+ *  ========== 变量定义结束 ==========  
  */
 
 // 总体实力图
@@ -461,7 +465,8 @@ attackChart.setOption(attackChart_option);
 defenceChart.setOption(defenceChart_option);
 
 //球员能力对象,记录所有的能力   
-var ability = {
+var playerData = {
+	playername:"empty",
 	//大项:
 	totalabi: 50, //总实力
 	body_abi: 50, //体质能力
@@ -486,7 +491,9 @@ var ability = {
 	creativity: 50, //创造力
 	taking: 50, //抢断
 	marking: 50, //盯人
-	positioning: 50 //防守站位
+	positioning: 50, //防守站位
+	
+	department:"empty"//部门
 
 }
 
@@ -519,7 +526,16 @@ function GetPlayerData(player1, player2) {
 			//alert(XMLHttpRequest.responseText); //XMLHttpRequest.responseText是返回的信息，用这个来放JSON数据
 			try {
 				var jsonObject = JSON.parse(XMLHttpRequest.responseText);
-				console.log(XMLHttpRequest.responseText);
+				var arraylength = 0;
+				for (var key in jsonObject) {
+					playerData.playername = key;
+					var playObject = jsonObject[key];	// 取出对应的属性JSON
+					playerData.department = playObject["department"];
+					playerArray[arraylength++] = playerData;
+//					console.log(playerArray[0].playername);
+//					console.log(playerArray[0].department);
+				}
+				
 			} catch (e) {
 				console.log("error=" + e.message);
 				console.log("compareabi.js成功返回信息=>" + XMLHttpRequest.responseText + "\n=>无法转换为JSON");
