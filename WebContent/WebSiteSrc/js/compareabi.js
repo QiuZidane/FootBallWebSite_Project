@@ -1,7 +1,7 @@
 /********************************
  *  作者：kfzx-qiusd 
  *  说明：
- * 		1、点击能力pk页面后调用A3接口获取一次全量数据，赋值给本地变量
+ * 		1、点击能力pk页面后调用A3接口获取一次全量数据，赋值给本地数组变量-playerArray
  * 		2、赋值后更新球员1和球员2的列表，生成所有可选球员
  * 		3、点击对比按钮后查询A4接口获取球员1和2的数据，赋值给本地变量
  * 		4、本地变量生成各图表
@@ -10,12 +10,7 @@
  * 
  *********************************/
 
-/*
- *  ========== 变量定义开始 ==========  
- */
-
-
-var playerArray = new Array();	//球员属性数组 每个值存放一个球员属性对象
+var playerArray = new Array(); //球员属性数组 存放一个个的球员属性对象(playerData)
 
 //echart属性
 var totalAbilityChart = echarts.init(document.getElementById('highchart_abbsdiv'));
@@ -40,6 +35,72 @@ var player2select = document.getElementById("player2list");
 player2select.addEventListener('click', selectplayer2, false);
 var comparebutton = $('#compareBTN').click(submitCompare);
 //comparebutton.addEventListener('click',submitCompare, false);
+
+////球员能力对象,记录所有的能力   
+//var playerData = {
+//	playername: "empty",
+//	//大项:
+//	totalabi: 50, //总实力
+//	body_abi: 50, //体质能力
+//	tech_abi: 50, //技术能力
+//	spec_abi: 50, //特殊能力
+//	attack_abi: 50, //进攻能力
+//	defence_abi: 50, //防守能力
+//	//细项:
+//	speed: 50, //速度
+//	strength: 50, //强壮
+//	stamina: 50, //体能
+//	health: 50, //受伤抗性
+//	passing: 50, //传球
+//	touching: 50, //停球
+//	dribbling: 50, //盘带
+//	heading: 50, //头球
+//	minding: 50, //意志力
+//	rating: 50, //出勤率
+//	rating: 50, //团队意识
+//	shoot: 50, //射门
+//	offtheball: 50, //跑位
+//	creativity: 50, //创造力
+//	taking: 50, //抢断
+//	marking: 50, //盯人
+//	positioning: 50, //防守站位
+//
+//	department: "empty" //部门
+//
+//}
+
+//球员能力对象,记录所有的能力   
+function playerData() {
+	this.playername = "empty";
+	//大项:
+	this.totalabi = 50; //总实力
+	this.body_abi = 50; //体质能力
+	this.tech_abi = 50; //技术能力
+	this.spec_abi = 50; //特殊能力
+	this.attack_abi = 50; //进攻能力
+	this.defence_abi = 50; //防守能力
+	//细项=
+	this.speed = 50; //速度
+	this.strength = 50; //强壮
+	this.stamina = 50; //体能
+	this.health = 50; //受伤抗性
+	this.passing = 50; //传球
+	this.touching = 50; //停球
+	this.dribbling = 50; //盘带
+	this.heading = 50; //头球
+	this.minding = 50; //意志力
+	this.rating = 50; //出勤率
+	this.rating = 50; //团队意识
+	this.shoot = 50; //射门
+	this.offtheball = 50; //跑位
+	this.creativity = 50; //创造力
+	this.taking = 50; //抢断
+	this.marking = 50; //盯人
+	this.positioning = 50; //防守站位
+
+	this.department = "empty"; //部门
+
+}
 
 //实现点击部门list后更新部门button的文字
 function selectplayer1(event) {
@@ -70,10 +131,15 @@ function submitCompare() {
 		interaltime = parseInt(lefttime % 60);
 	}
 	console.log(name1 + " vs " + name2);
-	//	descmodal
-	if (name1.indexOf("选择球员") > 0 || name2.indexOf("选择球员") > 0) { // 未选择球员
+	//	descmodal	
+	var names = name1 + name2;
+	console.log(names);
+	if (names.indexOf("选择球员") > 0) { // 未选择球员
 		$('#descmodal').modal('show');
-	} else if (interaltime < 10) { // 提交建个小于10秒
+	} else if (names.indexOf("广州测试部") > 0 || names.indexOf("支持部") > 0 || names.indexOf("开发") > 0 || names.indexOf("研发部") > 0 || names.indexOf("其他机构") > 0) { // 选择了部门名 -- 不生效，待查
+		$('#myModalLabel').html('球员选择有误，请重新选择！');
+		$('#descmodal').modal('show');
+	} else if (interaltime < 2) { // 提交建个小于10秒
 		$('#myModalLabel').html('为降低服务器压力，请不要在10秒内重复提交，谢谢！');
 		$('#descmodal').modal('show');
 	} else {
@@ -84,11 +150,66 @@ function submitCompare() {
 
 }
 
-/*
- *  ========== 变量定义结束 ==========  
- */
+function setPlayerList(dataarray) {
+	// 格式:
+	// <li role="presentation" class="dropdown-header">部门</li>
+	// <li><a href="#">名字1</a></li>
+	// <li><a href="#">名字2</a></li>
+	// <li role="presentation" class="divider"></li>
+	for (var i = 0; i < dataarray.length; i++) {
+//		console.log(dataarray[i]);
+		switch (dataarray[i].department) {
+			case '广州测试部':
+				setList('广州测试部');
+				break;
+			case '广州研发支持部':
+				setList('广州研发支持部');
+				break;
+			case '广州海外支持部':
+				setList('广州海外支持部');
+				break;
 
-// 总体实力图
+			case '广州开发一部':
+				setList('广州开发一部');
+				break;
+			case '广州开发二部':
+				setList('广州开发二部');
+				break;
+			case '广州开发三部':
+				setList('广州开发三部');
+				break;
+			case '广州开发四部':
+				setList('广州开发四部');
+				break;
+			case '广州行政部':
+				setList('广州行政部');
+				break;
+			case '珠海研发部':
+				setList('珠海研发部');
+				break;
+			case '北京研发部':
+				setList('北京研发部');
+				break;
+			case '上海研发部':
+				setList('上海研发部');
+				break;
+			case '杭州研发部':
+				setList('杭州研发部');
+				break;
+			default:
+				setList(其他机构);
+		}
+		//		console.log("department=:" + dataarray[data].department);
+	}
+	function setList(department){
+		console.log(department);
+	}
+	var department_li = document.createElement('li');
+	//	department_li.innerHTML
+
+}
+
+// 总体实力图参数
 var totalAbilityChart_option = {
 	title: {
 		//      text: '基础雷达图'
@@ -464,39 +585,6 @@ specChart.setOption(specChart_option);
 attackChart.setOption(attackChart_option);
 defenceChart.setOption(defenceChart_option);
 
-//球员能力对象,记录所有的能力   
-var playerData = {
-	playername:"empty",
-	//大项:
-	totalabi: 50, //总实力
-	body_abi: 50, //体质能力
-	tech_abi: 50, //技术能力
-	spec_abi: 50, //特殊能力
-	attack_abi: 50, //进攻能力
-	defence_abi: 50, //防守能力
-	//细项:
-	speed: 50, //速度
-	strength: 50, //强壮
-	stamina: 50, //体能
-	health: 50, //受伤抗性
-	passing: 50, //传球
-	touching: 50, //停球
-	dribbling: 50, //盘带
-	heading: 50, //头球
-	minding: 50, //意志力
-	rating: 50, //出勤率
-	rating: 50, //团队意识
-	shoot: 50, //射门
-	offtheball: 50, //跑位
-	creativity: 50, //创造力
-	taking: 50, //抢断
-	marking: 50, //盯人
-	positioning: 50, //防守站位
-	
-	department:"empty"//部门
-
-}
-
 // ajax的post方法:
 // 确认提交方法，调用A2接口
 function GetPlayerData(player1, player2) {
@@ -528,14 +616,22 @@ function GetPlayerData(player1, player2) {
 				var jsonObject = JSON.parse(XMLHttpRequest.responseText);
 				var arraylength = 0;
 				for (var key in jsonObject) {
-					playerData.playername = key;
-					var playObject = jsonObject[key];	// 取出对应的属性JSON
-					playerData.department = playObject["department"];
-					playerArray[arraylength++] = playerData;
-//					console.log(playerArray[0].playername);
-//					console.log(playerArray[0].department);
+					var pD = new playerData()
+					pD.playername = key;
+					var playObject = jsonObject[key]; // 取出对应的属性JSON
+					pD.department = playObject["department"];
+					playerArray[arraylength++] = pD;
+					//					console.log(playerArray[arraylength].playername);
+					//					console.log(playerArray[arraylength].department);
+
 				}
+				//				for (data in playerArray) {
+				//					console.log(playerArray[data].department);
+				//				}
 				
+				setPlayerList(playerArray);
+				
+
 			} catch (e) {
 				console.log("error=" + e.message);
 				console.log("compareabi.js成功返回信息=>" + XMLHttpRequest.responseText + "\n=>无法转换为JSON");

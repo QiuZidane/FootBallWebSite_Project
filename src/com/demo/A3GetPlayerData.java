@@ -34,7 +34,7 @@ public class A3GetPlayerData extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8");
 		String remotehost = request.getRemoteHost();
 		System.out.println(remotehost+":请求所有球员数据");						
-		String jsonStr = createData(100);
+		String jsonStr = createData(10);
 
 		PrintWriter out = response.getWriter();
 		out.flush();
