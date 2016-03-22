@@ -53,7 +53,6 @@ var playerDept = {
 	dep13: [] //其他机构
 }
 
-
 //球员能力对象,记录所有的能力   
 function playerData() {
 	this.playername = "empty";
@@ -136,13 +135,8 @@ function submitCompare() {
 }
 
 function setPlayerList(dataarray) {
-	// 格式:
-	// <li role="presentation" class="dropdown-header">部门名</li>
-	// <li><a href="#">名字1</a></li>
-	// <li><a href="#">名字2</a></li>
-	// <li role="presentation" class="divider"></li>	//分割线
 	for (var i = 0; i < dataarray.length; i++) {
-		console.log("department=:" + dataarray[i].department + "name=:" + dataarray[i].playername);
+		console.log("department=" + dataarray[i].department + " name=" + dataarray[i].playername);
 		switch (dataarray[i].department) {
 			case '广州测试部':
 				playerDept.dep1.push(dataarray[i].playername);
@@ -186,32 +180,75 @@ function setPlayerList(dataarray) {
 
 	}
 
-	for (dep in playerDept) {
-		//		console.log("length=" + playerDept[dep].length);
-		console.log(playerDept[dep][0]);
+	//	for (dep in playerDept) {
+	//		//		console.log("length=" + playerDept[dep].length);		
+	//		for ( dept in playerDept[dep]) {
+	//			console.log(playerDept[dep][dept]);
+	//		}
+	//		console.log("======");
+	//		
+	//	}
+
+	var Fragment1 = document.createDocumentFragment();
+	var Fragment2 = document.createDocumentFragment();
+	setList('广州测试部', playerDept.dep1, Fragment1);
+	setList('广州研发支持部', playerDept.dep2, Fragment1);
+	setList('广州海外支持部', playerDept.dep3, Fragment1);
+	setList('广州开发一部', playerDept.dep4, Fragment1);
+	setList('广州开发二部', playerDept.dep5, Fragment1);
+	setList('广州开发三部', playerDept.dep6, Fragment1);
+	setList('广州开发四部', playerDept.dep7, Fragment1);
+	setList('广州行政部', playerDept.dep8, Fragment1);
+	setList('珠海研发部', playerDept.dep9, Fragment1);
+	setList('北京研发部', playerDept.dep10, Fragment1);
+	setList('上海研发部', playerDept.dep11, Fragment1);
+	setList('杭州研发部', playerDept.dep12, Fragment1);
+	setList('其他机构', playerDept.dep13, Fragment1);
+
+	setList('广州测试部', playerDept.dep1, Fragment2);
+	setList('广州研发支持部', playerDept.dep2, Fragment2);
+	setList('广州海外支持部', playerDept.dep3, Fragment2);
+	setList('广州开发一部', playerDept.dep4, Fragment2);
+	setList('广州开发二部', playerDept.dep5, Fragment2);
+	setList('广州开发三部', playerDept.dep6, Fragment2);
+	setList('广州开发四部', playerDept.dep7, Fragment2);
+	setList('广州行政部', playerDept.dep8, Fragment2);
+	setList('珠海研发部', playerDept.dep9, Fragment2);
+	setList('北京研发部', playerDept.dep10, Fragment2);
+	setList('上海研发部', playerDept.dep11, Fragment2);
+	setList('杭州研发部', playerDept.dep12, Fragment2);
+	setList('其他机构', playerDept.dep13, Fragment2);
+
+	document.getElementById('player1list').appendChild(Fragment1);
+	document.getElementById('player2list').appendChild(Fragment2);
+
+	function setList(departmentname, playerarr, oFragment) {
+		// 格式:
+		// <li role="presentation" class="dropdown-header">部门名</li>
+		// <li><a href="#">名字1</a></li>
+		// <li><a href="#">名字2</a></li>
+		// <li role="presentation" class="divider"></li>	//分割线
+		//		var oFragment = document.createDocumentFragment();
+		if (playerarr.length > 0) {
+			var department_li = document.createElement('li');
+			department_li.innerHTML = departmentname;
+			department_li.setAttribute('role', 'presentation'); // role="presentation"
+			department_li.setAttribute('class', 'dropdown-header'); // class="dropdown-header"
+			oFragment.appendChild(department_li);
+			for (var i = 0; i < playerarr.length; i++) {
+				var player_li = document.createElement('li');
+				var player_a = document.createElement('a');
+				player_a.setAttribute('href', '#');
+				player_a.innerHTML = playerarr[i];
+				player_li.appendChild(player_a);
+				oFragment.appendChild(player_li);
+			}
+			var dividerline = document.createElement('li');
+			dividerline.setAttribute('role', 'presentation'); // role="presentation"
+			dividerline.setAttribute('class', 'divider'); // class="dropdown-header"
+			oFragment.appendChild(dividerline);
+		}
 	}
-
-	function setList(department) {
-		//		console.log(department);
-		var oFragment = document.createDocumentFragment();
-		var department_li = document.createElement('li');
-		department_li.innerHTML = department;
-		department_li.setAttribute('role', 'presentation'); // role="presentation"
-		department_li.setAttribute('class', 'dropdown-header'); // class="dropdown-header"
-
-
-		newli.setAttribute('name', text);
-		newli.setAttribute('class', 'list-group-item');
-		newli.setAttribute('id', 'list' + (listitem.length + 1));
-		newli.setAttribute('href', address);
-
-
-		parentlist.appendChild(oFragment);
-
-	}
-
-	//	department_li.innerHTML
-
 }
 
 // 总体实力图参数
@@ -590,8 +627,7 @@ specChart.setOption(specChart_option);
 attackChart.setOption(attackChart_option);
 defenceChart.setOption(defenceChart_option);
 
-// ajax的post方法:
-// 确认提交方法，调用A2接口
+// ajax 获取两个球员的属性 
 function GetPlayerData(player1, player2) {
 	$.ajax({
 		//提交数据的类型 POST GET
@@ -634,8 +670,63 @@ function GetPlayerData(player1, player2) {
 				//					console.log(playerArray[data].department);
 				//				}
 
-				setPlayerList(playerArray);
+				//				setPlayerList(playerArray);
 
+			} catch (e) {
+				console.log("error=" + e.message);
+				console.log("compareabi.js成功返回信息=>" + XMLHttpRequest.responseText + "\n=>无法转换为JSON");
+			}
+			// HideLoading();
+		},
+		//调用出错执行的函数
+		error: function() {
+			//请求出错处理
+		}
+	});
+}
+
+// ajax 获取所有球员的属性，进入页面时获取一次，生成球员列表 
+function GetAllPlayerData() {
+	$.ajax({
+		//提交数据的类型 POST GET
+		type: "POST",
+		//提交的网址
+		url: clubserver.URL + "A3GetPlayerData",
+		//提交的数据
+		data: {
+
+		},
+		//返回数据的格式
+		datatype: "html", //"xml", "html", "script", "json", "jsonp", "text".
+		//在请求之前调用的函数
+		beforeSend: function() {
+			// $("#msg").html("logining");
+		},
+		//成功返回之后调用的函数            
+		success: function(data) {
+			console.log('成功返回playerabi数据');
+		},
+		//调用执行后调用的函数
+		complete: function(XMLHttpRequest, textStatus) {
+			//alert(XMLHttpRequest.responseText); //XMLHttpRequest.responseText是返回的信息，用这个来放JSON数据
+			try {
+				var jsonObject = JSON.parse(XMLHttpRequest.responseText);
+				var arraylength = 0;
+				for (var key in jsonObject) {
+					var pD = new playerData()
+					pD.playername = key;
+					var playObject = jsonObject[key]; // 取出对应的属性JSON
+					pD.department = playObject["department"];
+					playerArray[arraylength++] = pD;
+					//					console.log(playerArray[arraylength].playername);
+					//					console.log(playerArray[arraylength].department);
+
+				}
+				//				for (data in playerArray) {
+				//					console.log(playerArray[data].department);
+				//				}
+
+				setPlayerList(playerArray);
 
 			} catch (e) {
 				console.log("error=" + e.message);

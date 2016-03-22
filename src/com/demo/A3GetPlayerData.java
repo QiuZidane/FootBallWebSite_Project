@@ -34,7 +34,7 @@ public class A3GetPlayerData extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8");
 		String remotehost = request.getRemoteHost();
 		System.out.println(remotehost+":请求所有球员数据");						
-		String jsonStr = createData(10);
+		String jsonStr = createData(100);
 
 		PrintWriter out = response.getWriter();
 		out.flush();
@@ -64,7 +64,17 @@ public class A3GetPlayerData extends HttpServlet {
 		for (int i = 0 ; i<totalplayers; i++) {
 			String name = "player"+ i; 
 			String department = "";
-			if (i%6==0){
+			if (i%11==0){
+				department="广州测试部";
+			}else if (i%23==0){
+				department="其他机构";
+			}else if (i%33==0){
+				department="广州海外支持部";
+			}else if (i%13==0){
+				department="广州研发支持部";
+			}else if (i%16==0){
+				department="北京研发部";
+			}else if (i%6==0){
 				department="广州测试部";
 			} else if(i%2==0) {
 				department="广州开发一部";
