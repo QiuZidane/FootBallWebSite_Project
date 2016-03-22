@@ -36,38 +36,23 @@ player2select.addEventListener('click', selectplayer2, false);
 var comparebutton = $('#compareBTN').click(submitCompare);
 //comparebutton.addEventListener('click',submitCompare, false);
 
-////球员能力对象,记录所有的能力   
-//var playerData = {
-//	playername: "empty",
-//	//大项:
-//	totalabi: 50, //总实力
-//	body_abi: 50, //体质能力
-//	tech_abi: 50, //技术能力
-//	spec_abi: 50, //特殊能力
-//	attack_abi: 50, //进攻能力
-//	defence_abi: 50, //防守能力
-//	//细项:
-//	speed: 50, //速度
-//	strength: 50, //强壮
-//	stamina: 50, //体能
-//	health: 50, //受伤抗性
-//	passing: 50, //传球
-//	touching: 50, //停球
-//	dribbling: 50, //盘带
-//	heading: 50, //头球
-//	minding: 50, //意志力
-//	rating: 50, //出勤率
-//	rating: 50, //团队意识
-//	shoot: 50, //射门
-//	offtheball: 50, //跑位
-//	creativity: 50, //创造力
-//	taking: 50, //抢断
-//	marking: 50, //盯人
-//	positioning: 50, //防守站位
-//
-//	department: "empty" //部门
-//
-//}
+//部门-球员登记   
+var playerDept = {
+	dep1: [], //广州测试部 
+	dep2: [], //广州研发支持部
+	dep3: [], // 广州海外支持部
+	dep4: [], //广州开发一部
+	dep5: [], //广州开发二部
+	dep6: [], //广州开发三部
+	dep7: [], //广州开发四部
+	dep8: [], //广州行政部
+	dep9: [], //珠海研发部
+	dep10: [], //北京研发部
+	dep11: [], //上海研发部
+	dep12: [], //杭州研发部
+	dep13: [] //其他机构
+}
+
 
 //球员能力对象,记录所有的能力   
 function playerData() {
@@ -152,59 +137,79 @@ function submitCompare() {
 
 function setPlayerList(dataarray) {
 	// 格式:
-	// <li role="presentation" class="dropdown-header">部门</li>
+	// <li role="presentation" class="dropdown-header">部门名</li>
 	// <li><a href="#">名字1</a></li>
 	// <li><a href="#">名字2</a></li>
-	// <li role="presentation" class="divider"></li>
+	// <li role="presentation" class="divider"></li>	//分割线
 	for (var i = 0; i < dataarray.length; i++) {
-//		console.log(dataarray[i]);
+		console.log("department=:" + dataarray[i].department + "name=:" + dataarray[i].playername);
 		switch (dataarray[i].department) {
 			case '广州测试部':
-				setList('广州测试部');
+				playerDept.dep1.push(dataarray[i].playername);
 				break;
 			case '广州研发支持部':
-				setList('广州研发支持部');
+				playerDept.dep2.push(dataarray[i].playername);
 				break;
 			case '广州海外支持部':
-				setList('广州海外支持部');
+				playerDept.dep3.push(dataarray[i].playername);
 				break;
-
 			case '广州开发一部':
-				setList('广州开发一部');
+				playerDept.dep4.push(dataarray[i].playername);
 				break;
 			case '广州开发二部':
-				setList('广州开发二部');
+				playerDept.dep5.push(dataarray[i].playername);
 				break;
 			case '广州开发三部':
-				setList('广州开发三部');
+				playerDept.dep6.push(dataarray[i].playername);
 				break;
 			case '广州开发四部':
-				setList('广州开发四部');
+				playerDept.dep7.push(dataarray[i].playername);
 				break;
 			case '广州行政部':
-				setList('广州行政部');
+				playerDept.dep8.push(dataarray[i].playername);
 				break;
 			case '珠海研发部':
-				setList('珠海研发部');
+				playerDept.dep9.push(dataarray[i].playername);
 				break;
 			case '北京研发部':
-				setList('北京研发部');
+				playerDept.dep10.push(dataarray[i].playername);
 				break;
 			case '上海研发部':
-				setList('上海研发部');
+				playerDept.dep11.push(dataarray[i].playername);
 				break;
 			case '杭州研发部':
-				setList('杭州研发部');
+				playerDept.dep12.push(dataarray[i].playername);
 				break;
 			default:
-				setList(其他机构);
+				playerDept.dep13.push(dataarray[i].playername);
 		}
-		//		console.log("department=:" + dataarray[data].department);
+
 	}
-	function setList(department){
-		console.log(department);
+
+	for (dep in playerDept) {
+		//		console.log("length=" + playerDept[dep].length);
+		console.log(playerDept[dep][0]);
 	}
-	var department_li = document.createElement('li');
+
+	function setList(department) {
+		//		console.log(department);
+		var oFragment = document.createDocumentFragment();
+		var department_li = document.createElement('li');
+		department_li.innerHTML = department;
+		department_li.setAttribute('role', 'presentation'); // role="presentation"
+		department_li.setAttribute('class', 'dropdown-header'); // class="dropdown-header"
+
+
+		newli.setAttribute('name', text);
+		newli.setAttribute('class', 'list-group-item');
+		newli.setAttribute('id', 'list' + (listitem.length + 1));
+		newli.setAttribute('href', address);
+
+
+		parentlist.appendChild(oFragment);
+
+	}
+
 	//	department_li.innerHTML
 
 }
@@ -628,9 +633,9 @@ function GetPlayerData(player1, player2) {
 				//				for (data in playerArray) {
 				//					console.log(playerArray[data].department);
 				//				}
-				
+
 				setPlayerList(playerArray);
-				
+
 
 			} catch (e) {
 				console.log("error=" + e.message);
