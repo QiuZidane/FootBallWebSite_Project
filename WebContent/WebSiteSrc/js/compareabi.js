@@ -129,7 +129,7 @@ function submitCompare() {
 	} else {
 		var submittime = new Date;
 		localStorage.setItem('lastsubmittime', submittime.getTime());
-		GetPlayerData(name1, name1);
+		GetPlayerData(name1, name2);
 	}
 
 }
@@ -628,16 +628,17 @@ attackChart.setOption(attackChart_option);
 defenceChart.setOption(defenceChart_option);
 
 // ajax 获取两个球员的属性 
-function GetPlayerData(player1, player2) {
+// A4接口
+function GetPlayerData(name1, name2) {
 	$.ajax({
 		//提交数据的类型 POST GET
 		type: "POST",
 		//提交的网址
-		url: clubserver.URL + "A3GetPlayerData",
+		url: clubserver.URL + "A4CompareData",
 		//提交的数据
 		data: {
-			player1: player1,
-			player2: player2,
+			player1: name1,
+			player2: name2,
 
 		},
 		//返回数据的格式
@@ -654,23 +655,61 @@ function GetPlayerData(player1, player2) {
 		complete: function(XMLHttpRequest, textStatus) {
 			//alert(XMLHttpRequest.responseText); //XMLHttpRequest.responseText是返回的信息，用这个来放JSON数据
 			try {
-				var jsonObject = JSON.parse(XMLHttpRequest.responseText);
-				var arraylength = 0;
-				for (var key in jsonObject) {
-					var pD = new playerData()
-					pD.playername = key;
-					var playObject = jsonObject[key]; // 取出对应的属性JSON
-					pD.department = playObject["department"];
-					playerArray[arraylength++] = pD;
-					//					console.log(playerArray[arraylength].playername);
-					//					console.log(playerArray[arraylength].department);
-
-				}
-				//				for (data in playerArray) {
-				//					console.log(playerArray[data].department);
-				//				}
-
-				//				setPlayerList(playerArray);
+				var jsonObject = JSON.parse(XMLHttpRequest.responseText);				
+				var data1 = jsonObject[name1];
+				var data2 = jsonObject[name2];
+				var player1 = new playerData();
+				var player2 = new playerData();
+				player1.totalabi = data1.totalabi;
+				player1.body_abi = data1.body_abi;
+				player1.tech_abi = data1.tech_abi;
+				player1.spec_abi = data1.spec_abi;
+				player1.attack_abi = data1.attack_abi;
+				player1.defence_abi = data1.defence_abi;
+				player1.speed = data1.speed;
+				player1.strength = data1.strength;
+				player1.stamina = data1.stamina;
+				player1.health = data1.health;
+				player1.passing = data1.passing;
+				player1.touching = data1.touching;
+				player1.dribbling = data1.dribbling;
+				player1.heading = data1.heading;
+				player1.minding = data1.minding;
+				player1.rating = data1.rating;
+				player1.shoot = data1.shoot;
+				player1.offtheball = data1.offtheball;
+				player1.creativity = data1.creativity;
+				player1.taking = data1.taking;
+				player1.marking = data1.marking;
+				player1.positioning = data1.positioning;
+				
+				player2.totalabi = data2.totalabi;
+				player2.body_abi = data2.body_abi;
+				player2.tech_abi = data2.tech_abi;
+				player2.spec_abi = data2.spec_abi;
+				player2.attack_abi = data2.attack_abi;
+				player2.defence_abi = data2.defence_abi;
+				player2.speed = data2.speed;
+				player2.strength = data2.strength;
+				player2.stamina = data2.stamina;
+				player2.health = data2.health;
+				player2.passing = data2.passing;
+				player2.touching = data2.touching;
+				player2.dribbling = data2.dribbling;
+				player2.heading = data2.heading;
+				player2.minding = data2.minding;
+				player2.rating = data2.rating;
+				player2.shoot = data2.shoot;
+				player2.offtheball = data2.offtheball;
+				player2.creativity = data2.creativity;
+				player2.taking = data2.taking;
+				player2.marking = data2.marking;
+				player2.positioning = data2.positioning;
+				
+				
+				console.log(player1);
+				console.log(player2);
+				
 
 			} catch (e) {
 				console.log("error=" + e.message);
