@@ -258,7 +258,7 @@ var totalAbilityChart_option = {
 	},
 	tooltip: {},
 	legend: {
-		//		data: ['zidane', 'kfzx'],
+		//				data: ['zidane', 'kfzx'],
 	},
 	radar: {
 		// shape: 'circle',
@@ -291,7 +291,7 @@ var totalAbilityChart_option = {
 
 	},
 	series: [{
-		name: 'zidane vs kfzx',
+		//		name: 'zidane vs kfzx',
 		type: 'radar',
 		// areaStyle: {normal: {}},
 		data: [{
@@ -655,11 +655,13 @@ function GetPlayerData(name1, name2) {
 		complete: function(XMLHttpRequest, textStatus) {
 			//alert(XMLHttpRequest.responseText); //XMLHttpRequest.responseText是返回的信息，用这个来放JSON数据
 			try {
-				var jsonObject = JSON.parse(XMLHttpRequest.responseText);				
+				var jsonObject = JSON.parse(XMLHttpRequest.responseText);
 				var data1 = jsonObject[name1];
 				var data2 = jsonObject[name2];
 				var player1 = new playerData();
 				var player2 = new playerData();
+
+				//继承后要改data的对象名:
 				player1.totalabi = data1.totalabi;
 				player1.body_abi = data1.body_abi;
 				player1.tech_abi = data1.tech_abi;
@@ -682,7 +684,7 @@ function GetPlayerData(name1, name2) {
 				player1.taking = data1.taking;
 				player1.marking = data1.marking;
 				player1.positioning = data1.positioning;
-				
+
 				player2.totalabi = data2.totalabi;
 				player2.body_abi = data2.body_abi;
 				player2.tech_abi = data2.tech_abi;
@@ -705,11 +707,62 @@ function GetPlayerData(name1, name2) {
 				player2.taking = data2.taking;
 				player2.marking = data2.marking;
 				player2.positioning = data2.positioning;
-				
-				
-				console.log(player1);
-				console.log(player2);
-				
+
+				//				console.log(player1);
+				//				console.log(player2);
+
+				//				console.log(totalAbilityChart_option.series[0].data[0].name);
+				//				console.log('====');
+				//				console.log(totalAbilityChart_option.series[0].data[0].value[0]);
+
+				//data[0]是第一个球员 data[1]是第二个球员
+				totalAbilityChart_option.series[0].data[0].name = name1;
+				totalAbilityChart_option.series[0].data[0].value[0] = player1.tech_abi;
+				totalAbilityChart_option.series[0].data[0].value[1] = player1.attack_abi;
+				totalAbilityChart_option.series[0].data[0].value[2] = player1.spec_abi;
+				totalAbilityChart_option.series[0].data[0].value[3] = player1.body_abi;
+				totalAbilityChart_option.series[0].data[0].value[4] = player1.defence_abi;
+
+				totalAbilityChart_option.series[0].data[1].name = name2;
+				totalAbilityChart_option.series[0].data[1].value[0] = player2.tech_abi;
+				totalAbilityChart_option.series[0].data[1].value[1] = player2.attack_abi;
+				totalAbilityChart_option.series[0].data[1].value[2] = player2.spec_abi;
+				totalAbilityChart_option.series[0].data[1].value[3] = player2.body_abi;
+				totalAbilityChart_option.series[0].data[1].value[4] = player2.defence_abi;
+
+				totalAbilityChart.clear();
+				totalAbilityChart.setOption(totalAbilityChart_option);
+
+				bodyChart_option.series[0].name = name1;
+				bodyChart_option.series[0].data[0] = player1.health;
+				bodyChart_option.series[0].data[1] = player1.stamina;
+				bodyChart_option.series[0].data[2] = player1.strength;
+				bodyChart_option.series[0].data[3] = player1.speed;
+
+				bodyChart_option.series[1].name = name2;
+				bodyChart_option.series[1].data[0] = player2.health;
+				bodyChart_option.series[1].data[1] = player2.stamina;
+				bodyChart_option.series[1].data[2] = player2.strength;
+				bodyChart_option.series[1].data[3] = player2.speed;
+
+				bodyChart.clear();
+				bodyChart.setOption(bodyChart_option);
+
+				techChart_option.series[0].name = name1;
+				techChart_option.series[0].data[0] = player1.heading;
+				techChart_option.series[0].data[1] = player1.dribbling;
+				techChart_option.series[0].data[2] = player1.touching;
+				techChart_option.series[0].data[3] = player1.passing;
+
+				techChart_option.series[1].name = name2;
+				techChart_option.series[1].data[0] = player2.heading;
+				techChart_option.series[1].data[1] = player2.dribbling;
+				techChart_option.series[1].data[2] = player2.touching;
+				techChart_option.series[1].data[3] = player2.passing;
+
+				techChart.clear(); //要先清空对象属性再设置，否则有些信息无法更新
+				techChart.setOption(techChart_option);
+
 
 			} catch (e) {
 				console.log("error=" + e.message);
