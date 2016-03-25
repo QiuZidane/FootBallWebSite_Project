@@ -74,7 +74,7 @@ function playerData() {
 	this.heading = 50; //头球
 	this.minding = 50; //意志力
 	this.rating = 50; //出勤率
-	this.rating = 50; //团队意识
+	this.teamwork = 50; //团队意识
 	this.shoot = 50; //射门
 	this.offtheball = 50; //跑位
 	this.creativity = 50; //创造力
@@ -678,6 +678,7 @@ function GetPlayerData(name1, name2) {
 				player1.heading = data1.heading;
 				player1.minding = data1.minding;
 				player1.rating = data1.rating;
+				player1.teamwork = data1.teamwork;
 				player1.shoot = data1.shoot;
 				player1.offtheball = data1.offtheball;
 				player1.creativity = data1.creativity;
@@ -701,6 +702,7 @@ function GetPlayerData(name1, name2) {
 				player2.heading = data2.heading;
 				player2.minding = data2.minding;
 				player2.rating = data2.rating;
+				player2.teamwork = data2.teamwork;
 				player2.shoot = data2.shoot;
 				player2.offtheball = data2.offtheball;
 				player2.creativity = data2.creativity;
@@ -762,6 +764,45 @@ function GetPlayerData(name1, name2) {
 
 				techChart.clear(); //要先清空对象属性再设置，否则有些信息无法更新
 				techChart.setOption(techChart_option);
+				
+				specChart_option.series[0].name = name1;
+				specChart_option.series[0].data[0] = player1.teamwork;
+				specChart_option.series[0].data[1] = player1.rating;
+				specChart_option.series[0].data[2] = player1.minding;
+
+				specChart_option.series[1].name = name2;
+				specChart_option.series[1].data[0] = player2.teamwork;
+				specChart_option.series[1].data[1] = player2.rating;
+				specChart_option.series[1].data[2] = player2.minding;
+
+				specChart.clear(); //要先清空对象属性再设置，否则有些信息无法更新
+				specChart.setOption(specChart_option);
+				
+				attackChart_option.series[0].name = name1;
+				attackChart_option.series[0].data[0] = player1.creativity;
+				attackChart_option.series[0].data[1] = player1.offtheball;
+				attackChart_option.series[0].data[2] = player1.shoot;
+
+				attackChart_option.series[1].name = name2;
+				attackChart_option.series[1].data[0] = player2.creativity;
+				attackChart_option.series[1].data[1] = player2.offtheball;
+				attackChart_option.series[1].data[2] = player2.shoot;
+
+				attackChart.clear(); //要先清空对象属性再设置，否则有些信息无法更新
+				attackChart.setOption(attackChart_option);
+				
+				defenceChart_option.series[0].name = name1;
+				defenceChart_option.series[0].data[0] = player1.positioning;
+				defenceChart_option.series[0].data[1] = player1.marking;
+				defenceChart_option.series[0].data[2] = player1.taking;
+
+				defenceChart_option.series[1].name = name2;
+				defenceChart_option.series[1].data[0] = player2.positioning;
+				defenceChart_option.series[1].data[1] = player2.marking;
+				defenceChart_option.series[1].data[2] = player2.taking;
+
+				defenceChart.clear(); //要先清空对象属性再设置，否则有些信息无法更新
+				defenceChart.setOption(defenceChart_option);
 
 
 			} catch (e) {
