@@ -123,8 +123,8 @@ function submitCompare() {
 	} else if (names.indexOf("广州测试部") > 0 || names.indexOf("支持部") > 0 || names.indexOf("开发") > 0 || names.indexOf("研发部") > 0 || names.indexOf("其他机构") > 0) { // 选择了部门名 -- 不生效，待查
 		$('#myModalLabel').html('球员选择有误，请重新选择！');
 		$('#descmodal').modal('show');
-	} else if (interaltime < 2) { // 提交建个小于10秒
-		$('#myModalLabel').html('为降低服务器压力，请不要在10秒内重复提交，谢谢！');
+	} else if (interaltime < 5) { // 提交建个小于5秒
+		$('#myModalLabel').html('为降低服务器压力，请不要在5秒内重复提交，谢谢！');
 		$('#descmodal').modal('show');
 	} else {
 		var submittime = new Date;
@@ -827,7 +827,7 @@ function GetAllPlayerData() {
 		url: clubserver.URL + "A3GetPlayerData",
 		//提交的数据
 		data: {
-
+			joinflag : 1
 		},
 		//返回数据的格式
 		datatype: "html", //"xml", "html", "script", "json", "jsonp", "text".
@@ -837,7 +837,7 @@ function GetAllPlayerData() {
 		},
 		//成功返回之后调用的函数            
 		success: function(data) {
-			console.log('成功返回playerabi数据');
+			console.log('成功返回数据-->compareabi.js');
 		},
 		//调用执行后调用的函数
 		complete: function(XMLHttpRequest, textStatus) {
@@ -845,19 +845,15 @@ function GetAllPlayerData() {
 			try {
 				var jsonObject = JSON.parse(XMLHttpRequest.responseText);
 				var arraylength = 0;
-				for (var key in jsonObject) {
+				var playerDataJson = jsonObject['playerlist'];
+				for (var key in playerDataJson) {
 					var pD = new playerData()
 					pD.playername = key;
-					var playObject = jsonObject[key]; // 取出对应的属性JSON
+					var playObject = playerDataJson[key]; // 取出对应的属性JSON
 					pD.department = playObject["department"];
 					playerArray[arraylength++] = pD;
-					//					console.log(playerArray[arraylength].playername);
-					//					console.log(playerArray[arraylength].department);
-
-				}
-				//				for (data in playerArray) {
-				//					console.log(playerArray[data].department);
-				//				}
+				
+				}		
 
 				setPlayerList(playerArray);
 

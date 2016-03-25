@@ -33,12 +33,41 @@ public class A3GetPlayerData extends HttpServlet {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setContentType("text/html; charset=utf-8");
 		String remotehost = request.getRemoteHost();
-		System.out.println(remotehost+":请求所有球员数据");						
-		String jsonStr = createData(100);
+		try {
+			
+			if (request.getParameter("joinflag").equals("0")){ // 获取球员数量
+				String retJsonStr = ""
+						+ "{\"retCode\" : \"0\","
+						+ "\"totalnum\" : \"99\"}";
 
-		PrintWriter out = response.getWriter();
-		out.flush();
-		out.write(jsonStr.toString());
+				PrintWriter out = response.getWriter();
+				out.flush();
+				out.write(retJsonStr.toString());
+				System.out.println(remotehost+":获取球员数量");
+				
+			} else if (request.getParameter("joinflag").equals("1")){ // 获取参加比赛的球员			
+				String jsonStr = createData(50);
+				String retJsonStr = ""
+						+ "{\"retCode\" : \"0\","
+						+ "\"totalnum\" : \"99\","
+						+ "\"playerlist\" : " + jsonStr
+						+ "}";			
+
+				PrintWriter out = response.getWriter();
+				out.flush();
+				out.write(retJsonStr.toString());
+				System.out.println(remotehost+":获取参加比赛的球员");
+			} else {
+				System.out.println(remotehost+":请求所有球员数据");
+			}
+			
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+			// TODO: handle exception
+		}
+		
+		
+		
 
 	}
 
