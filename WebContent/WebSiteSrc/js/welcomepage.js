@@ -79,4 +79,11 @@ $('#joinBtn').click(function(){
 	document.location.href = '../pages/loginNavigation.html';
 });
 
+// 背景图片变化功能
+var teambg = document.getElementById('teambg');
+function teamBgChange(){
+	
+}
+
+
 

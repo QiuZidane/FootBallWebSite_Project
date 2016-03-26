@@ -4,92 +4,103 @@
 *   cooperation xxx
 *   
 */
+
+
 /*******************************
 *
 *   下面是中间Div的css：middleDiv
 *
 /*******************************/
-.middleDiv {    
-    width: 1200px;
-    height: 800px;
-    /*background-color: rgba(230,230,230,0.3);*/
-    margin: 0 auto;
-    /*background: url(../img/teambg1.png) no-repeat center center;*/       
-    background: url(../img/fb2.jpg) no-repeat center center;      
 
+.middleDiv {
+	width: 1200px;
+	height: 800px;
+	/*background-color: rgba(230,230,230,0.3);*/
+	margin: 0 auto;
+	/*background: url(../img/teambg1.png) no-repeat center center;*/
+	background: url(../img/fb0.jpg) no-repeat center center;
 }
 
-
+#teambg {
+	float: left;
+	width: 600px;
+	height: 300px;
+	margin-top: 110px;
+	margin-left: 50px;
+	/*border: 1px solid rgb(51, 122, 183);*/
+	background: url(../img/t1.png) no-repeat center center;
+	opacity: 1;
+}
 
 #text_countdown {
-    float: left;
-    width: 750px;
-    height: 100px;
-    margin-top: 500px;
-    margin-left: 500px;
-    /*border: 2px solid rgb(51,122,183);*/
-    font-size:20px;
-    color: #ffffcc; /*rgb(51,122,183)*/
+	float: left;
+	width: 750px;
+	height: 100px;
+	margin-top: 80px;
+	margin-left: 550px;
+	/*border: 2px solid rgb(51,122,183);*/
+	font-size: 20px;
+	color: #ffffcc;
+	/*rgb(51,122,183)*/
 }
 
-
-
 #CDtime {
-    font-size:50px;
-    /*color: rgb(51,122,183);*/
-    text-align: center;   
-    margin-top: -10px; 
-    margin-left: -140px;
+	font-size: 50px;
+	/*color: rgb(51,122,183);*/
+	text-align: center;
+	margin-top: 0px;
+	margin-left: -200px;
 }
 
 #text_joins {
-    float: left;
-    width: 400px;
-    height: 100px;
-    margin-top: 10px;    
-    margin-left: 680px;
-    font-size:20px;
-    color: #ffffcc;
-    /*color: rgb(51,122,183);*/
-    /*border: 1px solid;*/
+	float: left;
+	width: 400px;
+	height: 100px;
+	margin-top: 20px;
+	margin-left: 700px;
+	font-size: 20px;
+	color: #ffffcc;
+	/*color: rgb(51,122,183);*/
+	/*border: 1px solid;*/
 }
 
 #CDjoins {
-    display: inline-block;
-    font-size:45px;
-    /*color: rgb(51,122,183);*/
-    text-align: center;
+	display: inline-block;
+	font-size: 45px;
+	/*color: rgb(51,122,183);*/
+	text-align: center;
 }
 
 .text_cd {
-    font-size: 26px;
+	font-size: 26px;
 }
 
 #text1 {
-    display: inline-block;
-    font-size:24px;
-    /*color: rgb(51,122,183);*/
+	display: inline-block;
+	font-size: 24px;
+	/*color: rgb(51,122,183);*/
 }
 
 #text2 {
-    display: inline-block;
-    font-size:24px;
-    /*color: rgb(51,122,183);*/
+	display: inline-block;
+	font-size: 24px;
+	/*color: rgb(51,122,183);*/
 }
 
 #joinBtnDiv {
-    width: 100px;
-    height: 100px;
-    float: left;
-    margin-left: -90px;
-    margin-top: -5px;
-    /*border: 2px solid rgb(51,122,183);*/
+	width: 100px;
+	height: 100px;
+	float: left;
+	margin-left: -70px;
+	margin-top: 5px;
+	/*border: 2px solid rgb(51,122,183);*/
 }
 
 #joinBtn {
-    margin-top: 30px;
-    /*margin-left: 250px;*/
+	margin-top: 30px;
+	/*margin-left: 250px;*/
 }
 
-
-
+#descTxt {
+	font-size: 24px;
+}
