@@ -3,243 +3,17 @@
 
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<script type="text/javascript" src="../js/third/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/third/ajaxrequest.js"></script>
+		<script type="text/javascript" src="../js/constants.js"></script>
 		<style type="text/css">
-			body,
-			div,
-			h2,
-			h3,
-			ul,
-			li,
-			p {
-				margin: 0;
-				padding: 0;
-			}
 			
-			a {
-				text-decoration: none;
-			}
-			
-			a:hover {
-				text-decoration: underline;
-			}
-			
-			ul {
-				list-style-type: none;
-			}
-			
-			body {
-				color: #333;
-				background: #a7ab8c;
-				font: 12px/1.5 \5b8b\4f53;
-			}
-			
-			#msgBox {
-				width: 500px;
-				background: #fff;
-				border-radius: 5px;
-				margin: 10px auto;
-				padding-top: 10px;
-			}
-			
-			#msgBox form h2 {
-				font-weight: 400;
-				font: 400 18px/1.5 \5fae\8f6f\96c5\9ed1;
-			}
-			
-			#msgBox form {
-				background: url(img/boxBG.jpg) repeat-x 0 bottom;
-				padding: 0 20px 15px;
-			}
-			
-			#userName,
-			#conBox {
-				color: #777;
-				border: 1px solid #d0d0d0;
-				border-radius: 6px;
-				background: #fff url(img/inputBG.png) repeat-x;
-				padding: 3px 5px;
-				font: 14px/1.5 arial;
-			}
-			
-			#userName.active,
-			#conBox.active {
-				border: 1px solid #7abb2c;
-			}
-			
-			#userName {
-				height: 20px;
-			}
-			
-			#conBox {
-				width: 448px;
-				resize: none;
-				height: 65px;
-				overflow: auto;
-			}
-			
-			#msgBox form div {
-				position: relative;
-				color: #999;
-				margin-top: 10px;
-			}
-			
-			#msgBox img {
-				border-radius: 3px;
-			}
-			
-			#face {
-				position: absolute;
-				top: 0;
-				left: 172px;
-			}
-			
-			#face img {
-				width: 30px;
-				height: 30px;
-				cursor: pointer;
-				margin-right: 6px;
-				opacity: 0.5;
-				filter: alpha(opacity=50);
-			}
-			
-			#face img.hover,
-			#face img.current {
-				width: 28px;
-				height: 28px;
-				border: 1px solid #f60;
-				opacity: 1;
-				filter: alpha(opacity=100);
-			}
-			
-			#sendBtn {
-				border: 0;
-				width: 112px;
-				height: 30px;
-				cursor: pointer;
-				margin-left: 10px;
-				background: url(img/btn.png) no-repeat;
-			}
-			
-			#sendBtn.hover {
-				background-position: 0 -30px;
-			}
-			
-			#msgBox form .maxNum {
-				font: 26px/30px Georgia, Tahoma, Arial;
-				padding: 0 5px;
-			}
-			
-			#msgBox .list {
-				padding: 10px;
-			}
-			
-			#msgBox .list h3 {
-				position: relative;
-				height: 33px;
-				font-size: 14px;
-				font-weight: 400;
-				background: #e3eaec;
-				border: 1px solid #dee4e7;
-			}
-			
-			#msgBox .list h3 span {
-				position: absolute;
-				left: 6px;
-				top: 6px;
-				background: #fff;
-				line-height: 28px;
-				display: inline-block;
-				padding: 0 15px;
-			}
-			
-			#msgBox .list ul {
-				overflow: hidden;
-				zoom: 1;
-			}
-			
-			#msgBox .list ul li {
-				float: left;
-				clear: both;
-				width: 100%;
-				border-bottom: 1px dashed #d8d8d8;
-				padding: 10px 0;
-				background: #fff;
-				overflow: hidden;
-			}
-			
-			#msgBox .list ul li.hover {
-				background: #f5f5f5;
-			}
-			
-			#msgBox .list .userPic {
-				float: left;
-				width: 50px;
-				height: 50px;
-				display: inline;
-				margin-left: 10px;
-				border: 1px solid #ccc;
-				border-radius: 3px;
-			}
-			
-			#msgBox .list .content {
-				float: left;
-				width: 400px;
-				font-size: 14px;
-				margin-left: 10px;
-				font-family: arial;
-				word-wrap: break-word;
-			}
-			
-			#msgBox .list .userName {
-				display: inline;
-				padding-right: 5px;
-			}
-			
-			#msgBox .list .userName a {
-				color: #2b4a78;
-			}
-			
-			#msgBox .list .msgInfo {
-				display: inline;
-				word-wrap: break-word;
-			}
-			
-			#msgBox .list .times {
-				color: #889db6;
-				font: 12px/18px arial;
-				margin-top: 5px;
-				overflow: hidden;
-				zoom: 1;
-			}
-			
-			#msgBox .list .times span {
-				float: left;
-			}
-			
-			#msgBox .list .times a {
-				float: right;
-				color: #889db6;
-				display: none;
-			}
-			
-			.tr {
-				overflow: hidden;
-				zoom: 1;
-			}
-			
-			.tr p {
-				float: right;
-				line-height: 30px;
-			}
-			
-			.tr * {
-				float: left;
-			}
 		</style>
 		<script type="text/javascript">
+			var bbsData;
 			/*-------------------------- +
-						  获取id, class, tagName
-						 +-------------------------- */
+									  获取id, class, tagName
+									 +-------------------------- */
 			var get = {
 				byId: function(id) {
 					return typeof id === "string" ? document.getElementById(id) : id
@@ -339,8 +113,10 @@
 							 <div class=\"content\">\
 							 	<div class=\"userName\"><a href=\"javascript:;\">" + oUserName.value + "</a>:</div>\
 								<div class=\"msgInfo\">" + oConBox.value.replace(/<[^>]*>|&nbsp;/ig, "") + "</div>\
-								<div class=\"times\"><span>" + format(oDate.getMonth() + 1) + "\u6708" + format(oDate.getDate()) + "\u65e5 " + format(oDate.getHours()) + ":" + format(oDate.getMinutes()) + "</span><a class=\"del\" href=\"javascript:;\">\u5220\u9664</a></div>\
-							 </div>";
+								<div class=\"times\"><span>" + format(oDate.getMonth() + 1) + "\u6708" + format(oDate.getDate()) + "\u65e5 " + format(oDate.getHours()) + ":" + format(oDate.getMinutes()) + "</span><a class=\"\" href=\"javascript:;\">\u5220\u9664</a></div>\
+							 </div>"; // qiusd注释  </span><a class=\"del\" href=\"javascript:;\"> 改了，不允许删除
+						bbsData = oLi.innerHTML;
+						//							 console.log(oLi);
 						//插入元素
 						aLi.length ? oUl.insertBefore(oLi, aLi[0]) : oUl.appendChild(oLi);
 						//重置表单
@@ -374,6 +150,8 @@
 						//调用删除函数
 						delLi()
 					}
+					console.log(bbsData);
+					uploadData();
 				};
 				//事件绑定, 判断字符输入
 				EventUtil.addHandler(oConBox, "keyup", confine);
@@ -406,7 +184,7 @@
 							var aA = get.byTagName("a", oTmp);
 							if (!aA.length) {
 								var oA = document.createElement("a");
-								oA.innerHTML = "删除";
+								//								oA.innerHTML = "删除";
 								oA.className = "del";
 								oA.href = "javascript:;";
 								oTmp.appendChild(oA)
@@ -475,91 +253,78 @@
 					}
 				}
 			});
+			//ajax方式讲新增的数据上传到服务器
+			function uploadData() {
+				$.ajax({
+					//提交数据的类型 POST GET
+					type: "POST",
+					//提交的网址
+					url: clubserver.URL + "UpLoadBBSData",
+					//提交的数据
+					data: {
+						data: bbsData
+					},
+					//返回数据的格式
+					datatype: "html", //"xml", "html", "script", "json", "jsonp", "text".
+					//在请求之前调用的函数
+					beforeSend: function() {
+						// $("#msg").html("logining");
+					},
+					//成功返回之后调用的函数            
+					success: function(data) {
+						console.log('成功返回数据:bbs');
+					},
+					//调用执行后调用的函数
+					complete: function(XMLHttpRequest, textStatus) {
+						//alert(XMLHttpRequest.responseText); //XMLHttpRequest.responseText是返回的信息，用这个来放JSON数据
+					},
+					//调用出错执行的函数
+					error: function() {
+						//请求出错处理
+					}
+				});
+			}
 		</script>
 	</head>
 
 	<body>
+		<div class="middleDiv" id="middleDivDes">
+			<div id="msgBox">
+				<form>
+					<h2>来 , 一起来吐槽！</h2>
 
-		<div id="msgBox">
-			<form>
-				<h2>来 , 说说你在做什么 , 想什么</h2>
+					<div>
+						<input id="userName" class="f-text" value="" />
+						<p id="face"><img src="img/face1.gif" class="current" /><img src="img/face2.gif" /><img src="img/face3.gif" /><img src="img/face4.gif" /><img src="img/face5.gif" /><img src="img/face6.gif" /><img src="img/face7.gif" /><img src="img/face8.gif" /></p>
+					</div>
+					<div><textarea id="conBox" class="f-text"></textarea></div>
+					<div class="tr">
+						<p>
+							<span class="countTxt">还能输入</span><strong class="maxNum">140</strong><span>个字</span>
 
-				<div>
-					<input id="userName" class="f-text" value="" />
-					<p id="face"><img src="img/face1.gif" class="current" /><img src="img/face2.gif" /><img src="img/face3.gif" /><img src="img/face4.gif" /><img src="img/face5.gif" /><img src="img/face6.gif" /><img src="img/face7.gif" /><img src="img/face8.gif" /></p>
+							<input id="sendBtn" type="button" value="" title="快捷键 Ctrl+Enter" />
+						</p>
+					</div>
+				</form>
+				<div class="list">
+					<h3><span>大家在说</span></h3>
+					<ul>
+						<li>
+							<div class="userPic"><img src="img/face.gif" /></div>
+							<div class="content">
+								<div class="userName">
+									<a href="javascript:;"></a>管理员:</div>
+								<div class="msgInfo">经过开发团队不懈的努力，广研足协俱乐部网站成功上线！欢迎大家加入！ -- 可匿名评论</div>
+								<div class="times"><span>04月11日 22:19</span>
+									<a class="del" href="javascript:;"></a>
+								</div>
+							</div>
+						</li>
+					</ul>
 				</div>
-				<div><textarea id="conBox" class="f-text"></textarea></div>
-				<div class="tr">
-					<p>
-						<span class="countTxt">还能输入</span><strong class="maxNum">140</strong><span>个字</span>
-
-						<input id="sendBtn" type="button" value="" title="快捷键 Ctrl+Enter" />
-					</p>
-				</div>
-			</form>
-			<div class="list">
-				<h3><span>大家在说</span></h3>
-				<ul>
-					<li>
-
-						<div class="userPic"><img src="img/face.gif" /></div>
-						<div class="content">
-							<div class="userName"><a href="javascript:;">永不上线</a>:</div>
-							<div class="msgInfo">新增删除广播功能。</div>
-							<div class="times"><span>07月05日 15:14</span><a class="del" href="javascript:;">删除</a></div>
-						</div>
-
-					</li>
-					<li>
-						<div class="userPic"><img src="img/face.gif" /></div>
-						<div class="content">
-							<div class="userName"><a href="javascript:;">永不上线</a>:</div>
-							<div class="msgInfo">新增Ctrl+Enter快捷键发送广播。</div>
-							<div class="times"><span>07月05日 12:20</span><a class="del" href="javascript:;">删除</a></div>
-
-						</div>
-					</li>
-					<li>
-						<div class="userPic"><img src="img/face.gif" /></div>
-						<div class="content">
-							<div class="userName"><a href="javascript:;">永不上线</a>:</div>
-							<div class="msgInfo">新增选择头像功能。</div>
-
-							<div class="times"><span>07月05日 12:08</span><a class="del" href="javascript:;">删除</a></div>
-						</div>
-					</li>
-					<li>
-						<div class="userPic"><img src="img/face.gif" /></div>
-						<div class="content">
-							<div class="userName"><a href="javascript:;">永不上线</a>:</div>
-
-							<div class="msgInfo">增加了记录广播时间的功能。</div>
-							<div class="times"><span>07月04日 16:55</span><a class="del" href="javascript:;">删除</a></div>
-						</div>
-					</li>
-					<li>
-						<div class="userPic"><img src="img/face.gif" /></div>
-						<div class="content">
-
-							<div class="userName"><a href="javascript:;">永不上线</a>:</div>
-							<div class="msgInfo">增加了输入字符检测功能，英文/半角为半个字符，汉字/全角为一个字符。</div>
-							<div class="times"><span>07月04日 08:30</span><a class="del" href="javascript:;">删除</a></div>
-						</div>
-					</li>
-					<li>
-
-						<div class="userPic"><img src="img/face.gif" /></div>
-						<div class="content">
-							<div class="userName"><a href="javascript:;">永不上线</a>:</div>
-							<div class="msgInfo">仿腾讯微博效果，欢迎大家测试！</div>
-							<div class="times"><span>07月03日 20:19</span><a class="del" href="javascript:;">删除</a></div>
-						</div>
-
-					</li>
-				</ul>
 			</div>
 		</div>
-
 	</body>
+	<link rel="stylesheet" type="text/css" href="../css/bbs.css">
 
 </html>
