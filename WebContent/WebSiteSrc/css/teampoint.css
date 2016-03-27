@@ -4,6 +4,10 @@
 *   cooperation xxx
 *   
 */
+body {	
+    background-color: rgb(224, 224, 224);   
+}
+
 /*******************************
 *
 *   下面是中间Div的css：middleDiv
