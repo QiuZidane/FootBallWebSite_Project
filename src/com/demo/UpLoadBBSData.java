@@ -122,10 +122,10 @@ public class UpLoadBBSData extends HttpServlet {
 	public static boolean writeTxtFile(String content,  File fileName)throws Exception{  
 		RandomAccessFile mm=null;  
 		boolean flag=false;  
-		FileOutputStream o=null;  
+		FileOutputStream o=null;
 		try {  
-			o = new FileOutputStream(fileName);  
-			o.write(content.getBytes("UTF-8"));  
+			o = new FileOutputStream(fileName, true);		
+			o.write(content.getBytes("UTF-8"));
 			o.close();  
 			//   mm=new RandomAccessFile(fileName,"rw");  
 			//   mm.writeBytes(content);  
