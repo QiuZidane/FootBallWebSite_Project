@@ -55,7 +55,7 @@ function listSelect(event) {
 //球员总览和联赛队伍页面可以滑动Scroll
 function setScrolling(event) {
 	var selectT = event.target.innerHTML;
-	if (selectT == "球员总览" || selectT == "联赛队伍" || selectT == "留言板") {
+	if (selectT == "球员总览" || selectT == "留言板") {
 		$('#middleFrameID').attr('scrolling', 'yes');
 	} else {
 		$('#middleFrameID').attr('scrolling', 'no');
