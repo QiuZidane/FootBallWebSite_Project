@@ -99,34 +99,34 @@ public class A3GetPlayerData extends HttpServlet {
 			String department = "";
 			if (i%11==0){
 				department="广州测试部";
-				team="1队";
+				team="A队";
 			}else if (i%23==0){
 				department="其他机构";
-				team="2队";
+				team="B队";
 			}else if (i%33==0){
 				department="广州海外支持部";
-				team="3队";
+				team="C队";
 			}else if (i%13==0){
 				department="广州研发支持部";
-				team="4队";
+				team="D队";
 			}else if (i%16==0){
 				department="北京研发部";
-				team="1队";
+				team="A队";
 			}else if (i%6==0){
 				department="广州测试部";
-				team="2队";
+				team="B队";
 			} else if(i%2==0) {
 				department="广州开发一部";
-				team="3队";
+				team="C队";
 			}else if(i%3==0) {
 				department="广州开发三部";
-				team="4队";
+				team="D队";
 			}else if(i%5==0) {
 				department="广州开发二部";
-				team="1队";
+				team="A队";
 			}else{
 				department="广州研发支持部";
-				team="2队";
+				team="B队";
 			}
 
 			
