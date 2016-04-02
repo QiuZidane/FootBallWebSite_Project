@@ -1,33 +1,148 @@
 /*
- * 1、进入页面读取全量球员数据
- * 2、数据存放到本地数组(存放一个个的球员对象)
- * 3、遍历数组内的球员对象,加入到teamData，每加入一个totalabi和numOfPlayer增加相应数值
+ * 1、进入页面读取全量球员数据 --DONE
+ * 2、数据存放到本地数组allplayers(存放一个个的球员对象) --DONE
+ * 3、遍历数组内的球员对象,加入到teamData，每加入一个totalabi和numOfPlayer增加相应数值 --DONE
  * 4、遍历每个teamData，将队员名加入到table内，更新总实力到table内
  * 5、柱状图表--考虑实现
  * 
  * 
  */
-var allplayers = new Array(); // 存放所有球员数据
+var playerArray = new Array(); // 存放所有球员数据
 
 //球员对象构造函数,记录所有的能力
 function playerData() {
 	this.playername = "empty";
-	this.isCaptain = false;	//是否队长
+	this.isCaptain = false; //是否队长
 
-	this.totalabi = 50; //总实力
+	this.totalabi = 0; //总实力
 	this.body_abi = 50; //体质能力
 	this.tech_abi = 50; //技术能力
 	this.spec_abi = 50; //特殊能力
 	this.attack_abi = 50; //进攻能力
 	this.defence_abi = 50; //防守能力	
 
+	this.team = "" //队伍
 	this.department = "empty"; //部门
 }
 
 //队伍构造函数，记录每个队伍的人员和总能力
 function teamData() {
-	this.totalabi = 0;	//总实力
+	this.totalabi = 0; //总实力
 	this.numOfPlayer = 0; //队员数目
 	this.player = new Array(); //记录队员名
 }
 
+//遍历数组内的球员对象,加入到teamData，每加入一个totalabi和numOfPlayer增加相应数值
+function setTeam(Array) {
+	var team1 = new teamData();
+	var team2 = new teamData();
+	var team3 = new teamData();
+	var team4 = new teamData();
+
+	for (key in Array) {
+		
+		var player = Array[key];
+		
+		if (player['team'] == '1队') {
+			team1.player.push(player['playername']);
+			team1.numOfPlayer++;
+			team1.totalabi += player['totalabi'];			
+		}
+		
+		if (player['team'] == '2队') {
+			team2.player.push(player['playername']);
+			team2.numOfPlayer++;
+			team2.totalabi += player['totalabi'];
+		}
+		
+		if (player['team'] == '3队') {
+			team3.player.push(player['playername']);
+			team3.numOfPlayer++;
+			team3.totalabi += player['totalabi'];
+		}
+		
+		if (player['team'] == '4队') {
+			team4.player.push(player['playername']);
+			team4.numOfPlayer++;
+			team4.totalabi += player['totalabi'];
+		}
+	}
+	team1.totalabi = parseInt(team1.totalabi/team1.numOfPlayer);
+	team2.totalabi = parseInt(team2.totalabi/team2.numOfPlayer);
+	team3.totalabi = parseInt(team3.totalabi/team3.numOfPlayer);
+	team4.totalabi = parseInt(team4.totalabi/team4.numOfPlayer);
+	
+	console.log("team1:");
+	console.log(team1);
+	console.log("team2:");
+	console.log(team2);
+	console.log("team3:");
+	console.log(team3);
+	console.log("team4:");
+	console.log(team4);
+
+}
+
+// ajax 获取所有球员的属性 
+function GetAllPlayerData() {
+	$.ajax({
+		//提交数据的类型 POST GET
+		type: "POST",
+		//提交的网址
+		url: clubserver.URL + "A3GetPlayerData",
+		//提交的数据
+		data: {
+			joinflag: 1
+		},
+		//返回数据的格式
+		datatype: "html", //"xml", "html", "script", "json", "jsonp", "text".
+		//在请求之前调用的函数
+		beforeSend: function() {
+			// $("#msg").html("logining");
+		},
+		//成功返回之后调用的函数            
+		success: function(data) {
+			console.log('成功返回数据-->compareabi.js');
+		},
+		//调用执行后调用的函数
+		complete: function(XMLHttpRequest, textStatus) {
+			//alert(XMLHttpRequest.responseText); //XMLHttpRequest.responseText是返回的信息，用这个来放JSON数据
+			try {
+				var jsonObject = JSON.parse(XMLHttpRequest.responseText);
+				var playerDataJson = jsonObject['playerlist'];
+				for (var key in playerDataJson) {
+					var pD = new playerData()
+					pD.playername = key;
+					var playObject = playerDataJson[key]; // 取出对应的属性JSON
+					
+					pD.totalabi = parseInt(playObject['ability']);
+					pD.body_abi = parseInt(playObject['body_abi']);
+					pD.tech_abi = parseInt(playObject['tech_abi']);
+					pD.spec_abi = parseInt(playObject['spec_abi']);
+					pD.attack_abi = parseInt(playObject['attack_abi']);
+					pD.defence_abi = parseInt(playObject['defence_abi']);				
+					
+					pD.team = playObject['team'];
+					pD.department = playObject["department"];
+					pD.isCaptain = playObject['captain'] == 1 ? true : false;
+
+					playerArray.push(pD); // 加入数组
+
+				}
+
+				console.log(playerArray);
+
+				setTeam(playerArray);
+
+			} catch (e) {
+				console.log("error=" + e.message);
+				console.log("compareabi.js成功返回信息=>" + XMLHttpRequest.responseText + "\n=>无法转换为JSON");
+			}
+			// HideLoading();
+		},
+		//调用出错执行的函数
+		error: function() {
+			//请求出错处理
+		}
+	});
+}

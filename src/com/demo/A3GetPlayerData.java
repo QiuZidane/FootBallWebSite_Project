@@ -2,6 +2,7 @@ package com.demo;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Random;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -90,32 +91,59 @@ public class A3GetPlayerData extends HttpServlet {
 	protected String createData(int totalplayers) {
 
 		String playerDataJson = "{";
+		String team = "";
 		for (int i = 0 ; i<totalplayers; i++) {
 			String name = "player"+ i; 
 			String department = "";
 			if (i%11==0){
 				department="广州测试部";
+				team="1队";
 			}else if (i%23==0){
 				department="其他机构";
+				team="2队";
 			}else if (i%33==0){
 				department="广州海外支持部";
+				team="3队";
 			}else if (i%13==0){
 				department="广州研发支持部";
+				team="4队";
 			}else if (i%16==0){
 				department="北京研发部";
+				team="1队";
 			}else if (i%6==0){
 				department="广州测试部";
+				team="2队";
 			} else if(i%2==0) {
 				department="广州开发一部";
+				team="3队";
 			}else if(i%3==0) {
 				department="广州开发三部";
+				team="4队";
 			}else if(i%5==0) {
 				department="广州开发二部";
+				team="1队";
 			}else{
 				department="广州研发支持部";
+				team="2队";
 			}
+			int abb1 = (int)(Math.random()*100);
+			int abb2 = (int)(Math.random()*100);
+			int abb3 = (int)(Math.random()*100);
+			int abb4 = (int)(Math.random()*100);
+			int abb5 = (int)(Math.random()*100);
+			int ability = (int)(Math.random()*100);
+			int captain = (int)(Math.random()*100)>90 ? 1 : 0;
+			
 			playerDataJson += ""
-					+ "\""+name+"\" : {" 					
+					+ "\""+name+"\" : {" 	
+					+ "\"body_abi\":\""+abb1+"\","
+					+ "\"tech_abi\":\""+abb2+"\","
+					+ "\"spec_abi\":\""+abb3+"\","
+					+ "\"attack_abi\":\""+abb4+"\","
+					+ "\"defence_abi\":\""+abb5+"\","
+					+ "\"team\":\""+team+"\","
+					+ "\"captain\":\""+captain+"\","	// 队长标志
+					+ "\"ability\":\""+ability+"\","	// 总实力
 					+ "\"speed\":\"81\","
 					+ "\"strength\":\"61\","
 					+ "\"stamina\":\"85\","

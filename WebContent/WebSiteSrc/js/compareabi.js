@@ -764,7 +764,7 @@ function GetPlayerData(name1, name2) {
 
 				techChart.clear(); //要先清空对象属性再设置，否则有些信息无法更新
 				techChart.setOption(techChart_option);
-				
+
 				specChart_option.series[0].name = name1;
 				specChart_option.series[0].data[0] = player1.teamwork;
 				specChart_option.series[0].data[1] = player1.rating;
@@ -777,7 +777,7 @@ function GetPlayerData(name1, name2) {
 
 				specChart.clear(); //要先清空对象属性再设置，否则有些信息无法更新
 				specChart.setOption(specChart_option);
-				
+
 				attackChart_option.series[0].name = name1;
 				attackChart_option.series[0].data[0] = player1.creativity;
 				attackChart_option.series[0].data[1] = player1.offtheball;
@@ -790,7 +790,7 @@ function GetPlayerData(name1, name2) {
 
 				attackChart.clear(); //要先清空对象属性再设置，否则有些信息无法更新
 				attackChart.setOption(attackChart_option);
-				
+
 				defenceChart_option.series[0].name = name1;
 				defenceChart_option.series[0].data[0] = player1.positioning;
 				defenceChart_option.series[0].data[1] = player1.marking;
@@ -803,7 +803,6 @@ function GetPlayerData(name1, name2) {
 
 				defenceChart.clear(); //要先清空对象属性再设置，否则有些信息无法更新
 				defenceChart.setOption(defenceChart_option);
-
 
 			} catch (e) {
 				console.log("error=" + e.message);
@@ -827,7 +826,7 @@ function GetAllPlayerData() {
 		url: clubserver.URL + "A3GetPlayerData",
 		//提交的数据
 		data: {
-			joinflag : 1
+			joinflag: 1
 		},
 		//返回数据的格式
 		datatype: "html", //"xml", "html", "script", "json", "jsonp", "text".
@@ -844,16 +843,14 @@ function GetAllPlayerData() {
 			//alert(XMLHttpRequest.responseText); //XMLHttpRequest.responseText是返回的信息，用这个来放JSON数据
 			try {
 				var jsonObject = JSON.parse(XMLHttpRequest.responseText);
-				var arraylength = 0;
 				var playerDataJson = jsonObject['playerlist'];
 				for (var key in playerDataJson) {
 					var pD = new playerData()
 					pD.playername = key;
 					var playObject = playerDataJson[key]; // 取出对应的属性JSON
 					pD.department = playObject["department"];
-					playerArray[arraylength++] = pD;
-				
-				}		
+					playerArray.push(pD);
+				}
 
 				setPlayerList(playerArray);
 
