@@ -14,26 +14,53 @@
 <!DOCTYPE html>
 <html>
 <head>
-   <meta charset="utf-8">
-   <title>足球大本营</title>   
-</head>
-<body>
-<div class="middleDiv" id="middleDivDes" style="margin-top:55px;">  
-   
-</div>
-</div>
-
-
-
-
-
-<!-- 第三方引用 -->
+<meta charset="utf-8">
+<!--适配IE11-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
 <script type="text/javascript" src="../js/third/jquery.min.js"></script>
 <script type="text/javascript" src="../js/third/bootstrap.min.js"></script>
-<link href="../css/bootstrap/bootstrap.min.css" rel="stylesheet">
-<!-- 我们自定义的css和js -->
-<link rel="stylesheet" type="text/css" href="../css/welcomepage.css">   
-<script type="text/javascript" src="../js/welcomepage.js"></script>   
+<link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="../css/draw.css" rel="stylesheet">
+<title>足球大本营</title>
+</head>
+<body>
+	<div class="middleDiv" id="middleDivDes" style="height:100%">
+		<div id="drawContent">
+			<div class="teamAreaLeft" id="teamA">
+				<div class="teamName"><img src="../img/soccer64.png"/>A队</div>
+				<div class="playerList"></div>
+			</div>
+			<div class="teamAreaLeft" id="teamB">
+				<div class="teamName"><img src="../img/soccer64.png"/>B队</div>
+				<div class="playerList"></div>
+			</div>
+			
+			<!-- 选择球员并随机派到其中一队 -->
+			<div class="pickArea">
+				<div class="pickAreaUp">
+					<div class="teamName">抽签区</div>
+				</div>
+				<div class="pickAreaDown">
+					<div class="teamName">说明</div>
+					<ul>
+						<li>1.点击“摇珠”按钮，将从球员库中选出目前数据至TOP的四名球员，并将其置入抽签候选区中。</li>
+						<li>2.点击“抽签”按钮，将把抽签候选区中的四名球员随机分派到四支球队中。</li>
+						<li>3.点击“提交”按钮，将确认当前抽签结果并将其提交。</li>
+						<li>4.点击“重置”按钮，将重置当前抽签结果。</li>
+					</ul>
+				</div>
+			</div>
+			
+			<div class="teamAreaRight" id="teamC">
+				<div class="teamName"><img src="../img/soccer64.png"/>D队</div>
+				<div class="playerList"></div>
+			</div>
+			<div class="teamAreaRight" id="teamD">
+				<div class="teamName"><img src="../img/soccer64.png"/>C队</div>
+				<div class="playerList"></div>
+			</div>
+		</div>
+	</div>
 
 </body>
 </html>
