@@ -16,7 +16,7 @@ function navSelect(event) {
 function iframeRefresh(pageUrl) {
 	var iframe = document.getElementById('middleFrameID');
 	iframe.setAttribute('src', pageUrl);
-	document.iframe.location.reload()
+//	document.iframe.location.reload();
 }
 
 // 点击导航栏，激活+变色相应的li
