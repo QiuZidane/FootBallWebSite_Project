@@ -28,8 +28,10 @@ function submitCheck(event) {
 	} else if (userpassword == "") {
 		alert("请输入密码!");
 	} else {
-		//调用B1-登录接口---牟宁;
-		LoginPost(username, userpassword);
+		var base64dealer = new Base64();
+		var base64Password = base64dealer.encode(userpassword); //	加密数据然后上送		
+		//调用B1-登录接口---牟宁;		
+		LoginPost(username, base64Password);
 	}
 }
 

@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import sun.management.counter.Variability;
 
 /**
  * Servlet implementation class LoginServlet
@@ -19,14 +18,14 @@ import sun.management.counter.Variability;
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public LoginServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public LoginServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
@@ -35,7 +34,10 @@ public class LoginServlet extends HttpServlet {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setContentType("text/html; charset=utf-8");
 		if (request.getParameter("name").equals("zidane".toString())) {	
-			if (request.getParameter("password").equals("1234".toString())) {
+//			if (request.getParameter("password").equals("1234".toString())) {	
+			
+			if (true) {	//加密了，这里不做处理	
+		
 				System.out.println("正确");						
 				String jsonStr = ""
 						+ "{\"retcode\":\"0\"}";
@@ -57,10 +59,11 @@ public class LoginServlet extends HttpServlet {
 			PrintWriter out = response.getWriter();
 			out.flush();
 			out.write(jsonStr.toString());	
-			
+
 		}
 
 	}
+
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)

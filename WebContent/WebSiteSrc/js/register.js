@@ -3,7 +3,6 @@
  * 
  */
 
-
 var departmentlist = document.getElementById("departmentlist");
 departmentlist.addEventListener('click', selectDepartment, false);
 
@@ -32,15 +31,19 @@ function submitCheck(event) {
 		//调用B1-注册接口---牟宁;		
 		var result = confirm("您的注册信息为:\n\n用户名：" + username + "\n密码：" + userpassword + "\n部门：" + userdepartment + "\n\n用户名不要写错噢!")
 		if (result) {
-			RegisterPost(userdepartment, username, userpassword);
+			var base64dealer = new Base64();
+			var base64Password = base64md.encode(userpassword); 	//Base64加密处理
+			//alert("base64 encode:" + base64Password);
+			base64Password = base64md.decode(base64Password);	//Base64解密处理
+			//alert("base64 decode:" + base64Password);
+			RegisterPost(userdepartment, username, base64Password);
+
 		} else {
 			alert("取消了，请重新确认");
 		}
 
 	}
 }
-
-
 
 // ajax的post方法:
 // Register的post方法，调用B1接口
