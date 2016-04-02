@@ -19,6 +19,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
 <script type="text/javascript" src="../js/third/jquery.min.js"></script>
 <script type="text/javascript" src="../js/third/bootstrap.min.js"></script>
+<script type="text/javascript" src="../js/json2.js"></script>
+<script type="text/javascript" src="../js/draw.js"></script>
 <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="../css/draw.css" rel="stylesheet">
 <title>足球大本营</title>
@@ -26,38 +28,70 @@
 <body>
 	<div class="middleDiv" id="middleDivDes" style="height:100%">
 		<div id="drawContent">
-			<div class="teamAreaLeft" id="teamA">
+			<div class="teamAreaLeft">
 				<div class="teamName"><img src="../img/soccer64.png"/>A队</div>
-				<div class="playerList"></div>
+				<div class="playerList">
+					<!-- A队球员列表 -->
+					<ul id="teamA">
+					
+					</ul>
+				</div>
 			</div>
-			<div class="teamAreaLeft" id="teamB">
+			<div class="teamAreaLeft">
 				<div class="teamName"><img src="../img/soccer64.png"/>B队</div>
-				<div class="playerList"></div>
+				<div class="playerList">
+					<!-- B队球员列表 -->
+					<ul id="teamB">
+					
+					</ul>
+				</div>
 			</div>
 			
 			<!-- 选择球员并随机派到其中一队 -->
 			<div class="pickArea">
 				<div class="pickAreaUp">
 					<div class="teamName">抽签区</div>
+					<!-- 候选区球员列表 -->
+					<div class="pickingPlayer" id="pickingPlayer">
+					
+					</div>
+					<div class="buttonArea">
+						<button id="pick" class="drawButtonLeft" onclick="pickPlayer();" >选人</button>
+						<button id="draw" class="drawButtonRight" onclick="drawPlayer();" >抽签</button>
+					</div>
+					<div class="buttonArea">
+						<button id="reset" class="drawButtonLeft" onclick="resetPlayer();" >重置</button>
+						<button id="submit" class="drawButtonRight" onclick="submitDraw();">提交</button>
+					</div>
 				</div>
 				<div class="pickAreaDown">
 					<div class="teamName">说明</div>
 					<ul>
-						<li>1.点击“摇珠”按钮，将从球员库中选出目前数据至TOP的四名球员，并将其置入抽签候选区中。</li>
-						<li>2.点击“抽签”按钮，将把抽签候选区中的四名球员随机分派到四支球队中。</li>
-						<li>3.点击“提交”按钮，将确认当前抽签结果并将其提交。</li>
-						<li>4.点击“重置”按钮，将重置当前抽签结果。</li>
+						<li>【选人】将从球员库中选出目前数据至TOP的四名球员，并将其置入抽签区中。</li>
+						<li>【抽签】将把抽签区中的四名球员随机分派到四支球队中。</li>
+						<li>【提交】将确认当前抽签结果并将其提交。</li>
+						<li>【重置】将重置当前抽签结果。</li>
 					</ul>
 				</div>
 			</div>
 			
-			<div class="teamAreaRight" id="teamC">
+			<div class="teamAreaRight">
 				<div class="teamName"><img src="../img/soccer64.png"/>D队</div>
-				<div class="playerList"></div>
+				<div class="playerList">
+					<!-- C队球员列表 -->
+					<ul id="teamC">
+					
+					</ul>
+				</div>
 			</div>
-			<div class="teamAreaRight" id="teamD">
+			<div class="teamAreaRight">
 				<div class="teamName"><img src="../img/soccer64.png"/>C队</div>
-				<div class="playerList"></div>
+				<div class="playerList">
+					<!-- D队球员列表 -->
+					<ul id="teamD">
+					
+					</ul>
+				</div>
 			</div>
 		</div>
 	</div>
