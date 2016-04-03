@@ -48,7 +48,7 @@ public class A3GetPlayerData extends HttpServlet {
 				System.out.println(remotehost+":获取球员数量");
 
 			} else if (request.getParameter("joinflag").equals("1")){ // 获取参加比赛的球员			
-				String jsonStr = createData(50);
+				String jsonStr = createData(70);
 				String retJsonStr = ""
 						+ "{\"retCode\" : \"0\","
 						+ "\"totalnum\" : \"99\","
@@ -93,8 +93,9 @@ public class A3GetPlayerData extends HttpServlet {
 
 		String playerDataJson = "{";
 		String team = "";
-		int captain = (int)(Math.random()*100)>90 ? 1 : 0;
+		int captain = (int)(Math.random()*100) > 90 ? 1 : 0;
 		for (int i = 0 ; i<totalplayers; i++) {
+			captain = (int)(Math.random()*100) > 90 ? 1 : 0;
 			String name = "player"+ i; 
 			String department = "";
 			if (i%11==0){
@@ -126,10 +127,10 @@ public class A3GetPlayerData extends HttpServlet {
 				team="A队";
 			}else{
 				department="广州研发支持部";
-				team="B队";
+				team="D队";
 			}
 
-			
+
 
 
 			playerDataJson += ""

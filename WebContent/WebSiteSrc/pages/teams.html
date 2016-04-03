@@ -16,206 +16,62 @@
 
 	<head>
 		<meta charset="utf-8">
-
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
 		<script type="text/javascript" src="../js/third/jquery.min.js"></script>
 		<script type="text/javascript" src="../js/third/bootstrap.min.js"></script>
 		<script type="text/javascript" src="../js/third/ajaxrequest.js"></script>
+		<script type='text/javascript' src="../js/third/echarts.min.js"></script>
 		<link href="../css/bootstrap/bootstrap.min.css" rel="stylesheet">
 		<title>足球大本营</title>
 	</head>
 
 	<body>
-		<div class="middleDiv" id="middleDivDes">
-			<!--左边-->
-			<div id="chart_Div1">
-			</div>
-			<div id="teamDiv1" class="teamDiv">
-				<table class="table table-bordered table-hover table-condensed" id="">
-					<thead>
-						<tr>
-							<th>1队</th>
-							<th></th>
-						</tr>
-						<tr class="success">
-							<td><b>总实力</b></td>
-							<td><b>10</b></td>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>体质</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>技术</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>体质</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>技术</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>体质</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>技术</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>体质</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>技术</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>体质</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>技术</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>体质</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>技术</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>技术</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>技术</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>技术</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>技术</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>技术</td>
-							<td></td>
-						</tr>
-					</tbody>
-				</table>
+		<div class="middleDiv" id="middleDivDes" style="height:100%">
+			<div id="teamContent">
+				<div class="teamArea" id='teamAreaA'>
+					<div class="teamName"><img src="../img/soccer64.png" />A队</div>
+					<div class="playerList">
+						<!-- A队球员列表 -->
+						<ul id="teamA">
 
-			</div>
-			<div id="teamDiv2" class="teamDiv">
-				<table class="table table-condensed" id="">
-					<thead>
-						<tr>
-							<th>2队</th>
-							<th></th>
-						</tr>
-						<tr class="success">
-							<td><b>总实力</b></td>
-							<td><b>10</b></td>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>特殊</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>进攻</td>
-							<td>队长</td>
-						</tr>
-						<tr>
-							<td>防守</td>
-							<td></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<div id="teamDiv3" class="teamDiv">
-				<table class="table table-condensed" id="">
-					<thead>
-						<tr>
-							<th>3队</th>
-							<th></th>
-						</tr>
-						<tr class="success">
-							<td><b>总实力</b></td>
-							<td><b>10</b></td>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>zidane</td>
-							<td>队长</td>
-						</tr>
-						<tr>
-							<td>进攻</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>防守</td>
-							<td></td>
-						</tr>
-					</tbody>
-				</table>
+						</ul>
+					</div>
+				</div>
+				<div class="teamArea">
+					<div class="teamName"><img src="../img/soccer64.png" />B队</div>
+					<div class="playerList">
+						<!-- B队球员列表 -->
+						<ul id="teamB">
 
-			</div>
-			<div id="teamDiv4" class="teamDiv">
-				<table class="table table-condensed" id="">
-					<thead>
-						<tr>
-							<th>4队</th>
-							<th></th>
-						</tr>
-						<tr class="success">
-							<td><b>总实力</b></td>
-							<td><b>10</b></td>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>特殊</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>进攻</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>防守</td>
-							<td></td>
-						</tr>
-					</tbody>
-				</table>
+						</ul>
+					</div>
+				</div>
+				<div class="teamArea">
+					<div class="teamName"><img src="../img/soccer64.png" />D队</div>
+					<div class="playerList">
+						<!-- C队球员列表 -->
+						<ul id="teamC">
 
+						</ul>
+					</div>
+				</div>
+				<div class="teamArea">
+					<div class="teamName"><img src="../img/soccer64.png" />C队</div>
+					<div class="playerList">
+						<!-- D队球员列表 -->
+						<ul id="teamD">
+						</ul>
+					</div>
+				</div>
 			</div>
-
-			<!--右边占位-->
-			<div id="chart_Div2">
-			</div>
-			<!-- 联赛倒数 -->
-			<div id="text_countdown">
-				teams页面
-			</div>
-
+			<div id="chartArea"></div>
 		</div>
 
 		<!-- 我们自定义的css和js -->
 		<link rel="stylesheet" type="text/css" href="../css/teams.css">
 		<script type="text/javascript" src="../js/constants.js"></script>
 		<script type="text/javascript" src="../js/teams.js"></script>
-		
+
 		<script type="text/javascript">
 			GetAllPlayerData();
 		</script>

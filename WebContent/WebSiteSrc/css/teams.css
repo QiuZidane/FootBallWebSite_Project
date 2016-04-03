@@ -5,57 +5,103 @@
 *   
 */
 
-body {	
-    background-color: rgb(224, 224, 224);   
+body {
+	background-color: rgb(224, 224, 224);
 }
-
-/*******************************
-*
-*   下面是中间Div的css：middleDiv
-*
-/*******************************/
 
 .middleDiv {
-	width: 1200px;
-	height: 800px;
-	/*background-color: rgba(230,230,230,0.3);*/
-	margin: 0 auto;
-	/*background: url(../img/fb0.jpg) no-repeat center center;*/
+	width: 100%;
+	height: 100%;
+	padding-top: 55px;
+	/*margin: 0 auto;*/
 }
 
-/*左侧卡位div*/
-
-#chart_Div1 {
-	float: left;
-	/*border: 1px solid rgb(51, 122, 183);*/
-	width: 20px;
-	height: 800px;
-	margin-top: 0px;
-	margin-left: 2px;
-	padding-left: 5px;
+body {
+	background-color: rgb(224, 224, 224);
 }
 
-/*右边占位*/
-
-#chart_Div2 {
-	float: right;
-	/*border: 1px solid rgb(51, 122, 183);*/
-	width: 20px;
-	height: 800px;
-	margin-top: 0px;
-	margin-right: 10px;
+ul {
+	list-style: none;
+	margin: 0px;
+	padding: 5px 0px;
 }
 
+ul li {
+	padding: 5px 5px;
+	text-align: left;
+}
 
-.teamDiv {
-	float: left;
-	border: 1px solid rgb(51, 122, 183);
-	width: 150px;
-	height: 650px;
-	margin-top: 80px;
-	margin-left: 10px;
-	padding-right: 5px;
+.playerList ul {
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+}
+
+.playerList ul li {
 	font-size: 16px;
-	color: rgb(51, 122, 183);
+	margin: 5px 5px;
+	text-align: left;
+	border: 1px solid rgb(41, 101, 168);
+	border-radius: 5px;
+	background-color: #fff8dc;
 }
 
+.playerList ul li:hover {
+	background-color: #ffe4c4;
+}
+
+.playerList ul li img {
+	margin-right: 15px;
+	width: 20px;
+	height: 20px;
+	margin-left: 15px;
+	vertical-align: top;
+}
+
+#chartArea {
+	margin: 30px 0px 0px 10px;
+	float: left;
+	border: 1px solid rgb(41, 101, 168);
+	border-radius: 5px;
+	width: 450px;
+	min-height: 500px;
+	height: auto;
+}
+
+.teamArea {
+	margin: 30px 0px 0px 10px;
+	float: left;
+	border: 1px solid rgb(41, 101, 168);
+	border-radius: 5px;
+	width: 150px;
+	min-height: 500px;
+	height: auto;
+}
+
+#teamAreaA {
+	margin-left: 80px;
+}
+
+.teamName {
+	width: 100%;
+	font-size: 18px;
+	text-align: center;
+	margin: 0 auto;
+	border-bottom: 1px solid rgb(41, 101, 168);
+	background-color: rgb(117, 179, 227);
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	color: white;
+}
+
+.teamName img {
+	margin-right: 5px;
+	vertical-align: middle;
+	width: 16px;
+	height: 16px;
+}
+
+.playerList {
+	width: 100%;
+	height: auto;
+}

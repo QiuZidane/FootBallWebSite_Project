@@ -3,7 +3,7 @@ var pickingLeftItem = "<div class='pickingLeftItem'>%player</div>";		//候选区
 var pickingRightItem = "<div class='pickingRightItem'>%player</div>"; 	//候选区右侧球员选项
 var playerReg = "%player";	//替换规则
 
-var playerListStr = '[{"name":"王大雷"},{"name":"黄博文"},{"name":"郜林"},{"name":"高拉特"},{"name":"李学鹏"},{"name":"冯潇霆"},{"name":"金英权"},{"name":"郑智"},{"name":"于汉超"},{"name":"张琳芃"}]';
+var playerListStr = '[{"name":"王大雷"},{"name":"黄博文"},{"name":"郜林"},{"name":"高拉特"},{"name":"李学鹏"},{"name":"冯潇霆"},{"name":"金英权"},{"name":"郑智"},{"name":"于汉超"},{"name":"张琳芃"},{"name":"王大雷"},{"name":"黄博文"},{"name":"郜林"},{"name":"高拉特"},{"name":"李学鹏"},{"name":"冯潇霆"},{"name":"金英权"},{"name":"郑智"},{"name":"于汉超"},{"name":"张琳芃"},{"name":"王大雷"},{"name":"黄博文"},{"name":"郜林"},{"name":"高拉特"},{"name":"李学鹏"},{"name":"冯潇霆"},{"name":"金英权"},{"name":"郑智"},{"name":"于汉超"},{"name":"张琳芃"}]';
 var playerArray;  //所有球员数组
 var pickingArray = new Array(); //处在候选区的球员数组
 var pc = 0;
