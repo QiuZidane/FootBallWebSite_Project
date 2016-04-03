@@ -76,14 +76,14 @@ function setTeam(Array) {
 	team3.totalabi = parseInt(team3.totalabi / team3.numOfPlayer);
 	team4.totalabi = parseInt(team4.totalabi / team4.numOfPlayer);
 
-//	console.log("team1:");
-//	console.log(team1);
-//	console.log("team2:");
-//	console.log(team2);
-//	console.log("team3:");
-//	console.log(team3);
-//	console.log("team4:");
-//	console.log(team4);
+	//	console.log("team1:");
+	//	console.log(team1);
+	//	console.log("team2:");
+	//	console.log(team2);
+	//	console.log("team3:");
+	//	console.log(team3);
+	//	console.log("team4:");
+	//	console.log(team4);
 
 }
 
@@ -106,7 +106,7 @@ function GetAllPlayerData() {
 		},
 		//成功返回之后调用的函数            
 		success: function(data) {
-//			console.log('成功返回数据-->compareabi.js');
+			//			console.log('成功返回数据-->compareabi.js');
 		},
 		//调用执行后调用的函数
 		complete: function(XMLHttpRequest, textStatus) {
@@ -134,7 +134,7 @@ function GetAllPlayerData() {
 
 				}
 
-//				console.log(playerArray);
+				//				console.log(playerArray);
 
 				setTeam(playerArray);
 
@@ -158,8 +158,8 @@ var playerReg = "%player"; //普通球员替换规则
 var addPlayer = function(playerTeam, playerName, isCaptain) {
 	var ulId = "#team" + playerTeam.substring(0, 1);
 	var newPlayerItem;
-//	console.log("isCaptain=" + isCaptain);
-	if (isCaptain) {		
+	//	console.log("isCaptain=" + isCaptain);
+	if (isCaptain) {
 		newPlayerItem = playerItem_captian.replace(playerReg, playerName);
 	} else {
 		newPlayerItem = playerItem.replace(playerReg, playerName);
@@ -175,10 +175,12 @@ var addPlayer = function(playerTeam, playerName, isCaptain) {
 // 图形区域设置
 //echart的参数
 var barWidth = 10; // 柱条宽度
-var player1Color = 'rgb(12,142,207)'; //'#4cb749';
-var player2Color = 'rgb(223,77,0)'; //'#FC3E10';
+var team1Color = 'rgb(12,142,207)'; //'#4cb749';
+var team2Color = 'rgb(223,77,0)'; //'#FC3E10';
+var team3Color = 'rgb(77,184,73)'; //'#4cb749';
+var team4Color = 'rgb(245,200,18)'; //'#FC3E10';
 var gridleft = '2%';
-var gridright = '10%';
+var gridright = '9%';
 var gridbottom = '1%';
 var textcolor = 'rgb(51,122,183)';
 var teamChart = echarts.init(document.getElementById('chartArea'));
@@ -211,30 +213,65 @@ var teamChart_option = {
 	},
 	yAxis: {
 		type: 'category',
-		data: ['健康', '体能', '强壮', '速度']
+		data: ['特殊', '防守', '进攻', '身体', '技术', '总实力']
 
 	},
 	series: [{
-		name: 'zidane',
+		name: 'A队',
 		type: 'bar',
-		data: [90, 88, 77, 79],
+		data: [90, 88, 77, 79, 88, 91],
 		barWidth: barWidth,
 		itemStyle: {
 			normal: {
-				color: player1Color
+				color: team1Color
 			}
 		}
 	}, {
-		name: 'kfzx',
+		name: 'B队',
 		type: 'bar',
-		data: [77, 81, 37, 95],
+		data: [77, 81, 37, 95, 54, 87],
 		barWidth: barWidth,
 		itemStyle: {
 			normal: {
-				color: player2Color
+				color: team2Color
+			}
+
+		}
+	}, {
+		name: 'C队',
+		type: 'bar',
+		data: [90, 88, 62, 47, 77, 79],
+		barWidth: barWidth,
+		itemStyle: {
+			normal: {
+				color: team3Color
+			}
+		}
+	}, {
+		name: 'D队',
+		type: 'bar',
+		data: [77, 72, 78, 81, 37, 95],
+		barWidth: barWidth,
+		itemStyle: {
+			normal: {
+				color: team4Color
 			}
 
 		}
 	}]
 };
 teamChart.setOption(teamChart_option);
+
+//设置队伍底色
+$('#teamNameA').css({
+	'background-color': team1Color
+})
+$('#teamNameB').css({
+	'background-color': team2Color
+})
+$('#teamNameC').css({
+	'background-color': team3Color
+})
+$('#teamNameD').css({
+	'background-color': team4Color
+})
