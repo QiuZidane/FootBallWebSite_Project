@@ -8,6 +8,16 @@ var playerArray;  //所有球员数组
 var pickingArray = new Array(); //处在候选区的球员数组
 var pc = 0;
 
+var drawResult = {
+		A:[],
+		B:[],
+		C:[],
+		D:[]
+};
+
+var resetCode; //重置验证码
+var submitCode; //提交验证码
+
 //把一个球员添加到一个球队
 var addPlayer = function(playerTeam, playerName){
 	var ulId = "#team" + playerTeam;
@@ -16,6 +26,16 @@ var addPlayer = function(playerTeam, playerName){
 	if(obj){
 		var originHTML = obj.html();
 		obj.html(originHTML+newPlayerItem);
+	}
+	
+	if(playerTeam == "A"){
+		drawResult.A.push(playerName);
+	}else if(playerTeam == "B"){
+		drawResult.B.push(playerName);
+	}else if(playerTeam == "C"){
+		drawResult.C.push(playerName);
+	}else if(playerTeam == "D"){
+		drawResult.D.push(playerName);
 	}
 };
 
@@ -45,12 +65,22 @@ var resetPlayer = function(){
 	
 	//解禁【选人】按钮
 	$("#pick").attr("disabled", false);
+	
+	//复位验证码输入框
+	$("#resetCodeInput").val("");
+	$("#submitCodeInput").val("");
+	
+	drawResult = {A:[], B:[], C:[], D:[]};
 };
 
 //选出四位球员
 var pickPlayer = function(){
 	var obj = $("#pickingPlayer");
 	if(obj){
+		if(pc == playerArray.length){
+			$("#pickWarnning").modal("toggle");
+			return;
+		}
 		var maxPick = pc+4;
 		if(pickingArray.length != 0){
 			pickingArray.splice(0, pickingArray.length);//清空【候选球员】数组
@@ -98,14 +128,61 @@ var drawPlayer = function(){
 		
 		
 	}else{
-		alert("当前【候选区】没有球员，请先选人进入【候选区】。");
+		$("#drawWarnning").modal("toggle");
 	}
 };
 
+var checkSubmitCode = function(){
+	if(submitCode == Number($("#submitCodeInput").val().trim())){//submitCode判断通过
+		$("#submitWarnning").modal("hide");
+		submitDraw();
+		submitCode = 0;
+	}else{
+		$("#submitCodeInput").tooltip('show');
+		$("#submitCodeInput").focus();
+	}
+}
+
 //提交结果
 var submitDraw = function(){
-	
+	var drawResultJson = JSON.stringify(drawResult);
+	alert(drawResultJson);
 };
+
+var clickSubmit = function(){
+	if(($("#teamA").html().trim() != "") || ($("#teamB").html().trim() != "") ||
+			($("#teamC").html().trim() != "") || ($("#teamD").html().trim() != "")){//有可提交的数据
+		$("#submitWarnning").modal("toggle");
+		submitCode = getRandomNum(1000, 9999);
+		$("#submitCode").html(submitCode);
+	}else{//无可重置的数据
+		$("#submitErrorWarnning").modal("toggle");
+	}
+}
+
+
+var clickReset = function(){
+	if(($("#teamA").html().trim() != "") || ($("#teamB").html().trim() != "") ||
+			($("#teamC").html().trim() != "") || ($("#teamD").html().trim() != "") ||
+				($("#pickingPlayer").html().trim() != "")){//有可重置的数据
+		$("#resetWarnning").modal("toggle");
+		resetCode = getRandomNum(1000, 9999);
+		$("#resetCode").html(resetCode);
+	}else{//无可重置的数据
+		$("#resetErrorWarnning").modal("toggle");
+	}
+}
+
+var checkResetCode = function(){
+	if(resetCode == Number($("#resetCodeInput").val().trim())){//resetCode判断通过
+		$("#resetWarnning").modal("hide");
+		resetPlayer();
+		resetCode = 0;
+	}else{
+		$("#resetCodeInput").tooltip('show');
+		$("#resetCodeInput").focus();
+	}
+}
 
 //获取随机数
 var getRandomNum = function(min, max){   

@@ -187,3 +187,15 @@ ul li{
 	background-color: rgb(255, 160, 122);
 	color: white;
 }
+
+.warnningAlert{
+	margin-top:100px;
+}
+
+#resetCode{
+	margin-left:10px;
+}
+
+#submitCode{
+	margin-left:10px;
+}
