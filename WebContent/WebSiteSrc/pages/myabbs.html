@@ -32,7 +32,23 @@
 	<body>
 		<div class="middleDiv" id="middleDivDes">
 			<!-- 说明 -->
-			<div id="explainDiv">【属性值参考标杆：比如速度,以你见过广研跑最快的那人为100,平均值为50,最慢为0】</div>
+			<div id="explainDiv">【属性值参考：如速度,以广研跑最快的为100,平均值为50】</div>
+			<div id="exampleDiv"> 参考别人填写:
+				<div class="btn-group" id="player1">
+					<button type="button" class="btn btn-primary dropdown-toggle btn-block btn-player1" data-toggle="dropdown" id="selectedplayer1" tag="选择球员" style="width: 150px; height: 35px; margin-top: -7px; margin-left: 10px;">
+							选择球员 <span class="caret"></span>
+						</button>
+					<ul class="dropdown-menu" role="menu" id="player1list" style="height:600px;overflow:scroll">
+						<!--<li role="presentation" class="dropdown-header">广州测试部</li>							
+							<li><a href="#">翁子君</a></li>
+							<li role="presentation" class="divider"></li>						
+							<li role="presentation" class="dropdown-header">广州研发支持部</li>
+							<li><a href="#">丘士丹</a></li>
+							<li><a href="#">黄振华</a></li>
+							<li role="presentation" class="divider"></li>-->
+					</ul>
+				</div>
+			</div>
 			<!-- 卡位用 -->
 			<div id="chart_Div1">
 				<!--头像-->
@@ -279,7 +295,7 @@
 			</div>
 			<!-- /.modal -->
 		</div>
-		
+
 		<!--是否参加联赛提示模态框-->
 		<div class="modal fade" id="descmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop='true'>
 			<div class="modal-dialog">
@@ -303,7 +319,7 @@
 		<!--自定义-->
 		<link rel="stylesheet" type="text/css" href="../css/myabbs.css">
 		<!--自定义-->
-		<script type="text/javascript" src="../js/myabbs.js"></script>
+		<script type="text/javascript" src="../js/myabbs.js"></script>		
 		<script type="text/javascript" src="../js/constants.js"></script>
 		<script type='text/javascript' src="../js/third/echarts.min.js"></script>
 
@@ -313,7 +329,8 @@
 		<!--<script type='text/javascript' src="../js/third/sand-signika.js"></script>-->
 
 		<script type="text/javascript">
-			GetAbility();
+			GetAbility();		// 获取球员信息	
+			GetAllPlayerData();	// 生成球员列表
 			//			GetandCalPlayerAbilities(0); //初始化能力值、雷达图等，初始化时，参数送0
 		</script>
 	</body>

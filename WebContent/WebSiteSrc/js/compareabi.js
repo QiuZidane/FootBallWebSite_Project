@@ -134,9 +134,9 @@ function submitCompare() {
 
 }
 
-function setPlayerList(dataarray) {
+var setPlayerList = function(dataarray) {
 	for (var i = 0; i < dataarray.length; i++) {
-		console.log("department=" + dataarray[i].department + " name=" + dataarray[i].playername);
+		//console.log("department=" + dataarray[i].department + " name=" + dataarray[i].playername);
 		switch (dataarray[i].department) {
 			case '广州测试部':
 				playerDept.dep1.push(dataarray[i].playername);
@@ -806,7 +806,7 @@ function GetPlayerData(name1, name2) {
 
 			} catch (e) {
 				console.log("error=" + e.message);
-				console.log("compareabi.js成功返回信息=>" + XMLHttpRequest.responseText + "\n=>无法转换为JSON");
+				//console.log("compareabi.js成功返回信息=>" + XMLHttpRequest.responseText + "\n=>无法转换为JSON");
 			}
 			// HideLoading();
 		},
@@ -818,7 +818,7 @@ function GetPlayerData(name1, name2) {
 }
 
 // ajax 获取所有球员的属性，进入页面时获取一次，生成球员列表 
-function GetAllPlayerData() {
+var GetAllPlayerData = function() {
 	$.ajax({
 		//提交数据的类型 POST GET
 		type: "POST",
@@ -836,7 +836,7 @@ function GetAllPlayerData() {
 		},
 		//成功返回之后调用的函数            
 		success: function(data) {
-			console.log('成功返回数据-->compareabi.js');
+			//console.log('成功返回数据-->compareabi.js');
 		},
 		//调用执行后调用的函数
 		complete: function(XMLHttpRequest, textStatus) {
@@ -856,7 +856,7 @@ function GetAllPlayerData() {
 
 			} catch (e) {
 				console.log("error=" + e.message);
-				console.log("compareabi.js成功返回信息=>" + XMLHttpRequest.responseText + "\n=>无法转换为JSON");
+				//console.log("compareabi.js成功返回信息=>" + XMLHttpRequest.responseText + "\n=>无法转换为JSON");
 			}
 			// HideLoading();
 		},

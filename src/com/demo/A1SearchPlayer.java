@@ -58,6 +58,31 @@ public class A1SearchPlayer extends HttpServlet {
 			out.write(jsonStr.toString());
 			//			System.out.println("输出="+jsonStr.toString());	
 
+		} else if (request.getParameter("name").equals("player0".toString())) {
+			System.out.println("请求player0的数据");						
+			String jsonStr = ""
+					+ "{\"playername\":\"player0\","
+					+ "\"speed\":\"71\","
+					+ "\"strength\":\"71\","
+					+ "\"stamina\":\"75\","
+					+ "\"health\":\"71\","
+					+ "\"passing\":\"75\","
+					+ "\"touching\":\"75\","
+					+ "\"dribbling\":\"65\","
+					+ "\"heading\":\"65\","
+					+ "\"minding\":\"60\","
+					+ "\"rating\":\"60\","
+					+ "\"teamwork\":\"66\","
+					+ "\"shoot\":\"70\","
+					+ "\"offtheball\":\"75\","
+					+ "\"creativity\":\"65\","
+					+ "\"taking\":\"70\","
+					+ "\"marking\":\"60\","
+					+ "\"positioning\":\"70\","
+					+ "\"department\":\"广州开发一部\"}";
+			PrintWriter out = response.getWriter();
+			out.flush();
+			out.write(jsonStr.toString()); 
 		} else {
 
 			System.err.println("请求用户名错误");

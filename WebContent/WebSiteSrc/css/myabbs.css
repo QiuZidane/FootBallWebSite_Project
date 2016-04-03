@@ -120,12 +120,25 @@ body {
 
 #explainDiv {
 	position: absolute;
-	float: right;
+	float: left;
 	/*border: 1px solid rgb(51,122,183);*/
-	width: 800px;
+	width: 550px;
 	height: 30px;
 	margin-top: 80px;
-	margin-left: 180px;
+	margin-left: 100px;
+	padding-right: 5px;
+	font-size: 20px;
+	color: rgb(51, 122, 183);
+}
+
+#exampleDiv {
+	position: absolute;
+	float: left;
+	/*border: 1px solid rgb(51,122,183);*/
+	width: 400px;
+	height: 30px;
+	margin-top: 80px;
+	margin-left: 700px;
 	padding-right: 5px;
 	font-size: 20px;
 	color: rgb(51, 122, 183);
@@ -754,4 +767,8 @@ body {
 
 #defen_abbs3 .slider-handle {
 	background: rgb(12, 142, 207);
+}
+
+.modal {
+	margin-top: 100px;
 }
