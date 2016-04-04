@@ -150,14 +150,14 @@ function setTeam(Array) {
 	team4.defenceabi = parseInt(team4.defenceabi / team4.numOfPlayer);
 
 
-		console.log("team1:");
-		console.log(team1);
-		console.log("team2:");
-		console.log(team2);
-		console.log("team3:");
-		console.log(team3);
-		console.log("team4:");
-		console.log(team4);
+//		console.log("team1:");
+//		console.log(team1);
+//		console.log("team2:");
+//		console.log(team2);
+//		console.log("team3:");
+//		console.log(team3);
+//		console.log("team4:");
+//		console.log(team4);
 
 	var teamChart_option = {
 		title: {
@@ -338,3 +338,26 @@ $('#teamNameC').css({
 $('#teamNameD').css({
 	'background-color': team4Color
 })
+
+
+// 设置点击球员事件--链接过去球员属性页面，
+// 入参=球员名
+var ulItem = document.querySelectorAll("ul");
+//console.log(ulItem);
+for (key in ulItem) {
+	console.log(ulItem[key]);
+	ulItem[key].addEventListener('click',selectPlayer,false);
+}
+
+function selectPlayer(event) {
+	var selectedPlayer = event.target;
+	var pngLocal = selectedPlayer.innerHTML.indexOf("png");
+	var playername = selectedPlayer.innerHTML.substring(31);
+//	console.log(selectedPlayer.innerHTML);
+//	console.log(playername);
+	document.location.href = '../pages/playerabi.jsp?name='+playername.toString();
+	localStorage.setItem('lastpage','teams.html');
+
+}
+
+

@@ -193,7 +193,7 @@
 			<!-- 卡位用 -->
 			<div id="chart_Div3">
 				<div id="returnBtnDiv">
-					<button type="button" class="btn btn-success btn-block btn-lg" id="returnBtn" onclick="document.location.href='totalplayers.html'">返 回</button>
+					<button type="button" class="btn btn-success btn-block btn-lg" id="returnBtn" onclick="document.location.href=localStorage.getItem('lastpage')">返 回</button>
 				</div>
 			</div>
 			<div id="submitResultDesc"></div>
