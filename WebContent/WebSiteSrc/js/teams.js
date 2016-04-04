@@ -7,6 +7,20 @@
  * 
  * 
  */
+// 图形区域设置
+// echart的参数
+var barWidth = 10; // 柱条宽度
+var team1Color = 'rgb(12,142,207)'; //'#4cb749';
+var team2Color = 'rgb(223,77,0)'; //'#FC3E10';
+var team3Color = 'rgb(77,184,73)'; //'#4cb749';
+var team4Color = 'rgb(245,200,18)'; //'#FC3E10';
+var gridleft = '2%';
+var gridright = '9%';
+var gridbottom = '1%';
+var textcolor = 'rgb(51,122,183)';
+var teamChart = echarts.init(document.getElementById('chartArea'));
+
+// 球员参数
 var playerArray = new Array(); // 存放所有球员数据
 
 //球员对象构造函数,记录所有的能力
@@ -28,66 +42,205 @@ function playerData() {
 //队伍构造函数，记录每个队伍的人员和总能力
 function teamData() {
 	this.totalabi = 0; //总实力
+	this.bodyabi = 0;
+	this.techabi = 0;
+	this.specabi = 0;
+	this.attackabi = 0;
+	this.defenceabi = 0;
 	this.numOfPlayer = 0; //队员数目
 	this.player = new Array(); //记录队员名
 }
 
-//遍历数组内的球员对象,加入到teamData，每加入一个totalabi和numOfPlayer增加相应数值
+/*
+ * 遍历数组内的球员对象,加入到teamData，
+ * 每加入一个球员：
+ * 	1、totalabi和numOfPlayer增加相应数值
+ *	2、各项数值增加
+ *
+ */
+
+var team1 = new teamData();
+var team2 = new teamData();
+var team3 = new teamData();
+var team4 = new teamData();
+
 function setTeam(Array) {
-	var team1 = new teamData();
-	var team2 = new teamData();
-	var team3 = new teamData();
-	var team4 = new teamData();
 
 	for (key in Array) {
 
 		var player = Array[key];
 
 		if (player['team'] == 'A队') {
-			team1.player.push(player['playername']);
 			team1.numOfPlayer++;
+			team1.player.push(player['playername']);
 			team1.totalabi += player['totalabi'];
+			team1.bodyabi += player['body_abi'];
+			team1.techabi += player['tech_abi'];
+			team1.specabi += player['spec_abi'];
+			team1.attackabi += player['attack_abi'];
+			team1.defenceabi += player['defence_abi'];
 		}
 
 		if (player['team'] == 'B队') {
-			team2.player.push(player['playername']);
 			team2.numOfPlayer++;
+			team2.player.push(player['playername']);
 			team2.totalabi += player['totalabi'];
+			team2.bodyabi += player['body_abi'];
+			team2.techabi += player['tech_abi'];
+			team2.specabi += player['spec_abi'];
+			team2.attackabi += player['attack_abi'];
+			team2.defenceabi += player['defence_abi'];
+
 		}
 
 		if (player['team'] == 'C队') {
-			team3.player.push(player['playername']);
 			team3.numOfPlayer++;
+			team3.player.push(player['playername']);
 			team3.totalabi += player['totalabi'];
+			team3.bodyabi += player['body_abi'];
+			team3.techabi += player['tech_abi'];
+			team3.specabi += player['spec_abi'];
+			team3.attackabi += player['attack_abi'];
+			team3.defenceabi += player['defence_abi'];
 		}
 
 		if (player['team'] == 'D队') {
-			team4.player.push(player['playername']);
 			team4.numOfPlayer++;
+			team4.player.push(player['playername']);
 			team4.totalabi += player['totalabi'];
+			team4.bodyabi += player['body_abi'];
+			team4.techabi += player['tech_abi'];
+			team4.specabi += player['spec_abi'];
+			team4.attackabi += player['attack_abi'];
+			team4.defenceabi += player['defence_abi'];
 		}
 
 		//加入html.ul菜单中
-		addPlayer(player['team'], player['playername'], player['isCaptain']);
+		addPlayerToTeam(player['team'], player['playername'], player['isCaptain']);
 
 	}
-	team1.totalabi = parseInt(team1.totalabi / team1.numOfPlayer);
-	team2.totalabi = parseInt(team2.totalabi / team2.numOfPlayer);
-	team3.totalabi = parseInt(team3.totalabi / team3.numOfPlayer);
-	team4.totalabi = parseInt(team4.totalabi / team4.numOfPlayer);
 
-	//	console.log("team1:");
-	//	console.log(team1);
-	//	console.log("team2:");
-	//	console.log(team2);
-	//	console.log("team3:");
-	//	console.log(team3);
-	//	console.log("team4:");
-	//	console.log(team4);
+	//计算平均值
+	team1.totalabi = parseInt(team1.totalabi / team1.numOfPlayer);
+	team1.bodyabi = parseInt(team1.bodyabi / team1.numOfPlayer);
+	team1.techabi = parseInt(team1.techabi / team1.numOfPlayer);
+	team1.specabi = parseInt(team1.specabi / team1.numOfPlayer);
+	team1.attackabi = parseInt(team1.attackabi / team1.numOfPlayer);
+	team1.defenceabi = parseInt(team1.defenceabi / team1.numOfPlayer);
+
+	team2.totalabi = parseInt(team2.totalabi / team2.numOfPlayer);
+	team2.bodyabi = parseInt(team2.bodyabi / team2.numOfPlayer);
+	team2.techabi = parseInt(team2.techabi / team2.numOfPlayer);
+	team2.specabi = parseInt(team2.specabi / team2.numOfPlayer);
+	team2.attackabi = parseInt(team2.attackabi / team2.numOfPlayer);
+	team2.defenceabi = parseInt(team2.defenceabi / team2.numOfPlayer);
+
+	team3.totalabi = parseInt(team3.totalabi / team3.numOfPlayer);
+	team3.bodyabi = parseInt(team3.bodyabi / team3.numOfPlayer);
+	team3.techabi = parseInt(team3.techabi / team3.numOfPlayer);
+	team3.specabi = parseInt(team3.specabi / team3.numOfPlayer);
+	team3.attackabi = parseInt(team3.attackabi / team3.numOfPlayer);
+	team3.defenceabi = parseInt(team3.defenceabi / team3.numOfPlayer);
+
+	team4.totalabi = parseInt(team4.totalabi / team4.numOfPlayer);
+	team4.bodyabi = parseInt(team4.bodyabi / team4.numOfPlayer);
+	team4.techabi = parseInt(team4.techabi / team4.numOfPlayer);
+	team4.specabi = parseInt(team4.specabi / team4.numOfPlayer);
+	team4.attackabi = parseInt(team4.attackabi / team4.numOfPlayer);
+	team4.defenceabi = parseInt(team4.defenceabi / team4.numOfPlayer);
+
+
+//		console.log("team1:");
+//		console.log(team1);
+//		console.log("team2:");
+//		console.log(team2);
+//		console.log("team3:");
+//		console.log(team3);
+//		console.log("team4:");
+//		console.log(team4);
+
+	var teamChart_option = {
+		title: {
+			text: '',
+			subtext: ''
+		},
+		tooltip: {
+			trigger: 'axis',
+			axisPointer: {
+				type: 'shadow'
+			}
+		},
+		legend: {
+			//		data: ['zidane', 'kfzx'],
+			//		itemHeight: 10
+
+		},
+		grid: {
+			left: gridleft,
+			right: gridright,
+			bottom: gridbottom,
+			containLabel: true
+		},
+		xAxis: {
+			max: 100,
+			type: 'value',
+			boundaryGap: [0, 1]
+		},
+		yAxis: {
+			type: 'category',
+			data: ['特殊', '防守', '进攻', '体质', '技术', '总实力']
+
+		},
+		series: [{
+			name: 'A队',
+			type: 'bar',
+			data: [team1.specabi, team1.defenceabi, team1.attackabi, team1.bodyabi, team1.techabi, team1.totalabi],
+			barWidth: barWidth,
+			itemStyle: {
+				normal: {
+					color: team1Color
+				}
+			}
+		}, {
+			name: 'B队',
+			type: 'bar',
+			data: [team2.specabi, team2.defenceabi, team2.attackabi, team2.bodyabi, team2.techabi, team2.totalabi],
+			barWidth: barWidth,
+			itemStyle: {
+				normal: {
+					color: team2Color
+				}
+
+			}
+		}, {
+			name: 'C队',
+			type: 'bar',
+			data: [team3.specabi, team3.defenceabi, team3.attackabi, team3.bodyabi, team3.techabi, team3.totalabi],
+			barWidth: barWidth,
+			itemStyle: {
+				normal: {
+					color: team3Color
+				}
+			}
+		}, {
+			name: 'D队',
+			type: 'bar',
+			data: [team4.specabi, team4.defenceabi, team4.attackabi, team4.bodyabi, team4.techabi, team4.totalabi],
+			barWidth: barWidth,
+			itemStyle: {
+				normal: {
+					color: team4Color
+				}
+
+			}
+		}]
+	};
+	teamChart.setOption(teamChart_option);
+
 
 }
 
-// ajax 获取所有球员的属性 
+// ajax 获取所有球员的属性 , 生成每队人员列表和实力分析图		
 function GetAllPlayerData() {
 	$.ajax({
 		//提交数据的类型 POST GET
@@ -155,7 +308,7 @@ var playerItem = "<li><img src='../img/tshirt19.png'>%player</li>"; //球员元�
 var playerItem_captian = "<li><img src='../img/captain.png'>%player</li>";
 var playerReg = "%player"; //普通球员替换规则
 //把一个球员添加到一个球队
-var addPlayer = function(playerTeam, playerName, isCaptain) {
+var addPlayerToTeam = function(playerTeam, playerName, isCaptain) {
 	var ulId = "#team" + playerTeam.substring(0, 1);
 	var newPlayerItem;
 	//	console.log("isCaptain=" + isCaptain);
@@ -172,96 +325,6 @@ var addPlayer = function(playerTeam, playerName, isCaptain) {
 
 };
 
-// 图形区域设置
-//echart的参数
-var barWidth = 10; // 柱条宽度
-var team1Color = 'rgb(12,142,207)'; //'#4cb749';
-var team2Color = 'rgb(223,77,0)'; //'#FC3E10';
-var team3Color = 'rgb(77,184,73)'; //'#4cb749';
-var team4Color = 'rgb(245,200,18)'; //'#FC3E10';
-var gridleft = '2%';
-var gridright = '9%';
-var gridbottom = '1%';
-var textcolor = 'rgb(51,122,183)';
-var teamChart = echarts.init(document.getElementById('chartArea'));
-var teamChart_option = {
-	title: {
-		text: '',
-		subtext: ''
-	},
-	tooltip: {
-		trigger: 'axis',
-		axisPointer: {
-			type: 'shadow'
-		}
-	},
-	legend: {
-		//		data: ['zidane', 'kfzx'],
-		//		itemHeight: 10
-
-	},
-	grid: {
-		left: gridleft,
-		right: gridright,
-		bottom: gridbottom,
-		containLabel: true
-	},
-	xAxis: {
-		max: 100,
-		type: 'value',
-		boundaryGap: [0, 1]
-	},
-	yAxis: {
-		type: 'category',
-		data: ['特殊', '防守', '进攻', '身体', '技术', '总实力']
-
-	},
-	series: [{
-		name: 'A队',
-		type: 'bar',
-		data: [90, 88, 77, 79, 88, 91],
-		barWidth: barWidth,
-		itemStyle: {
-			normal: {
-				color: team1Color
-			}
-		}
-	}, {
-		name: 'B队',
-		type: 'bar',
-		data: [77, 81, 37, 95, 54, 87],
-		barWidth: barWidth,
-		itemStyle: {
-			normal: {
-				color: team2Color
-			}
-
-		}
-	}, {
-		name: 'C队',
-		type: 'bar',
-		data: [90, 88, 62, 47, 77, 79],
-		barWidth: barWidth,
-		itemStyle: {
-			normal: {
-				color: team3Color
-			}
-		}
-	}, {
-		name: 'D队',
-		type: 'bar',
-		data: [77, 72, 78, 81, 37, 95],
-		barWidth: barWidth,
-		itemStyle: {
-			normal: {
-				color: team4Color
-			}
-
-		}
-	}]
-};
-teamChart.setOption(teamChart_option);
-
 //设置队伍底色
 $('#teamNameA').css({
 	'background-color': team1Color
@@ -275,3 +338,26 @@ $('#teamNameC').css({
 $('#teamNameD').css({
 	'background-color': team4Color
 })
+
+
+// 设置点击球员事件--链接过去球员属性页面，
+// 入参=球员名
+var ulItem = document.querySelectorAll("ul");
+//console.log(ulItem);
+for (key in ulItem) {
+	console.log(ulItem[key]);
+	ulItem[key].addEventListener('click',selectPlayer,false);
+}
+
+function selectPlayer(event) {
+	var selectedPlayer = event.target;
+	var pngLocal = selectedPlayer.innerHTML.indexOf("png");
+	var playername = selectedPlayer.innerHTML.substring(31);
+//	console.log(selectedPlayer.innerHTML);
+//	console.log(playername);
+	document.location.href = '../pages/playerabi.jsp?name='+playername.toString();
+	localStorage.setItem('lastpage','teams.html');
+
+}
+
+
