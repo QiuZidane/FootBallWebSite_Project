@@ -65,12 +65,22 @@ function LoginPost(name, password) {
 				var jsonObject = JSON.parse(XMLHttpRequest.responseText);
 				if (jsonObject['retcode'] == "0") { // 通过
 					try {
-						localStorage.setItem('playername', name);
-						localStorage.setItem('loginflag', '1');
+						localStorage.setItem('playername', name);						
+						localStorage.setItem('userimg', 'face1.gif');
+						localStorage.setItem('loginflag', '1');					
+						
 					} catch(e){
 						console.log("loginjs exception1 :"+e.message);
 					} finally {
-						document.location.href = '../pages/myabbs.html?name='+name;
+						var lastpage = localStorage.getItem('lastpage');
+						if (lastpage.indexOf('my') != -1){
+							document.location.href = '../pages/myabbs.html?name='+name;
+						} else if (lastpage.indexOf('bbs') != -1){
+							document.location.href = '../bbs/bbs.html';
+						} else {
+							
+						}
+						
 					}
 					
 										

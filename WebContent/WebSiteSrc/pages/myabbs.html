@@ -18,6 +18,15 @@
 		<meta charset="utf-8">
 		<title>足球大本营</title>
 
+		<script type="text/javascript">
+			var loginflag = localStorage.loginflag;
+			if (loginflag == undefined || loginflag == 0) { //跳转到注册页面
+				console.log('loginflag is undefined --> 未登录');
+				localStorage.setItem('lastpage', '../pages/myabbs.html');	
+				document.location.href = '../pages/login.html';
+			} else {}
+		</script>
+
 		<link href="../css/bootstrap/bootstrap-slider.css" rel="stylesheet">
 		<link href="../css/bootstrap/bootstrap.min.css" rel="stylesheet">
 		<link href="../css/square/blue.css" rel="stylesheet">
@@ -319,20 +328,15 @@
 		<!--自定义-->
 		<link rel="stylesheet" type="text/css" href="../css/myabbs.css">
 		<!--自定义-->
-		<script type="text/javascript" src="../js/myabbs.js"></script>		
+		<script type="text/javascript" src="../js/myabbs.js"></script>
 		<script type="text/javascript" src="../js/constants.js"></script>
 		<script type='text/javascript' src="../js/third/echarts.min.js"></script>
-
-		<!--<script type='text/javascript' src="../js/third/highcharts.js"></script>-->
-		<!--<script type='text/javascript' src="../js/third/highcharts-more.js"></script>
-		<script type='text/javascript' src="../js/third/grid-light.js"></script>-->
-		<!--<script type='text/javascript' src="../js/third/sand-signika.js"></script>-->
-
 		<script type="text/javascript">
-			GetAbility();		// 获取球员信息	
-			GetAllPlayerData();	// 生成球员列表
+			GetAbility(); // 获取球员信息	
+			GetAllPlayerData(); // 生成球员列表
 			//			GetandCalPlayerAbilities(0); //初始化能力值、雷达图等，初始化时，参数送0
 		</script>
+
 	</body>
 
 </html>

@@ -3,22 +3,11 @@
 
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
-		<script type="text/javascript">			
-			var loginflag = localStorage.loginflag;
-			if (loginflag == undefined || loginflag == 0) { //跳转到注册页面
-				console.log('loginflag is undefined --> 未登录');				
-				localStorage.setItem('lastpage', '../bbs/bbs.html');
-				document.location.href = '../pages/login.html';
-			} else {}
-		</script>
-
 		<script type="text/javascript" src="../js/third/jquery.min.js"></script>
 		<script type="text/javascript" src="../js/third/ajaxrequest.js"></script>
 		<script type="text/javascript" src="../js/constants.js"></script>
 		<script type="text/javascript" src="../js/bbs.js"></script>
 	</head>
-
 	<body>
 		<div class="middleDiv" id="middleDivDes">
 			<div id="msgBox">
@@ -27,11 +16,7 @@
 
 					<div>
 						<input id="userName" class="f-text" value="" placeholder="输入用户名" />
-						<script>
-							var defaultName = localStorage.getItem('playername');
-							document.getElementById('userName').value = defaultName;
-						</script>
-						<!--<p id="face"><img src="img/face1.gif" class="current" /><img src="img/face2.gif" /><img src="img/face3.gif" /><img src="img/face4.gif" /><img src="img/face5.gif" /><img src="img/face6.gif" /><img src="img/face7.gif" /><img src="img/face8.gif" /></p>-->
+						<p id="face"><img src="img/face1.gif" class="current" /><img src="img/face2.gif" /><img src="img/face3.gif" /><img src="img/face4.gif" /><img src="img/face5.gif" /><img src="img/face6.gif" /><img src="img/face7.gif" /><img src="img/face8.gif" /></p>
 					</div>
 					<div><textarea id="conBox" class="f-text" placeholder="评论正文"></textarea></div>
 					<div class="tr">
@@ -63,7 +48,7 @@
 	<script type="text/javascript">
 		getData();
 	</script>
-
+	
 	<link rel="stylesheet" type="text/css" href="../css/bbs.css">
 
 </html>

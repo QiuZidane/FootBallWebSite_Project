@@ -1,5 +1,7 @@
+var userimg = 'img/'+localStorage.getItem('userimg');
+
 var bbsData = {
-	imgsrc: "",
+	imgsrc: userimg,
 	username: "",
 	msginfo: "",
 	smtimes: ""
@@ -67,7 +69,8 @@ EventUtil.addLoadHandler(function() {
 	var oUl = get.byTagName("ul", oList)[0];
 	var aLi = get.byTagName("li", oList);
 	var aFtxt = get.byClass("f-text", oMsgBox);
-	var aImg = get.byTagName("img", get.byId("face"));	
+	//	var aImg = get.byTagName("img", get.byId("face"));	
+	var aImg = 'face1.gif';
 	var bSend = false;
 	var timer = null;
 	var oTmp = "";
@@ -85,7 +88,7 @@ EventUtil.addLoadHandler(function() {
 		event.ctrlKey && event.keyCode == 13 && fnSend()
 	});
 	//发送广播函数
-	function fnSend() {		
+	function fnSend() {
 		var reg = /^\s*$/g;
 		if (reg.test(oUserName.value)) {
 			alert("\u8bf7\u586b\u5199\u60a8\u7684\u59d3\u540d");
@@ -102,7 +105,7 @@ EventUtil.addLoadHandler(function() {
 		} else {
 			var oLi = document.createElement("li");
 			var oDate = new Date();
-			bbsData.imgsrc = get.byClass("current", get.byId("face"))[0].src;
+//			bbsData.imgsrc = get.byClass("current", get.byId("face"))[0].src;
 			bbsData.username = oUserName.value;
 			bbsData.msginfo = oConBox.value.replace(/<[^>]*>|&nbsp;/ig, "");
 			bbsData.smtimes = format(oDate.getMonth() + 1) + "\u6708" + format(oDate.getDate()) + "\u65e5 " + format(oDate.getHours()) + ":" + format(oDate.getMinutes());
@@ -117,9 +120,10 @@ EventUtil.addLoadHandler(function() {
 			//插入元素
 			aLi.length ? oUl.insertBefore(oLi, aLi[0]) : oUl.appendChild(oLi);
 			//重置表单
-			get.byTagName("form", oMsgBox)[0].reset();
-			for (i = 0; i < aImg.length; i++) aImg[i].className = "";
-			aImg[0].className = "current";
+			//get.byTagName("form", oMsgBox)[0].reset();	
+			document.getElementById('conBox').value="";
+			//for (i = 0; i < aImg.length; i++) aImg[i].className = "";
+			//aImg[0].className = "current";
 			//将元素高度保存
 			var iHeight = oLi.clientHeight - parseFloat(css(oLi, "paddingTop")) - parseFloat(css(oLi, "paddingBottom"));
 			var alpah = count = 0;
@@ -148,7 +152,7 @@ EventUtil.addLoadHandler(function() {
 			delLi()
 		}
 		//		console.log(bbsData);
-		uploadData();		
+		uploadData();
 	};
 	//事件绑定, 判断字符输入
 	EventUtil.addHandler(oConBox, "keyup", confine);
@@ -320,7 +324,7 @@ function getData() {
 				var jsonObject = JSON.parse(XMLHttpRequest.responseText);
 				//				console.log(jsonObject);
 				for (key in jsonObject) {
-//					console.log(jsonObject[key]);
+					//					console.log(jsonObject[key]);
 					var data = jsonObject[key];
 					var oLi = document.createElement("li");
 					oLi.innerHTML = "<div class=\"userPic\"><img src=\"" + data["imgsrc"] + "\"></div>\
@@ -337,8 +341,8 @@ function getData() {
 								<div class=\"msgInfo\">经过开发团队不懈的努力，广研足协俱乐部网站成功上线！欢迎大家加入！ -- 可匿名评论</div>\
 								<div class=\"times\"><span>04月11日 22:19</span>\
 									<a class=\"del\" href=\"javascript:;\"></a>\
-								</div>\</div>"			
-				oFragement.appendChild(announce);				
+								</div>\</div>"
+				oFragement.appendChild(announce);
 				parentNode.appendChild(oFragement);
 
 			} catch (e) {
@@ -353,8 +357,8 @@ function getData() {
 			//请求出错处理
 
 		}
-	});	
+	});
 }
 
 //30秒上主机获取一次评论
-setInterval(getData,30000);
+setInterval(getData, 30000);
