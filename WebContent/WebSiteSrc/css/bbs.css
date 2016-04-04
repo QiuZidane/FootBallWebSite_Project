@@ -186,6 +186,11 @@ body {
 	border-radius: 3px;
 }
 
+img {
+	height: 100%;
+	width: 100%;
+}
+
 #msgBox .list .content {
 	float: left;
 	width: 400px;

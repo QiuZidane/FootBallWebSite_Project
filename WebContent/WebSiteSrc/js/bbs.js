@@ -1,4 +1,4 @@
-var userimg = 'img/'+localStorage.getItem('userimg');
+var userimg = '../img/userimg/'+localStorage.getItem('userimg');
 
 var bbsData = {
 	imgsrc: userimg,

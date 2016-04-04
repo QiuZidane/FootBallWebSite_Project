@@ -9,6 +9,14 @@ departmentlist.addEventListener('click', selectDepartment, false);
 var submitinput = document.getElementById("submitinput");
 submitinput.addEventListener('click', submitCheck, false);
 
+
+//点击头像选择按钮--弹出模态框
+$('#selectimg').click(function(){
+	$('#userimgmodal').modal('show')
+	
+});
+
+
 //实现点击部门list后更新部门button的文字
 function selectDepartment(event) {
 	var selectedlist = event.target; // 获取点击目标

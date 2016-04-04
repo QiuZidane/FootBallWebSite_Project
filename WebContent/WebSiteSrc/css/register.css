@@ -27,8 +27,8 @@ body {
    background-color: rgba(51,180,35,0.3);
     border: 2px solid rgb(51,122,183);
     width: 440px;
-    height: 330px;
-    margin-top: 200px; 
+    height: 380px;
+    margin-top: 150px; 
     margin-left: 380px;
     padding-right: 5px;
 }
@@ -49,7 +49,7 @@ body {
     border: 2px solid rgb(51,122,183);
     width: 200px;
     height: 38px;
-    margin-top: 13px;
+    margin-top: 10px;
     margin-left: 120px;
     text-align: center;
     
@@ -64,7 +64,7 @@ body {
     border: 2px solid rgb(51,122,183);
     width: 200px;
     height: 38px;
-    margin-top: 13px;
+    margin-top: 10px;
     margin-left: 120px;
     text-align: center;
     
@@ -75,10 +75,20 @@ body {
     border: 2px solid rgb(51,122,183);
     width: 200px;
     height: 38px;
-    margin-top: 1px;
+    margin-top: -5px;
     margin-left: 120px;
     text-align: center;
     
+}
+
+#userimg {
+	float: left;
+	border: 2px solid rgb(51, 122, 183);
+	width: 200px;
+	height: 38px;
+	margin-top: 10px;
+	margin-left: 120px;
+	text-align: center;
 }
 
 #registerbtn {
@@ -86,13 +96,21 @@ body {
     border: 2px solid rgb(51,122,183);
     width: 200px;
     height: 38px;
-    margin-top: 1px;
+    margin-top: 30px;
     margin-left: 120px;
     text-align: center;    
 }
 
 
+#modal-content {
+	width: 600px;
+	/*height: 60%;*/
+}
 
+img {
+	width: 75px;
+	height: 75px;
+}
 
 
 

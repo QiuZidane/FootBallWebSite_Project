@@ -66,7 +66,7 @@ function LoginPost(name, password) {
 				if (jsonObject['retcode'] == "0") { // 通过
 					try {
 						localStorage.setItem('playername', name);						
-						localStorage.setItem('userimg', 'face1.gif');
+						localStorage.setItem('userimg', 'face1.png');
 						localStorage.setItem('loginflag', '1');					
 						
 					} catch(e){
