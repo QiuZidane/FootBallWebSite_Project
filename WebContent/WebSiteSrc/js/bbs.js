@@ -67,7 +67,7 @@ EventUtil.addLoadHandler(function() {
 	var oUl = get.byTagName("ul", oList)[0];
 	var aLi = get.byTagName("li", oList);
 	var aFtxt = get.byClass("f-text", oMsgBox);
-	var aImg = get.byTagName("img", get.byId("face"));
+	var aImg = get.byTagName("img", get.byId("face"));	
 	var bSend = false;
 	var timer = null;
 	var oTmp = "";

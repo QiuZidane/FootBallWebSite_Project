@@ -153,8 +153,9 @@ var clickSubmit = function(){
 	if(($("#teamA").html().trim() != "") || ($("#teamB").html().trim() != "") ||
 			($("#teamC").html().trim() != "") || ($("#teamD").html().trim() != "")){//有可提交的数据
 		$("#submitWarnning").modal("toggle");
-		submitCode = getRandomNum(1000, 9999);
-		$("#submitCode").html(submitCode);
+		submitCode = 12345679;
+//		submitCode = getRandomNum(1000, 9999);
+//		$("#submitCode").html(submitCode);
 	}else{//无可重置的数据
 		$("#submitErrorWarnning").modal("toggle");
 	}
