@@ -10,13 +10,6 @@ var submitinput = document.getElementById("submitinput");
 submitinput.addEventListener('click', submitCheck, false);
 
 
-//点击头像选择按钮--弹出模态框
-$('#selectimg').click(function(){
-	$('#userimgmodal').modal('show')
-	
-});
-
-
 //实现点击部门list后更新部门button的文字
 function selectDepartment(event) {
 	var selectedlist = event.target; // 获取点击目标
@@ -24,12 +17,41 @@ function selectDepartment(event) {
 	document.getElementById("mydepartment").setAttribute('tag', selectedlist.innerHTML);
 }
 
+//点击头像选择按钮--弹出模态框
+$('#selectimg').click(function() {
+	$('#userimgmodal').modal('show')
+
+});
+
+//头像处理
+var aImg = document.querySelectorAll('img[tag]');
+var selectedImg;	//选择的头像
+for (i = 0; i < aImg.length; i++) {
+	aImg[i].onclick = function() {
+		for (i = 0; i < aImg.length; i++) {
+			aImg[i].className = "";	// 清空所有
+		}
+		this.className = "current"
+		selectedImg = this.src.substring(this.src.indexOf('face'));		
+	}
+}
+$('#selectimgBtn').click(function(){
+	$('#selectedimgId').attr('src','../img/userimg/'+selectedImg);
+	document.getElementById("selectimg").innerHTML = '重新选择头像';
+})
+
 //提交时检查合法性
 function submitCheck(event) {
+	
+	var userface = document.getElementById("selectimg").innerHTML; //选择头像
+	console.log(userface);
 	var userdepartment = document.getElementById("mydepartment").getAttribute('tag');
 	var username = document.getElementById("nameinput").value;
 	var userpassword = document.getElementById("passwordinput").value;
-	if (userdepartment == "选择部门") {
+	
+	if (userface.indexOf('重新') == -1) {
+		alert("请选择头像！");
+	} else if (userdepartment == "选择部门") {
 		alert("请选择部门！");
 	} else if (username == "") {
 		alert("请输入用户名!");
@@ -40,9 +62,9 @@ function submitCheck(event) {
 		var result = confirm("您的注册信息为:\n\n用户名：" + username + "\n密码：" + userpassword + "\n部门：" + userdepartment + "\n\n用户名不要写错噢!")
 		if (result) {
 			var base64dealer = new Base64();
-			var base64Password = base64md.encode(userpassword); 	//Base64加密处理
+			var base64Password = base64dealer.encode(userpassword); //Base64加密处理
 			//alert("base64 encode:" + base64Password);
-			base64Password = base64md.decode(base64Password);	//Base64解密处理
+			//base64Password = base64md.decode(base64Password); //Base64解密处理
 			//alert("base64 decode:" + base64Password);
 			RegisterPost(userdepartment, username, base64Password);
 
@@ -64,6 +86,7 @@ function RegisterPost(deparment, name, password) {
 		//提交的数据
 		data: {
 			deparment: deparment,
+			photo: selectedImg,
 			name: name,
 			password: password
 		},
@@ -84,6 +107,7 @@ function RegisterPost(deparment, name, password) {
 				var jsonObject = JSON.parse(XMLHttpRequest.responseText);
 				if (jsonObject["retcode"] == "0") {
 					console.log("注册成功，跳转到个人属性页面"); // 跳转时
+					localStorage.setItem('userimg', selectedImg);
 					localStorage.setItem('playername', name);
 					localStorage.setItem('loginflag', '1');
 					document.location.href = '../pages/myabbs.html';
@@ -103,3 +127,4 @@ function RegisterPost(deparment, name, password) {
 		}
 	});
 }
+

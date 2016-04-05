@@ -508,7 +508,7 @@ function submitTS() {
 		setTimeout(cleanTips, 2000);
 
 	} else {
-		LoginPost();
+		SubmitPlayerAbi();
 		//模态框消失后，将slider置为enable
 		setSliderStatus(true);
 		$('#submitModal').modal('hide');
@@ -521,7 +521,7 @@ function submitTS() {
 
 // ajax的post方法:
 // 确认提交方法，调用A2接口
-function LoginPost() {
+function SubmitPlayerAbi() {
 	$.ajax({
 		//提交数据的类型 POST GET
 		type: "POST",
@@ -552,7 +552,8 @@ function LoginPost() {
 			creativity: ability.creativity,
 			taking: ability.taking,
 			marking: ability.marking,
-			positioning: ability.positioning
+			positioning: ability.positioning,
+			photo:selectedImg
 
 		},
 		//返回数据的格式
@@ -927,6 +928,42 @@ var GetAllPlayerData = function() {
 		}
 	});
 }
+
+// 头像处理
+var userfaceDiv = document.getElementById('userheadDiv');
+userfaceDiv.onmouseover = function() {
+	this.className += " hover";
+	this.innerHTML = "重新选择头像";
+};
+userfaceDiv.onmouseout = function() {
+	this.className = this.className.replace(/\s?hover/, "");
+	this.innerHTML = "";
+};
+
+//点击头像选择按钮--弹出模态框
+$('#userheadDiv').click(function() {
+	$('#userimgmodal').modal('show')
+
+});
+
+//头像处理
+var aImg = document.querySelectorAll('img[tag]');
+var selectedImg;	//选择的头像
+for (i = 0; i < aImg.length; i++) {
+	aImg[i].onclick = function() {
+		for (i = 0; i < aImg.length; i++) {
+			aImg[i].className = "";	// 清空所有
+		}
+		this.className = "current"
+		selectedImg = this.src.substring(this.src.indexOf('face'));		
+	}
+}
+//选择头像后userheadDiv更新为选择的头像
+$('#selectimgBtn').click(function(){
+	$('#userheadDiv').css({
+		'background-image':'url(../img/userimg/'+selectedImg+')'
+	});	
+})
 
 //改变slider-selection的颜色
 //$('#tech_abbs1 .slider-selection').css('background', 'rgb(120, 142, 207)');

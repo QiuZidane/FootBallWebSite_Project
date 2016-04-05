@@ -59,7 +59,7 @@ public class GetBBSData extends HttpServlet {
 					+ "}"
 					+ ","
 					+ "\"1900-04-11:22:11:53\" :  { "
-					+"\"imgsrc\": \"http://127.0.0.1:8020/WebSiteSrc/bbs/img/face8.png\",  "
+					+"\"imgsrc\": \"http://127.0.0.1:8020/WebSiteSrc/bbs/img/face8.gif\",  "
 					+"\"username\": \"even\",  "
 					+"\"msginfo\": \"的路口附近的似懂非懂是辅导费！！\" , "
 					+"\"smtimes\": \"03月30日 21:22\"  "

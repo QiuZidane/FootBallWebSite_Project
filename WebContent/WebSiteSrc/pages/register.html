@@ -22,8 +22,17 @@
 		<div class="middleDiv" id="middleDivDes">
 			<div id="registerDiv">
 				<!--标题-->
-				<div id="registertitle">用户注册</div>
+				<div id="registertitle"></div>
 				<form role="form" method="post" target="postTo">
+					<!--用户头像-->
+					<div id="selectedimg">
+						<img src="../img/userimg/playerhead1.png" id='selectedimgId'/>
+					</div>
+					<div id="userimgBtn">
+						<button type="button" class="btn btn-danger dropdown-toggle btn-block btn-player1" id="selectimg" tag="选择头像">
+							选择头像 &nbsp;&nbsp;
+						</button>
+					</div>
 					<!--选择部门-->
 					<div class="btn-group" id="department">
 						<button type="button" class="btn btn-default dropdown-toggle btn-block" data-toggle="dropdown" id="mydepartment" tag="选择部门">
@@ -46,12 +55,6 @@
 							<li><a href="#">其他机构</a></li>
 						</ul>
 					</div>
-					<!--用户头像-->
-					<div id="userimg">
-						<button type="button" class="btn btn-danger dropdown-toggle btn-block btn-player1" id="selectimg" tag="选择头像">
-							选择头像&nbsp;&nbsp;&nbsp; <span class=""></span>
-					</button>
-					</div>
 					<!--用户名-->
 					<div class="form-group" id="username">
 						<input type="text" class="form-control" id="nameinput" placeholder="Username">
@@ -61,8 +64,10 @@
 						<input type="password" class="form-control" id="passwordinput" placeholder="Passowrd">
 					</div>
 
+					
+
 					<div id="registerbtn">
-						<button type="submit" class="btn btn-primary btn-block" id="submitinput">确 定</button>
+						<button type="submit" class="btn btn-primary btn-block" id="submitinput">注 册</button>
 					</div>
 				</form>
 				<iframe name="postTo" style="display:none"></iframe>
@@ -77,33 +82,33 @@
 						<br>
 						<h4 class="modal-title" id="myModalLabel1">请选择头像: 
                 			</h4>
-                			<br>
+						<br>
 						<p class="face">
-							<img src="../img/userimg/face1.png" class="current" />
-							<img src="../img/userimg/face2.png" />
-							<img src="../img/userimg/face3.png" />
-							<img src="../img/userimg/face4.png" />
-							<img src="../img/userimg/face5.png" />
-							<img src="../img/userimg/face6.png" />
-							<img src="../img/userimg/face7.png" />
+							<img tag='' src="../img/userimg/face1.png" />
+							<img tag='' src="../img/userimg/face2.png" />
+							<img tag='' src="../img/userimg/face3.png" />
+							<img tag='' src="../img/userimg/face4.png" />
+							<img tag='' src="../img/userimg/face5.png" />
+							<img tag='' src="../img/userimg/face6.png" />
+							<img tag='' src="../img/userimg/face7.png" />
 						</p>
 						<p class="face">
-							<img src="../img/userimg/face8.png" />
-							<img src="../img/userimg/face9.png" />
-							<img src="../img/userimg/face10.png" />
-							<img src="../img/userimg/face11.png" />
-							<img src="../img/userimg/face12.png" />
-							<img src="../img/userimg/face13.png" />
-							<img src="../img/userimg/face14.png" />
+							<img tag='' src="../img/userimg/face8.png" />
+							<img tag='' src="../img/userimg/face9.png" />
+							<img tag='' src="../img/userimg/face10.png" />
+							<img tag='' src="../img/userimg/face11.png" />
+							<img tag='' src="../img/userimg/face12.png" />
+							<img tag='' src="../img/userimg/face13.png" />
+							<img tag=''src="../img/userimg/face14.png" />
 						</p>
 						<p class="face">
-							<img src="../img/userimg/face15.png" />
-							<img src="../img/userimg/face16.png" />
-							<img src="../img/userimg/face17.png" />
-							<img src="../img/userimg/face18.png" />
-							<img src="../img/userimg/face19.png" />
-							<img src="../img/userimg/face20.png" />
-							<img src="../img/userimg/face21.png" />
+							<img tag='' src="../img/userimg/face15.png" />
+							<img tag='' src="../img/userimg/face16.png" />
+							<img tag='' src="../img/userimg/face17.png" />
+							<img tag='' src="../img/userimg/face18.png" />
+							<img tag='' src="../img/userimg/face19.png" />
+							<img tag='' src="../img/userimg/face20.png" />
+							<img tag='' src="../img/userimg/face21.png" />
 						</p>
 
 					</div>

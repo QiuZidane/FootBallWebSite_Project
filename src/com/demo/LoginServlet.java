@@ -40,7 +40,7 @@ public class LoginServlet extends HttpServlet {
 		
 				System.out.println("正确");						
 				String jsonStr = ""
-						+ "{\"retcode\":\"0\"}";
+						+ "{\"retcode\":\"0\",\"photo\":\"face11.png\"}";
 				PrintWriter out = response.getWriter();
 				out.flush();
 				out.write(jsonStr.toString());			
