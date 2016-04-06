@@ -3,7 +3,6 @@
  * 
  */
 
-
 var submitinput = document.getElementById("submitinput");
 submitinput.addEventListener('click', submitCheck, false);
 
@@ -11,8 +10,7 @@ var reginput = document.getElementById("reginput");
 reginput.addEventListener('click', goRegister, false);
 
 var registerBtn = document.getElementById('registerBtn');
-registerBtn.addEventListener('click',goRegister, false);
-
+registerBtn.addEventListener('click', goRegister, false);
 
 // 跳转到注册页面
 function goRegister() {
@@ -65,38 +63,37 @@ function LoginPost(name, password) {
 				var jsonObject = JSON.parse(XMLHttpRequest.responseText);
 				if (jsonObject['retcode'] == "0") { // 通过
 					try {
-						localStorage.setItem('playername', name);						
+						localStorage.setItem('playername', name);
 						localStorage.setItem('userimg', jsonObject['photo']);
-						localStorage.setItem('loginflag', '1');					
-						
-					} catch(e){
-						console.log("loginjs exception1 :"+e.message);
+						localStorage.setItem('loginflag', '1');
+
+					} catch (e) {
+						console.log("loginjs exception1 :" + e.message);
 					} finally {
 						var lastpage = localStorage.getItem('lastpage');
-						if (lastpage.indexOf('my') != -1){
-							document.location.href = '../pages/myabbs.html?name='+name;
-						} else if (lastpage.indexOf('bbs') != -1){
+						if (lastpage.indexOf('my') != -1) {							
+							document.location.href = '../pages/myabbs.html?name=' + name;
+						} else if (lastpage.indexOf('bbs') != -1) {
 							document.location.href = '../bbs/bbs.html';
 						} else {
-							
+
 						}
-						
+
 					}
-					
-										
+
 				}
 				if (jsonObject['retcode'] == "1") { // 密码错,提示
 					$('#myModalLabel').html('Wrong Password&nbsp;!&nbsp;&nbsp;密码错误&nbsp;!');
-					$('#descmodal').modal('show');					
+					$('#descmodal').modal('show');
 				}
 				if (jsonObject['retcode'] == "2") { // 未注册
 					$('#myModalLabel1').html('用户不存在，请先注册！');
-					$('#descmodal1').modal('show');					
-//					document.location.href = '../pages/register.html';					
+					$('#descmodal1').modal('show');
+					//					document.location.href = '../pages/register.html';					
 				}
 
 			} catch (e) {
-				console.log("loginjs exception2 :"+e.message);
+				console.log("loginjs exception2 :" + e.message);
 				alert("返回信息=>" + XMLHttpRequest.responseText + "\n=>无法转换为JSON");
 			}
 		},
@@ -106,5 +103,3 @@ function LoginPost(name, password) {
 		}
 	});
 }
-
-

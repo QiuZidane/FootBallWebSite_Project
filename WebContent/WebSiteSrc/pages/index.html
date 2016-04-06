@@ -40,9 +40,9 @@
 					<li class="noactive" name="nav-list"><a href="#" urltag="teams.html">联赛队伍</a></li>
 					<!--<li name="nav-list"><a href="#" urltag="teampoint.html">积分榜</a></li>-->
 					<li class="noactive" name="nav-list"><a href="#" urltag="datas.html">数据榜</a></li>
-					<li class="noactive" name="nav-list"><a href="#" urltag="draw.html">随机分队</a></li> <!--管理员才能看到-->
+					<li class="noactive" name="nav-list" id="drawpage" style="display: none;"><a href="#" urltag="draw.html" >随机分队</a></li> <!--管理员才能看到-->
 					<li class="noactive" name="nav-list"><a href="#" urltag="../bbs/bbs.html">留言板</a></li>
-					<li class="noactive" name="nav-list"><a href="#" urltag="logout.html">退出登录</a></li>
+					<li class="noactive" name="nav-list"><a href="#" urltag="#" id="logoutBtn">退出登录</a></li>
 				</ul>
 				<h2 class="navcontext titletext">&nbsp;&nbsp;广研足球大本营@ICBC</h2>
 			</div>
@@ -64,6 +64,14 @@
 		<script type="text/javascript" src="../js/index.js"></script>
 		<script type="text/javascript" src="../js/third/ajaxrequest.js"></script>
 
+		<script type="text/javascript">
+			var playername = localStorage.getItem('playername');
+			if (playername == 'zidane') {
+				document.getElementById('drawpage').style.display='block';	
+				//parent.location.reload(); 
+			}
+		</script>
+		
 	</body>
 	<!--<![endif]-->
 

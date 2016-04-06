@@ -8,15 +8,30 @@ if (navList) {
 
 function navSelect(event) {
 	var selectedBtn = event.target; // click事件对象
-	var pageUrl = "../pages/" + selectedBtn.getAttribute('urltag');
-	console.log(selectedBtn.innerHTML + ": 加载:" + pageUrl);
-	iframeRefresh(pageUrl);
+	function refresh() {
+		var pageUrl = "../pages/" + selectedBtn.getAttribute('urltag');
+		console.log(selectedBtn.innerHTML + ": 加载:" + pageUrl);
+		iframeRefresh(pageUrl);
+	}
+	if (selectedBtn.getAttribute('id') == 'logoutBtn') {
+		if (localStorage.getItem('loginflag') == undefined) {
+			alert('您还没登陆!');
+		} else {
+			var selected = confirm('是否签退?');
+			if (selected == 1) {
+				localStorage.clear();				
+				refresh();
+			}
+		}
+	} else {
+		refresh();
+	}
 }
 
 function iframeRefresh(pageUrl) {
 	var iframe = document.getElementById('middleFrameID');
 	iframe.setAttribute('src', pageUrl);
-//	document.iframe.location.reload();
+	//	document.iframe.location.reload();
 }
 
 // 点击导航栏，激活+变色相应的li
@@ -57,7 +72,27 @@ function setScrolling(event) {
 	var selectT = event.target.innerHTML;
 	if (selectT == "球员总览" || selectT == "联赛队伍" || selectT == "留言板") {
 		$('#middleFrameID').attr('scrolling', 'yes');
+		$('#middleFrameID').css({
+			'overflow': 'scroll'
+		});
 	} else {
 		$('#middleFrameID').attr('scrolling', 'no');
+		$('#middleFrameID').css({
+			'overflow': 'hidden'
+		});
 	}
 }
+
+// 点击签退按钮
+//$('#logoutBtn').click(function() {
+//	if (localStorage.getItem('loginflag') == undefined) {
+//		alert('您还没登陆!');
+//	} else {
+//		var selected = confirm('是否签退?');
+//		if (selected == 1) {
+//			localStorage.clear();
+//			alert('已签退');
+////			document.location.href = '../pages/welcomepage.html';
+//		}
+//	}
+//});
