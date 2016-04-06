@@ -71,12 +71,16 @@ function LoginPost(name, password) {
 						console.log("loginjs exception1 :" + e.message);
 					} finally {
 						var lastpage = localStorage.getItem('lastpage');
-						if (lastpage.indexOf('my') != -1) {							
-							document.location.href = '../pages/myabbs.html?name=' + name;
-						} else if (lastpage.indexOf('bbs') != -1) {
-							document.location.href = '../bbs/bbs.html';
+						if (lastpage != undefined) {
+							if (lastpage.indexOf('my') != -1) {
+								document.location.href = '../pages/myabbs.html?name=' + name;
+							} else if (lastpage.indexOf('bbs') != -1) {
+								document.location.href = '../bbs/bbs.html';
+							} else {
+								document.location.href = '../pages/welcomepage.html';
+							}
 						} else {
-
+							document.location.href = '../pages/welcomepage.html';
 						}
 
 					}
