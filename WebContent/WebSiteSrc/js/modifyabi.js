@@ -15,7 +15,7 @@ var descmodalshow = false; //提示选择参加联赛模态框是否有显示
 
 var joinLeague = ""; //是否参加联赛，数据库字段是字符型，yes=参加 no=不参加
 
-var playername = localStorage.playername; // 本地存储，获取用户名
+
 
 //var timer1;
 //var timer2;
@@ -137,7 +137,7 @@ $('#joinlabel1').on('click', function() {
 $('#joinlabel2').on('click', function() {
 	$('#icheckbtn2').iCheck('check');
 	joinLeague = "no";
-	
+
 });
 
 //console.log(joinlabel);
@@ -180,7 +180,7 @@ var ability = {
 //  1、获取球员每个小项的能力
 //	2、计算大项能力和总实力
 //  每次拉动SLIDER，所有控件都会联动，目前暂不影响性能，后续分开控制。
-function GetandCalPlayerAbilities(init) {
+function GetandCalPlayerAbilities(name) {
 	//*****获取小项的能力*****
 	ability.speed = bodeabbs1.getValue(); //速度
 	ability.strength = bodeabbs2.getValue(); //强壮
@@ -346,7 +346,7 @@ function GetandCalPlayerAbilities(init) {
 			},
 			data: [{
 				value: [ability.tech_abi, ability.attack_abi, ability.spec_abi, ability.body_abi, ability.defence_abi], //对应='技术', '防守', '特殊', '体质', '进攻'
-				name: playername,
+				name: name,
 				areaStyle: {
 					normal: {
 						color: 'rgba(200, 102, 99,0.7)' //能力覆盖区域颜色
@@ -401,34 +401,6 @@ function setProgessBarColor(abilityName, ability) {
 		});
 	}
 }
-
-// 提示没有选择是否加入联赛
-//function warningJoin() {
-//	function changeToRed() {
-//		$('#joinseasondesc').css({
-//			'color': 'red'
-//		});
-//		$('#joinselectiong').css({
-//			'color': 'red'
-//		});
-//
-//	}
-//
-//	function changeToBlack() {
-//		$('#joinseasondesc').css({
-//			'color': 'black'
-//		});
-//		$('#joinselectiong').css({
-//			'color': 'black'
-//		});
-//	}
-//
-//	timer1 = setInterval(changeToRed, 200);
-//	timer2 = setInterval(changeToBlack, 400);
-//
-//
-//
-//}
 
 //点击页面的提交按钮
 function submitABI() {
@@ -511,7 +483,7 @@ function SubmitPlayerAbi() {
 		//提交的数据
 		data: {
 			joinleague: joinLeague,
-			playername: playername,
+			playername: name,
 			totalabi: ability.totalabi,
 			body_abi: ability.body_abi,
 			tech_abi: ability.tech_abi,
@@ -534,7 +506,7 @@ function SubmitPlayerAbi() {
 			taking: ability.taking,
 			marking: ability.marking,
 			positioning: ability.positioning,
-			photo:selectedImg
+			photo: selectedImg
 
 		},
 		//返回数据的格式
@@ -606,7 +578,7 @@ function GetAbility(name) {
 		url: clubserver.URL + "A1SearchPlayer", // clubserver.URL在constants.js内定义
 		//提交的数据
 		data: {
-			name: (name == undefined) ? localStorage.playername : name
+			name: name
 		},
 		//返回数据的格式
 		datatype: "html", //"xml", "html", "script", "json", "jsonp", "text".
@@ -642,16 +614,13 @@ function GetAbility(name) {
 				defen_abbs2.setValue(parseInt(jsonObject["marking"]));
 				defen_abbs3.setValue(parseInt(jsonObject["positioning"]));
 
-				GetandCalPlayerAbilities(); //初始化能力值
+				GetandCalPlayerAbilities(name); //初始化能力值
 
-				//非查询他人时，赋值
-				if (name == undefined) {
-					$('#usernameId').html(playername.toString());
-					$('#departmentId').html(jsonObject["department"].toString());
-				}
+				$('#usernameId').html(name.toString());
+				$('#departmentId').html(jsonObject["department"].toString());
+				设置头像
 
-				//				console.log(playername);
-				//				console.log(jsonObject["department"]);
+		
 
 			} catch (e) {
 				console.log("error=" + e.message);
@@ -661,7 +630,7 @@ function GetAbility(name) {
 		//调用出错执行的函数
 		error: function() {
 			//请求出错处理
-			console.log('myabbs->GetAbility fail');
+			console.log('modifyabi->GetAbility fail');
 		}
 	});
 }
@@ -725,239 +694,3 @@ function setSliderStatus(status) {
 	}
 
 }
-
-/*
- * 下面是生成参考别的球员列表
- * 
- */
-var playerArray = new Array(); //球员属性数组 存放一个个的球员属性对象(playerData)
-//部门-球员登记   
-var playerDept = {
-	dep1: [], //广州测试部 
-	dep2: [], //广州研发支持部
-	dep3: [], // 广州海外支持部
-	dep4: [], //广州开发一部
-	dep5: [], //广州开发二部
-	dep6: [], //广州开发三部
-	dep7: [], //广州开发四部
-	dep8: [], //广州行政部
-	dep9: [], //珠海研发部
-	dep10: [], //北京研发部
-	dep11: [], //上海研发部
-	dep12: [], //杭州研发部
-	dep13: [] //其他机构
-}
-
-//球员能力对象,记录所有的能力   
-function playerData() {
-	this.playername = "empty";
-	this.department = "empty"; //部门
-
-}
-
-var player1select = document.getElementById("player1list");
-player1select.addEventListener('click', selectplayer1, false);
-
-//实现点击部门list后更新部门button的文字
-function selectplayer1(event) {
-	var selectedplayer = event.target; // 获取点击目标
-	var name = selectedplayer.innerHTML;
-	document.getElementById("selectedplayer1").innerHTML = name;
-	document.getElementById("selectedplayer1").setAttribute('tag', selectedplayer.innerHTML);
-	GetAbility(name);
-}
-
-var setPlayerList = function(dataarray) {
-	for (var i = 0; i < dataarray.length; i++) {
-		//console.log("department=" + dataarray[i].department + " name=" + dataarray[i].playername);
-		switch (dataarray[i].department) {
-			case '广州测试部':
-				playerDept.dep1.push(dataarray[i].playername);
-				break;
-			case '广州研发支持部':
-				playerDept.dep2.push(dataarray[i].playername);
-				break;
-			case '广州海外支持部':
-				playerDept.dep3.push(dataarray[i].playername);
-				break;
-			case '广州开发一部':
-				playerDept.dep4.push(dataarray[i].playername);
-				break;
-			case '广州开发二部':
-				playerDept.dep5.push(dataarray[i].playername);
-				break;
-			case '广州开发三部':
-				playerDept.dep6.push(dataarray[i].playername);
-				break;
-			case '广州开发四部':
-				playerDept.dep7.push(dataarray[i].playername);
-				break;
-			case '广州行政部':
-				playerDept.dep8.push(dataarray[i].playername);
-				break;
-			case '珠海研发部':
-				playerDept.dep9.push(dataarray[i].playername);
-				break;
-			case '北京研发部':
-				playerDept.dep10.push(dataarray[i].playername);
-				break;
-			case '上海研发部':
-				playerDept.dep11.push(dataarray[i].playername);
-				break;
-			case '杭州研发部':
-				playerDept.dep12.push(dataarray[i].playername);
-				break;
-			default:
-				playerDept.dep13.push(dataarray[i].playername);
-		}
-
-	}
-
-	var Fragment1 = document.createDocumentFragment();
-	setList('广州测试部', playerDept.dep1, Fragment1);
-	setList('广州研发支持部', playerDept.dep2, Fragment1);
-	setList('广州海外支持部', playerDept.dep3, Fragment1);
-	setList('广州开发一部', playerDept.dep4, Fragment1);
-	setList('广州开发二部', playerDept.dep5, Fragment1);
-	setList('广州开发三部', playerDept.dep6, Fragment1);
-	setList('广州开发四部', playerDept.dep7, Fragment1);
-	setList('广州行政部', playerDept.dep8, Fragment1);
-	setList('珠海研发部', playerDept.dep9, Fragment1);
-	setList('北京研发部', playerDept.dep10, Fragment1);
-	setList('上海研发部', playerDept.dep11, Fragment1);
-	setList('杭州研发部', playerDept.dep12, Fragment1);
-	setList('其他机构', playerDept.dep13, Fragment1);
-
-	document.getElementById('player1list').appendChild(Fragment1);
-
-	//将部门名li加入oFragment
-	function setList(departmentname, playerarr, oFragment) {
-		// 格式:
-		// <li role="presentation" class="dropdown-header">部门名</li>
-		// <li><a href="#">名字1</a></li>
-		// <li><a href="#">名字2</a></li>
-		// <li role="presentation" class="divider"></li>	//分割线
-		//		var oFragment = document.createDocumentFragment();
-		if (playerarr.length > 0) {
-			var department_li = document.createElement('li');
-			department_li.innerHTML = departmentname;
-			department_li.setAttribute('role', 'presentation'); // role="presentation"
-			department_li.setAttribute('class', 'dropdown-header'); // class="dropdown-header"
-			oFragment.appendChild(department_li);
-			for (var i = 0; i < playerarr.length; i++) {
-				var player_li = document.createElement('li');
-				var player_a = document.createElement('a');
-				player_a.setAttribute('href', '#');
-				player_a.innerHTML = playerarr[i];
-				player_li.appendChild(player_a);
-				oFragment.appendChild(player_li);
-			}
-			var dividerline = document.createElement('li');
-			dividerline.setAttribute('role', 'presentation'); // role="presentation"
-			dividerline.setAttribute('class', 'divider'); // class="dropdown-header"
-			oFragment.appendChild(dividerline);
-		}
-	}
-}
-
-// ajax 获取所有球员的属性，进入页面时获取一次，生成球员列表 
-var GetAllPlayerData = function() {
-	$.ajax({
-		//提交数据的类型 POST GET
-		type: "POST",
-		//提交的网址
-		url: clubserver.URL + "A3GetPlayerData",
-		//提交的数据
-		data: {
-			joinflag: 1
-		},
-		//返回数据的格式
-		datatype: "html", //"xml", "html", "script", "json", "jsonp", "text".
-		//在请求之前调用的函数
-		beforeSend: function() {
-			// $("#msg").html("logining");
-		},
-		//成功返回之后调用的函数            
-		success: function(data) {
-			//console.log('成功返回数据-->compareabi.js');
-		},
-		//调用执行后调用的函数
-		complete: function(XMLHttpRequest, textStatus) {
-			//alert(XMLHttpRequest.responseText); //XMLHttpRequest.responseText是返回的信息，用这个来放JSON数据
-			try {
-				var jsonObject = JSON.parse(XMLHttpRequest.responseText);
-				var playerDataJson = jsonObject['playerlist'];
-				for (var key in playerDataJson) {
-					var pD = new playerData()
-					pD.playername = key;
-					var playObject = playerDataJson[key]; // 取出对应的属性JSON
-					pD.department = playObject["department"];
-					playerArray.push(pD);
-				}
-
-				setPlayerList(playerArray);
-
-			} catch (e) {
-				console.log("error=" + e.message);
-				//				console.log("compareabi.js成功返回信息=>" + XMLHttpRequest.responseText + "\n=>无法转换为JSON");
-			}
-			// HideLoading();
-		},
-		//调用出错执行的函数
-		error: function() {
-			//请求出错处理
-		}
-	});
-}
-
-// 头像处理
-var userfaceDiv = document.getElementById('userheadDiv');
-userfaceDiv.onmouseover = function() {
-	this.className += " hover";
-	this.innerHTML = "重新选择头像";
-};
-userfaceDiv.onmouseout = function() {
-	this.className = this.className.replace(/\s?hover/, "");
-	this.innerHTML = "";
-};
-
-//点击头像选择按钮--弹出模态框
-$('#userheadDiv').click(function() {
-	$('#userimgmodal').modal('show')
-
-});
-
-//头像处理
-var aImg = document.querySelectorAll('img[tag]');
-var selectedImg;	//选择的头像
-for (i = 0; i < aImg.length; i++) {
-	aImg[i].onclick = function() {
-		for (i = 0; i < aImg.length; i++) {
-			aImg[i].className = "";	// 清空所有
-		}
-		this.className = "current"
-		selectedImg = this.src.substring(this.src.indexOf('face'));		
-	}
-}
-//选择头像后userheadDiv更新为选择的头像
-$('#selectimgBtn').click(function(){
-	$('#userheadDiv').css({
-		'background-image':'url(../img/userimg/'+selectedImg+')'
-	});	
-})
-
-//改变slider-selection的颜色
-//$('#tech_abbs1 .slider-selection').css('background', 'rgb(120, 142, 207)');
-//$('.slider-selection').css('background', 'rgb(120, 142, 207)');
-
-//改变背景颜色
-//$('#'+abilityName).css({'background':'#9900ff'});
-
-/* 
- ** 【  slider方法 】**
- * 
- * 	var g1 = $('#G').setValue(50); --设置数值
- *	console.log(g1.getValue()); --获取数值
- * 
- * 
- */

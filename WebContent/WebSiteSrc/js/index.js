@@ -8,24 +8,28 @@ if (navList) {
 
 function navSelect(event) {
 	var selectedBtn = event.target; // click事件对象
-	function refresh() {
-		var pageUrl = "../pages/" + selectedBtn.getAttribute('urltag');
-		console.log(selectedBtn.innerHTML + ": 加载:" + pageUrl);
-		iframeRefresh(pageUrl);
-	}
-	if (selectedBtn.getAttribute('id') == 'logoutBtn') {
-		if (localStorage.getItem('loginflag') == undefined) {
-			alert('您还没登陆!');
-		} else {
-			var selected = confirm('是否签退?');
-			if (selected == 1) {
-				localStorage.clear();				
-				refresh();
-			}
+	if (selectedBtn.nodeName == 'A') {
+		function refresh() {
+			var pageUrl = "../pages/" + selectedBtn.getAttribute('urltag');
+			console.log(selectedBtn.innerHTML + ": 加载:" + pageUrl);
+			iframeRefresh(pageUrl);
 		}
-	} else {
-		refresh();
+		if (selectedBtn.getAttribute('id') == 'logoutBtn') {
+			if (localStorage.getItem('loginflag') == undefined) {
+				alert('您还没登陆!');
+			} else {
+				var selected = confirm('是否签退?');
+				if (selected == 1) {
+					localStorage.clear();
+					refresh();
+				}
+			}
+		} else {
+			refresh();
+		}
+
 	}
+
 }
 
 function iframeRefresh(pageUrl) {
@@ -59,12 +63,15 @@ function listSelect(event) {
 		};
 	}
 
-	if (activeT) { // 存在已激活的list，处理该list与选中的list
-		setStatus(activeT);
-		setStatus(selectT);
-	} else { // 不存在激活状态的list，只需要处理click对象即可
-		setStatus(selectT);
-	};
+	if (selectT.nodeName == 'LI') {
+		if (activeT) { // 存在已激活的list，处理该list与选中的list
+			setStatus(activeT);
+			setStatus(selectT);
+		} else { // 不存在激活状态的list，只需要处理click对象即可
+			setStatus(selectT);
+		};
+	}
+
 }
 
 //球员总览和联赛队伍页面可以滑动Scroll
